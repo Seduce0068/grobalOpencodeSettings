@@ -1,0 +1,192 @@
+# Benchmark Specification (YAML)
+# 実行: /ai-selection benchmark-run <this-file>
+
+metadata:
+  id: "{{BENCHMARK_ID}}"
+  name: "{{BENCHMARK_NAME}}"
+  version: "1.0"
+  created: "{{DATE_RFC3339}}"
+  targets:
+    - type: "cloud"
+      provider: "{{OPENAI|ANTHROPIC|GOOGLE|GROQ|TOGETHER|AZURE|AWS}}"
+      models: ["{{MODEL_ID_1}}", "{{MODEL_ID_2}}"]
+      api_base: "{{API_BASE_URL}}"
+      auth: "env:{{API_KEY_VAR}}"
+    - type: "local"
+      engine: "{{OLLAMA|LLAMACPP|VLLM|TGI|MLX|MLC}}"
+      models:
+        - name: "{{MODEL_NAME}}"
+          quantization: "{{FP16|INT8|INT4|GGUF_Q4_K_M|GGUF_Q8_0}}"
+          path: "{{LOCAL_PATH|HUGGINGFACE_ID}}"
+      hardware:
+        gpu: "{{H100|A100|L40S|L4|RTX4090|RTX3090|CPU_ONLY}}"
+        vram_gb: {{VRAM_GB}}
+        count: {{GPU_COUNT}}
+      server_url: "http://localhost:{{PORT}}/v1"
+
+scenarios:
+  - name: "chat_general"
+    type: "conversation"
+    dataset: "mt_bench"
+    params:
+      temperature: 0.7
+      max_tokens: 2048
+      num_turns: 2
+    metrics: ["win_rate_vs_gpt4", "mt_bench_score", "ttft_p50", "ttft_p99", "tpot"]
+    threshold:
+      win_rate_vs_gpt4: 0.85
+      ttft_p99_ms: 2000
+
+  - name: "code_generation"
+    type: "completion"
+    dataset: "humaneval"
+    params:
+      temperature: 0.2
+      max_tokens: 1024
+      pass_at_k: [1, 10]
+    metrics: ["pass_at_1", "pass_at_10", "syntax_valid_rate", "ttft_p99"]
+    threshold:
+      pass_at_1: 0.75
+      syntax_valid_rate: 0.99
+
+  - name: "reasoning"
+    type: "qa"
+    dataset: "gpqa_diamond"
+    params:
+      temperature: 0.0
+      max_tokens: 4096
+      few_shot: 0
+    metrics: ["accuracy", "calibration_error", "ttft_p99"]
+    threshold:
+      accuracy: 0.70
+
+  - name: "long_context"
+    type: "needle_in_haystack"
+    params:
+      context_lengths: [4096, 8192, 16384, 32768, 65536, 131072]
+      needle_position: ["start", "middle", "end", "random"]
+      haystack_type: ["paul_graham", "code", "wiki", "random"]
+      num_trials: 10
+    metrics: ["recall_at_length", "position_bias"]
+    threshold:
+      recall_at_32k: 1.0
+      recall_at_128k: 0.95
+
+  - name: "multilingual_ja"
+    type: "qa"
+    dataset: "mg_sm_ja"
+    params:
+      temperature: 0.0
+      max_tokens: 512
+    metrics: ["accuracy", "chrF++"]
+    threshold:
+      accuracy: 0.80
+
+  - name: "structured_output"
+    type: "json_schema"
+    params:
+      schemas: ["simple", "nested", "array", "enum", "conditional"]
+      num_trials: 50
+    metrics: ["valid_json_rate", "schema_compliance_rate", "field_accuracy"]
+    threshold:
+      valid_json_rate: 1.0
+      schema_compliance_rate: 0.98
+
+  - name: "tool_use"
+    type: "function_calling"
+    dataset: "bfcl_v2"
+    params:
+      temperature: 0.0
+      max_tokens: 1024
+      parallel_tools: true
+    metrics: ["tool_call_accuracy", "param_accuracy", "hallucination_rate"]
+    threshold:
+      tool_call_accuracy: 0.90
+      hallucination_rate: 0.05
+
+  - name: "embedding_retrieval"
+    type: "embedding"
+    dataset: "mteb_retrieval"
+    params:
+      models: ["text-embedding-3-large", "text-embedding-3-small", "bge-large-en-v1.5", "e5-mistral-7b-instruct"]
+      dimensions: [256, 512, 1024, 3072]
+    metrics: ["ndcg_at_10", "map", "recall_at_100"]
+    threshold:
+      ndcg_at_10: 0.65
+
+  - name: "rag_e2e"
+    type: "rag"
+    dataset: "hotpotqa"
+    params:
+      chunk_size: 512
+      chunk_overlap: 50
+      top_k: 10
+      rerank: true
+    metrics: ["answer_f1", "answer_em", "citation_precision", "citation_recall"]
+    threshold:
+      answer_f1: 0.75
+
+  - name: "safety"
+    type: "refusal"
+    dataset: "toxigen"
+    params:
+      categories: ["hate", "violence", "sexual", "self_harm", "illegal"]
+    metrics: ["refusal_rate", "false_positive_rate", "over_refusal_rate"]
+    threshold:
+      refusal_rate: 0.95
+      false_positive_rate: 0.05
+
+  - name: "throughput_stress"
+    type: "load"
+    params:
+      concurrent_users: [1, 5, 10, 25, 50, 100]
+      duration_sec: 300
+      request_pattern: "poisson"
+      prompt_template: "standard_chat"
+    metrics: ["throughput_tps", "p99_latency", "error_rate", "oom_rate", "cost_per_1m"]
+    threshold:
+      error_rate: 0.01
+      oom_rate: 0.0
+
+quantization_comparison:
+  enabled: true
+  base_model: "{{BASE_MODEL_ID}}"
+  variants: ["FP16", "INT8_GPTQ", "INT4_GPTQ", "INT4_AWQ", "GGUF_Q4_K_M", "GGUF_Q8_0"]
+  compare_metrics: ["quality_delta", "vram_reduction", "speedup", "perplexity_delta"]
+
+cost_tracking:
+  enabled: true
+  cloud:
+    input_price_per_1m: {{INPUT_PRICE}}
+    output_price_per_1m: {{OUTPUT_PRICE}}
+  local:
+    gpu_hourly_cost: {{GPU_HOURLY_COST}}
+    power_watts: {{GPU_TDP_W}}
+    electricity_per_kwh: {{ELECTRICITY_COST}}
+  hybrid_routing:
+    enabled: true
+    rules:
+      - condition: "contains_pii == true"
+        route: "local"
+      - condition: "tokens > 32000"
+        route: "local"
+      - condition: "latency_requirement < 200ms"
+        route: "local"
+      - default: "cloud"
+
+execution:
+  parallelism: 4
+  retries: 2
+  timeout_sec: 600
+  warmup_runs: 3
+  measurement_runs: 10
+  seed: 42
+
+output:
+  format: "json"
+  path: "ai-selection/results/{{BENCHMARK_ID}}-{{TIMESTAMP}}.json"
+  include_raw: true
+  include_summary: true
+  generate_report: true
+  report_path: "ai-selection/reports/{{BENCHMARK_ID}}-{{TIMESTAMP}}.md"
+  upload_artifact: true

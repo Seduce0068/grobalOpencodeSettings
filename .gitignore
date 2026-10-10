@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+package.json
+package-lock.json
+bun.lock
+
+# Secrets & Environment
+.env
+.envc
+*.env
+*.env.*
+
+# Cache & Sessions
+browser-session
+*.log
+
+# Backup files
+*.bak
+*.backup
+
+# IDE/Editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
