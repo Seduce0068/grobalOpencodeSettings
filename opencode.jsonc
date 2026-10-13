@@ -52,6 +52,7 @@
   },
   "permission": {
     "*": "allow",
+    "cargo": "allow",
     "read": {
       ".env": "deny",
       ".env.*": "deny",
