@@ -196,12 +196,13 @@ generated:
 ## Rust スクリプトツール使い分け指針
 
 ### 概要
+
 定置用スクリプト・ワンライナー・プロジェクト脚本管理で使う Rust ツールを明確に使い分ける。
 
 ### ツール別役割マトリクス
 
 | 用途 | 採用ツール | インストール | 状態 |
-|------|-----------|-------------|------|
+| ------ | ----------- | ------------- | ------ |
 | **単体ファイルスクリプト** (定置・運用) | **rust-script** | `cargo install rust-script` | ✅ 成熟・活発 |
 | **ワンライナー・式評価** | **rust-script** | `cargo install rust-script` | ✅ `--expr` / `-e` 対応 |
 | **パイプ処理 (stdin 行処理)** | **rust-script** | `cargo install rust-script` | ✅ `--loop` / `-l` 対応 |
@@ -209,12 +210,14 @@ generated:
 | **将来の標準機能** | **公式 `cargo script`** | 不要 (Cargo 同梱予定) | 🚧 RFC 3502 標準化進行中 |
 
 ### 禁止事項
+
 - ❌ `cargo install cargo-script` (crates.io v0.2.8) — **非メンテ・廃止済み**
 - ❌ Python での定置スクリプト新規作成 — Rust + cargo-script 系を優先
 
 ### 使い分けルール
 
 #### 1. 単体スクリプト・ワンライナー → rust-script
+
 ```bash
 # ファイル実行 (埋め込みマニフェスト対応)
 rust-script script.rs
@@ -233,6 +236,7 @@ seq 10 | rust-script -l '|line| println!("x2: {}", line.parse::<i32>().unwrap()*
 ```
 
 #### 2. プロジェクト開発コマンド群 → cargo-run
+
 ```bash
 # 初期化
 cargo script init
@@ -254,11 +258,13 @@ cargo script deploy --env production
 ```
 
 #### 3. 公式 `cargo script` 移行計画
+
 - **Rust 1.85+ (2026年後半目安)** で安定化したら段階移行
 - それまでは `rust-script` 継続使用
 - 移行コスト低 (埋め込みマニフェスト構文ほぼ共通)
 
 ### セットアップ手順
+
 ```bash
 # 古い非メンテ版削除
 cargo uninstall cargo-script 2>/dev/null || true
