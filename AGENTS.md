@@ -164,3 +164,122 @@ generated:
 [gfm]: https://github.github.com/gfm/
 [okf]: https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf
 [rfc3339]: https://datatracker.ietf.org/doc/html/rfc3339
+
+## ソフトウェア変更の標準検証ループ
+
+ソフトウェアのコードを追加・変更した場合、対象リポジトリの `AGENTS.md`、
+`GEMINI.md`、README、CI 設定を先に確認し、プロジェクト固有の検証方法を
+優先する。利用可能な範囲で次の順に実行する。
+
+1. コード生成・変更を行い、既存の formatter を実行する。
+2. compile、build、型チェックを実行する。
+3. プロジェクト標準の linter/static analysis を実行する。
+4. 変更に対応する targeted tests を実行し、リスクに応じて suite 全体へ
+   拡張する。
+5. 最終差分を AI review し、正確性、回帰、セキュリティ、範囲外変更を確認する。
+6. 採用した指摘を修正したら影響する検証を再実行し、終了時に結果を要約する。
+
+- コマンド名を推測せず、プロジェクトで定義済みのコマンドを使う。
+- 文書のみの変更では compile/lint/test を省略し、Markdown 検証とリンク確認を
+  行う。生成物や設定変更は、それぞれの専用検証を使う。
+- AI review は補助的なゲートであり、compile/lint/test の代替にしない。
+- AI review の指摘は仮説として扱い、現行コード・実際の制御フロー・テストで
+  事実確認する。誤検知は根拠を記録して却下し、提案を無条件に適用しない。
+- 性能・スケール上の指摘は測定または再現根拠がない限り、機能バグと区別する。
+- 自動修正と再レビューは最大2回を目安にする。曖昧な指摘、設計判断が必要な
+  指摘、破壊的操作、外部サービス依存、flaky test は無理に反復せず停止する。
+- 既存の無関係な失敗を修正して差分を広げない。新規失敗と既存 baseline を
+  区別し、検証不能・失敗は理由とともに報告する。
+- リポジトリ由来コードの build/test 実行時は、秘密情報やホスト権限を不用意に
+  露出させない。ユーザーが依頼していない commit/push は行わない。
+
+## Rust スクリプトツール使い分け指針
+
+### 概要
+定置用スクリプト・ワンライナー・プロジェクト脚本管理で使う Rust ツールを明確に使い分ける。
+
+### ツール別役割マトリクス
+
+| 用途 | 採用ツール | インストール | 状態 |
+|------|-----------|-------------|------|
+| **単体ファイルスクリプト** (定置・運用) | **rust-script** | `cargo install rust-script` | ✅ 成熟・活発 |
+| **ワンライナー・式評価** | **rust-script** | `cargo install rust-script` | ✅ `--expr` / `-e` 対応 |
+| **パイプ処理 (stdin 行処理)** | **rust-script** | `cargo install rust-script` | ✅ `--loop` / `-l` 対応 |
+| **プロジェクト内脚本管理** (Scripts.toml) | **cargo-run** | `cargo install cargo-run` | ✅ 成熟・活発 |
+| **将来の標準機能** | **公式 `cargo script`** | 不要 (Cargo 同梱予定) | 🚧 RFC 3502 標準化進行中 |
+
+### 禁止事項
+- ❌ `cargo install cargo-script` (crates.io v0.2.8) — **非メンテ・廃止済み**
+- ❌ Python での定置スクリプト新規作成 — Rust + cargo-script 系を優先
+
+### 使い分けルール
+
+#### 1. 単体スクリプト・ワンライナー → rust-script
+```bash
+# ファイル実行 (埋め込みマニフェスト対応)
+rust-script script.rs
+
+# ワンライナー
+rust-script -e 'println!("{}", 2+3)'
+
+# パイプライン処理
+seq 10 | rust-script -l '|line| println!("x2: {}", line.parse::<i32>().unwrap()*2)'
+
+# 依存込み (ファイル内に記述)
+//! ```cargo
+//! [dependencies]
+//! serde_json = "1.0"
+//! ```
+```
+
+#### 2. プロジェクト開発コマンド群 → cargo-run
+```bash
+# 初期化
+cargo script init
+
+# Scripts.toml 例
+[scripts.test]
+command = "cargo test"
+pre = ["fmt", "clippy"]
+
+[scripts.deploy]
+command = "kubectl apply -f k8s/"
+args = ["env"]
+defaults = { env = "staging" }
+on_failure = ["rollback"]
+
+# 実行
+cargo script test
+cargo script deploy --env production
+```
+
+#### 3. 公式 `cargo script` 移行計画
+- **Rust 1.85+ (2026年後半目安)** で安定化したら段階移行
+- それまでは `rust-script` 継続使用
+- 移行コスト低 (埋め込みマニフェスト構文ほぼ共通)
+
+### セットアップ手順
+```bash
+# 古い非メンテ版削除
+cargo uninstall cargo-script 2>/dev/null || true
+
+# 正しいツール導入
+cargo install rust-script      # 単体スクリプト・ワンライナー用
+cargo install cargo-run        # プロジェクト脚本管理用
+```
+
+## Rust コーディング規約
+
+### unsafe 禁止
+
+- **Rust コードにおいて `unsafe` ブロック・関数・トレイトの使用を禁止する。**
+- 例外的な事情（FFI 境界・標準ライブラリの内部実装等）でやむを得ない場合は、
+  事前に理由・影響範囲・安全性の根拠を文書化し、レビューで合意を得た上でのみ許容する。
+- CI にて `cargo clippy -- -D clippy::undocumented_unsafe_blocks` 等のリンターを必須化し、
+  検知時はビルド失敗とする。
+
+## 作業優先順位の決定権
+
+- 作業の優先順位は **opencode** が決定する。
+- ユーザーからの明示的な指示がない限り、opencode が技術的判断・依存関係・リスク・リソース効率に基づき優先順位を付ける。
+- ユーザーが優先順位を指定した場合は、その指示を尊重しつつ、技術的制約がある場合は相談する。
