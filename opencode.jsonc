@@ -325,7 +325,8 @@
           "@modelcontextprotocol/server-memory"
         ],
         "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so",
+          "MEMORY_FILE_PATH": "/data/data/com.termux/files/home/.local/share/opencode/memory.jsonl"
         },
         "disabled": false,
         "timeout": {
