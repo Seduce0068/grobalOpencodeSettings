@@ -1,7 +1,7 @@
 ---
 description: アーキテクチャ視点のコードレビュー専門。責務分離、依存方向、インターフェース設計、拡張性、技術的負債を評価する。
 mode: subagent
-model: google/gemini-3.5-flash-lite
+model: opencode/deepseek-v4.1-flash-free
 permissions:
   - action: read
     resource: "*"

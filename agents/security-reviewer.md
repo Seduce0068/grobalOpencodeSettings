@@ -1,7 +1,7 @@
 ---
 description: セキュリティ視点のコードレビュー専門。入力検証、認証認可、秘密管理、依存脆弱性、インジェクション攻撃対策を評価する。
 mode: subagent
-model: google/gemini-3.5-flash-lite
+model: opencode/deepseek-v4.1-flash-free
 permissions:
   - action: read
     resource: "*"
