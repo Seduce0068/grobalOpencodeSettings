@@ -218,12 +218,11 @@
       "github": {
         "type": "local",
         "command": [
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-github"
+          "sh",
+          "-c",
+          "GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_TOKEN:-$(gh auth token)} exec npx -y @modelcontextprotocol/server-github"
         ],
         "environment": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}",
           "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
