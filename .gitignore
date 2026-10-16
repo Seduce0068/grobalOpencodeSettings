@@ -16,6 +16,7 @@ browser-session
 
 # Backup files
 *.bak
+*.bak.*
 *.backup
 
 # IDE/Editor
