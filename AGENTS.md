@@ -10,6 +10,9 @@ tags:
 generated:
   by: Qwen3.8
   at: "2026-09-19T00:00:00+09:00"
+verified:
+  by: opencode
+  at: "2026-10-16T21:58:26+09:00"
 ---
 
 ## Markdownlint準拠カスタム指示
