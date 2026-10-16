@@ -293,6 +293,7 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 | `okf` | OKF メタデータの生成・検証 | 文書メタデータ |
 | `typst` | Typst 文書・スライド・レポートの組版 | 組版が必要な場合 |
 | `userscript-validator` | Userscript の構文・メタデータ検証 | スクリプト検証時 |
+| `policy-law` | 法令・規制・ポリシーの調査と遵守評価 | 調査・起草時 |
 | `opencode-environment-report` | 環境・設定・スキル・モデルの棚卸し | 監査・点検時 |
 | `find-skills` | スキルの探索とインストール | 追加は承認後 |
 | `opencode` | opencode 本体の仕様・設定の確認 | 本体の質問時 |
