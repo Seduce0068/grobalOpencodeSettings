@@ -168,6 +168,12 @@
           "execution": 120000
         }
       },
+      "exa": {
+        "type": "remote",
+        "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa",
+        "oauth": false,
+        "disabled": false
+      },
       "local-llm": {
         "type": "local",
         "command": [
