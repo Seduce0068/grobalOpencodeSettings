@@ -1,18 +1,40 @@
 //! opencode-notify.rs - Termux通知フック (rust-script)
 //!
+//! 使用方法:
+//!   rust-script notify.rs [--dry-run] <type> <message>
+//!
+//! 設定 (すべて任意、未設定なら既定値で動作する):
+//!   ~/.config/opencode/notify.toml で通知内容をタイプ別に上書きできる。
+//!   セクション: complete / error / wait / start / other
+//!   キー: title / priority / sound / vibrate / ongoing /
+//!         button1_label / button1_action
+//!
+//!   例:
+//!     [error]
+//!     priority = "high"
+//!     vibrate = "100,200,100"
+//!
+//!     [wait]
+//!     button1_action = "am start -n com.termux/.app.TermuxActivity"
+//!
+//! 環境変数:
+//!   OPENCODE_NOTIFY_CONFIG        設定ファイルパス (既定を上書き)
+//!   OPENCODE_NOTIFY_FOCUS_ACTION  wait通知のボタンアクション (最優先)
+//!
 //! ```cargo
 //! [dependencies]
 //! serde = { version = "1.0", features = ["derive"] }
-//! serde_json = "1.0"
+//! toml = "0.8"
 //! ```
 
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::env;
+use std::fs;
+use std::path::PathBuf;
 use std::process::{Command, Stdio};
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
+#[derive(Debug, Clone)]
 enum NotificationType {
     Complete,
     Error,
@@ -35,6 +57,115 @@ impl FromStr for NotificationType {
     }
 }
 
+const CONFIG_PATH_ENV: &str = "OPENCODE_NOTIFY_CONFIG";
+const FOCUS_ACTION_ENV: &str = "OPENCODE_NOTIFY_FOCUS_ACTION";
+const DEFAULT_FOCUS_ACTION: &str = "am start -n com.termux/.app.TermuxActivity";
+
+/// 通知タイプごとの上書き設定 (notify.toml のセクション)。
+#[derive(Debug, Default, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+struct TypeOverride {
+    title: Option<String>,
+    priority: Option<String>,
+    sound: Option<bool>,
+    vibrate: Option<String>,
+    ongoing: Option<bool>,
+    button1_label: Option<String>,
+    button1_action: Option<String>,
+}
+
+/// notify.toml 全体の設定。未指定セクション・キーは既定値のまま。
+#[derive(Debug, Default, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+struct NotifyOptions {
+    complete: TypeOverride,
+    error: TypeOverride,
+    wait: TypeOverride,
+    start: TypeOverride,
+    other: TypeOverride,
+}
+
+impl NotifyOptions {
+    fn for_type(&self, typ: &NotificationType) -> &TypeOverride {
+        match typ {
+            NotificationType::Complete => &self.complete,
+            NotificationType::Error => &self.error,
+            NotificationType::Wait => &self.wait,
+            NotificationType::Start => &self.start,
+            NotificationType::Other(_) => &self.other,
+        }
+    }
+}
+
+impl TypeOverride {
+    fn apply_to(&self, config: &mut NotificationConfig) {
+        if let Some(title) = &self.title {
+            config.title = title.clone();
+        }
+        if let Some(priority) = &self.priority {
+            config.priority = Some(priority.clone());
+        }
+        if let Some(sound) = self.sound {
+            config.sound = sound;
+        }
+        if let Some(vibrate) = &self.vibrate {
+            config.vibrate = Some(vibrate.clone());
+        }
+        if let Some(ongoing) = self.ongoing {
+            config.ongoing = ongoing;
+        }
+
+        let label = self
+            .button1_label
+            .clone()
+            .or_else(|| config.button1.as_ref().map(|button| button.0.clone()));
+        let action = self
+            .button1_action
+            .clone()
+            .or_else(|| config.button1.as_ref().map(|button| button.1.clone()));
+        if let Some(label) = label {
+            config.button1 = Some((label, action.unwrap_or_default()));
+        }
+    }
+}
+
+fn config_path() -> Option<PathBuf> {
+    if let Ok(path) = env::var(CONFIG_PATH_ENV) {
+        return Some(PathBuf::from(path));
+    }
+    env::var_os("HOME").map(|home| PathBuf::from(home).join(".config/opencode/notify.toml"))
+}
+
+/// 設定ファイルを読み込む。未作成・読取不能・形式不正は既定値で継続する (fail-open)。
+fn load_options() -> NotifyOptions {
+    let path = match config_path() {
+        Some(path) => path,
+        None => return NotifyOptions::default(),
+    };
+
+    let text = match fs::read_to_string(&path) {
+        Ok(text) => text,
+        Err(err) if err.kind() == std::io::ErrorKind::NotFound => {
+            return NotifyOptions::default();
+        }
+        Err(err) => {
+            eprintln!(
+                "[opencode-notify] cannot read config {}: {err}",
+                path.display()
+            );
+            return NotifyOptions::default();
+        }
+    };
+
+    match toml::from_str(&text) {
+        Ok(options) => options,
+        Err(err) => {
+            eprintln!("[opencode-notify] invalid config {}: {err}", path.display());
+            NotifyOptions::default()
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 struct NotificationConfig {
     title: String,
@@ -48,7 +179,23 @@ struct NotificationConfig {
 }
 
 impl NotificationType {
-    fn to_config(&self, message: &str) -> NotificationConfig {
+    fn to_config(&self, message: &str, options: &NotifyOptions) -> NotificationConfig {
+        let mut config = self.base_config(message);
+
+        options.for_type(self).apply_to(&mut config);
+
+        if let NotificationType::Wait = self {
+            if let Ok(action) = env::var(FOCUS_ACTION_ENV) {
+                if let Some(button) = config.button1.as_mut() {
+                    button.1 = action;
+                }
+            }
+        }
+
+        config
+    }
+
+    fn base_config(&self, message: &str) -> NotificationConfig {
         let id = format!("opencode-{}", self.as_str());
         match self {
             NotificationType::Complete => NotificationConfig {
@@ -79,10 +226,7 @@ impl NotificationType {
                 sound: false,
                 vibrate: None,
                 ongoing: true,
-                button1: Some((
-                    "フォーカス".into(),
-                    "am start -n com.termux/.app.TermuxActivity".into(),
-                )),
+                button1: Some(("フォーカス".into(), DEFAULT_FOCUS_ACTION.into())),
             },
             NotificationType::Start => NotificationConfig {
                 title: "🚀 opencode".into(),
@@ -171,6 +315,7 @@ fn print_usage(bin: &str) {
     eprintln!("Types: complete, error, wait, start");
     eprintln!("Options:");
     eprintln!("  --dry-run  Print the termux-notification command without executing it");
+    eprintln!("Config: ~/.config/opencode/notify.toml (optional, see source header)");
 }
 
 /// Truncate to `max_chars` characters (not bytes) with an ellipsis suffix.
@@ -207,8 +352,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let typ = positional[0].parse::<NotificationType>()?;
     let message = truncate_chars(positional[1], 500);
+    let options = load_options();
 
-    let config = typ.to_config(&message);
+    let config = typ.to_config(&message, &options);
 
     if let Err(e) = send_notification(&config, dry_run) {
         eprintln!("[opencode-notify] notification failed: {e}");
