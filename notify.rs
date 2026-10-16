@@ -118,7 +118,10 @@ impl NotificationType {
     }
 }
 
-fn send_notification(config: NotificationConfig) -> Result<(), Box<dyn std::error::Error>> {
+fn send_notification(
+    config: &NotificationConfig,
+    dry_run: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::new("termux-notification");
     cmd.arg("-t")
         .arg(&config.title)
@@ -127,23 +130,33 @@ fn send_notification(config: NotificationConfig) -> Result<(), Box<dyn std::erro
         .arg("--id")
         .arg(&config.id);
 
-    if let Some(priority) = config.priority {
+    if let Some(priority) = &config.priority {
         cmd.arg("--priority").arg(priority);
     }
     if config.sound {
         cmd.arg("--sound");
     }
-    if let Some(vibrate) = config.vibrate {
+    if let Some(vibrate) = &config.vibrate {
         cmd.arg("--vibrate").arg(vibrate);
     }
     if config.ongoing {
         cmd.arg("--ongoing");
     }
-    if let Some((label, action)) = config.button1 {
+    if let Some((label, action)) = &config.button1 {
         cmd.arg("--button1")
             .arg(label)
             .arg("--button1-action")
             .arg(action);
+    }
+
+    if dry_run {
+        let mut preview = String::from("termux-notification");
+        for arg in cmd.get_args() {
+            preview.push(' ');
+            preview.push_str(&format!("{:?}", arg.to_string_lossy()));
+        }
+        println!("[opencode-notify] dry-run: {preview}");
+        return Ok(());
     }
 
     cmd.stderr(Stdio::inherit())
@@ -153,27 +166,51 @@ fn send_notification(config: NotificationConfig) -> Result<(), Box<dyn std::erro
     Ok(())
 }
 
+fn print_usage(bin: &str) {
+    eprintln!("Usage: {bin} [--dry-run] <type> <message>");
+    eprintln!("Types: complete, error, wait, start");
+    eprintln!("Options:");
+    eprintln!("  --dry-run  Print the termux-notification command without executing it");
+}
+
+/// Truncate to `max_chars` characters (not bytes) with an ellipsis suffix.
+fn truncate_chars(text: &str, max_chars: usize) -> String {
+    if text.chars().count() <= max_chars {
+        return text.to_string();
+    }
+
+    let mut truncated: String = text.chars().take(max_chars.saturating_sub(3)).collect();
+    truncated.push_str("...");
+    truncated
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
 
-    if args.len() < 3 {
-        eprintln!("Usage: {} <type> <message>", args[0]);
-        eprintln!("Types: complete, error, wait, start");
+    let mut dry_run = false;
+    let mut positional: Vec<&str> = Vec::new();
+    for arg in args.iter().skip(1) {
+        match arg.as_str() {
+            "--dry-run" => dry_run = true,
+            "--help" | "-h" => {
+                print_usage(&args[0]);
+                return Ok(());
+            }
+            value => positional.push(value),
+        }
+    }
+
+    if positional.len() < 2 {
+        print_usage(&args[0]);
         std::process::exit(1);
     }
 
-    let typ = args[1].parse::<NotificationType>()?;
-    let message = &args[2];
-
-    let message = if message.len() > 500 {
-        format!("{}...", &message[..497])
-    } else {
-        message.clone()
-    };
+    let typ = positional[0].parse::<NotificationType>()?;
+    let message = truncate_chars(positional[1], 500);
 
     let config = typ.to_config(&message);
 
-    if let Err(e) = send_notification(config) {
+    if let Err(e) = send_notification(&config, dry_run) {
         eprintln!("[opencode-notify] notification failed: {e}");
     }
 
