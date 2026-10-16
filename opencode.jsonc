@@ -120,10 +120,10 @@
       "lsp": {
         "type": "local",
         "command": [
-          "lsp-mcp-server"
+          "node",
+          "/data/data/com.termux/files/usr/lib/node_modules/lsp-mcp-server/dist/index.js"
         ],
-        "cwd": ".",
-        "enabled": true
+        "cwd": "."
       },
       "chrome-devtools": {
         "type": "local",
@@ -137,6 +137,9 @@
           "--no-usage-statistics",
           "--no-update-checks"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "disabled": false,
         "timeout": {
           "startup": 45000,
@@ -152,7 +155,8 @@
           "tavily-mcp@0.2.22"
         ],
         "environment": {
-          "DEFAULT_PARAMETERS": "{\"include_images\": true, \"max_results\": 15, \"search_depth\": \"advanced\"}"
+          "DEFAULT_PARAMETERS": "{\"include_images\": true, \"max_results\": 15, \"search_depth\": \"advanced\"}",
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
         "timeout": {
@@ -182,7 +186,8 @@
         ],
         "environment": {
           "PLAYWRIGHT_BROWSERS_PATH": "0",
-          "PLAYWRIGHT_MCP_HEADLESS": "true"
+          "PLAYWRIGHT_MCP_HEADLESS": "true",
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
         "timeout": {
@@ -200,6 +205,9 @@
           "@modelcontextprotocol/server-filesystem",
           "."
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "disabled": false,
         "timeout": {
           "startup": 10000,
@@ -215,7 +223,8 @@
           "@modelcontextprotocol/server-github"
         ],
         "environment": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}",
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
         "timeout": {
@@ -247,6 +256,9 @@
           "-y",
           "@upstash/context7-mcp@latest"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "disabled": false,
         "timeout": {
           "startup": 15000,
@@ -261,6 +273,9 @@
           "-y",
           "@modelcontextprotocol/server-sequential-thinking"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "disabled": false,
         "timeout": {
           "startup": 10000,
@@ -308,6 +323,9 @@
           "-y",
           "@modelcontextprotocol/server-memory"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "disabled": false,
         "timeout": {
           "startup": 10000,
@@ -373,6 +391,23 @@
       ".git/**",
       "*.log",
       "*.tmp"
+    ]
+  },
+  "hooks": {
+    "onSessionStart": [
+      "rust-script ~/.config/opencode/notify.rs start 'セッション開始'"
+    ],
+    "onTaskStart": [
+      "rust-script ~/.config/opencode/notify.rs start 'タスク開始'"
+    ],
+    "onTaskComplete": [
+      "rust-script ~/.config/opencode/notify.rs complete 'タスク完了'"
+    ],
+    "onError": [
+      "rust-script ~/.config/opencode/notify.rs error 'エラー発生'"
+    ],
+    "onUserInputRequired": [
+      "rust-script ~/.config/opencode/notify.rs wait '入力待ち'"
     ]
   }
 }
