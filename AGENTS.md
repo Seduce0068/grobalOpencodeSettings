@@ -378,13 +378,16 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 
 ### ツール別役割マトリクス
 
-| 用途 | 採用ツール | インストール | 状態 |
-| ------ | ----------- | ------------- | ------ |
-| **単体ファイルスクリプト** (定置・運用) | **rust-script** | `cargo install rust-script` | ✅ 成熟・活発 |
-| **ワンライナー・式評価** | **rust-script** | `cargo install rust-script` | ✅ `--expr` / `-e` 対応 |
-| **パイプ処理 (stdin 行処理)** | **rust-script** | `cargo install rust-script` | ✅ `--loop` / `-l` 対応 |
-| **プロジェクト内脚本管理** (Scripts.toml) | **cargo-run** | `cargo install cargo-run` | ✅ 成熟・活発 |
-| **将来の標準機能** | **公式 `cargo script`** | 不要 (Cargo 同梱予定) | 🚧 RFC 3502 標準化進行中 |
+| 用途 | 採用ツール | 状態 |
+| --- | --- | --- |
+| 単体ファイルスクリプト (定置・運用) | `rust-script` | ✅ 成熟・活発 |
+| ワンライナー・式評価 | `rust-script` | ✅ `--expr` / `-e` 対応 |
+| パイプ処理 (stdin 行処理) | `rust-script` | ✅ `--loop` / `-l` 対応 |
+| プロジェクト内脚本管理 (Scripts.toml) | `cargo-run` | ✅ 成熟・活発 |
+| 将来の標準機能 | 公式 `cargo script` | 🚧 RFC 3502 標準化進行中 |
+
+インストールは `rust-script`、`cargo-run` とも `cargo install <name>`。
+公式 `cargo script` は Cargo 同梱予定 (詳細は「セットアップ手順」)。
 
 ### 禁止事項
 
