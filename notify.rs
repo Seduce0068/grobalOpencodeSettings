@@ -8,6 +8,9 @@
 //!   セクション: complete / error / wait / start / other
 //!   キー: title / priority / sound / vibrate / ongoing /
 //!         button1_label / button1_action
+//!   ボタン: 既定ボタンのある wait は片方のみの上書きが可能。
+//!   ボタンを持たないタイプへ追加する場合は両方の指定が必要
+//!   (片方のみの場合は警告のうえ無視)。
 //!
 //!   例:
 //!     [error]
@@ -20,6 +23,10 @@
 //! 環境変数:
 //!   OPENCODE_NOTIFY_CONFIG        設定ファイルパス (既定を上書き)
 //!   OPENCODE_NOTIFY_FOCUS_ACTION  wait通知のボタンアクション (最優先)
+//!
+//! 信頼境界:
+//!   notify.toml と環境変数は実行ユーザー自身が管理する信頼済み入力として扱う。
+//!   設定値はサニタイズせずそのまま termux-notification に渡す。
 //!
 //! ```cargo
 //! [dependencies]
@@ -98,7 +105,7 @@ impl NotifyOptions {
 }
 
 impl TypeOverride {
-    fn apply_to(&self, config: &mut NotificationConfig) {
+    fn apply_to(&self, config: &mut NotificationConfig, type_name: &str) {
         if let Some(title) = &self.title {
             config.title = title.clone();
         }
@@ -123,8 +130,16 @@ impl TypeOverride {
             .button1_action
             .clone()
             .or_else(|| config.button1.as_ref().map(|button| button.1.clone()));
-        if let Some(label) = label {
-            config.button1 = Some((label, action.unwrap_or_default()));
+
+        match (label, action) {
+            (Some(label), Some(action)) => config.button1 = Some((label, action)),
+            (Some(_), None) | (None, Some(_)) => {
+                eprintln!(
+                    "[opencode-notify] ignoring partial button1 override for \
+                     '{type_name}': button1_label and button1_action must be set together"
+                );
+            }
+            (None, None) => {}
         }
     }
 }
@@ -182,7 +197,7 @@ impl NotificationType {
     fn to_config(&self, message: &str, options: &NotifyOptions) -> NotificationConfig {
         let mut config = self.base_config(message);
 
-        options.for_type(self).apply_to(&mut config);
+        options.for_type(self).apply_to(&mut config, self.as_str());
 
         if let NotificationType::Wait = self {
             if let Ok(action) = env::var(FOCUS_ACTION_ENV) {
