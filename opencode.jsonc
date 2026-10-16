@@ -120,9 +120,13 @@
       "lsp": {
         "type": "local",
         "command": [
-          "node",
-          "/data/data/com.termux/files/usr/lib/node_modules/lsp-mcp-server/dist/index.js"
+          "npx",
+          "-y",
+          "lsp-mcp-server@latest"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "cwd": "."
       },
       "chrome-devtools": {
@@ -131,11 +135,10 @@
         "command": [
           "npx",
           "-y",
-          "chrome-devtools-mcp@1.10.1",
+          "chrome-devtools-mcp@latest",
           "--user-data-dir",
           ".opencode/browser-session",
-          "--no-usage-statistics",
-          "--no-update-checks"
+          "--no-usage-statistics"
         ],
         "environment": {
           "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
@@ -152,7 +155,7 @@
         "command": [
           "npx",
           "-y",
-          "tavily-mcp@0.2.22"
+          "tavily-mcp@latest"
         ],
         "environment": {
           "DEFAULT_PARAMETERS": "{\"include_images\": true, \"max_results\": 15, \"search_depth\": \"advanced\"}",
@@ -182,7 +185,7 @@
         "command": [
           "npx",
           "-y",
-          "@playwright/mcp@0.0.83"
+          "@playwright/mcp@latest"
         ],
         "environment": {
           "PLAYWRIGHT_BROWSERS_PATH": "0",
@@ -237,7 +240,7 @@
         "cwd": ".",
         "command": [
           "uvx",
-          "mcp-server-git@2026.8.18",
+          "mcp-server-git@latest",
           "-r",
           "."
         ],
@@ -336,7 +339,7 @@
         "type": "local",
         "command": [
           "uvx",
-          "mcp-server-fetch@2026.8.18"
+          "mcp-server-fetch@latest"
         ],
         "disabled": false,
         "timeout": {
