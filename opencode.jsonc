@@ -205,25 +205,6 @@
           "execution": 300000
         }
       },
-      "filesystem": {
-        "type": "local",
-        "cwd": ".",
-        "command": [
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-filesystem",
-          "."
-        ],
-        "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-        },
-        "disabled": false,
-        "timeout": {
-          "startup": 10000,
-          "catalog": 5000,
-          "execution": 30000
-        }
-      },
       "github": {
         "type": "local",
         "command": [
@@ -339,19 +320,6 @@
           "startup": 10000,
           "catalog": 5000,
           "execution": 30000
-        }
-      },
-      "fetch": {
-        "type": "local",
-        "command": [
-          "uvx",
-          "mcp-server-fetch@latest"
-        ],
-        "disabled": false,
-        "timeout": {
-          "startup": 15000,
-          "catalog": 10000,
-          "execution": 60000
         }
       },
       "everything": {
