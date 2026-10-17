@@ -12,7 +12,7 @@ generated:
   at: "2026-09-19T00:00:00+09:00"
 verified:
   by: opencode
-  at: "2026-10-16T21:58:26+09:00"
+  at: "2026-10-17T21:26:25+09:00"
 ---
 
 ## Markdownlint準拠カスタム指示
@@ -196,6 +196,29 @@ generated:
 - リポジトリ由来コードの build/test 実行時は、秘密情報やホスト権限を不用意に
   露出させない。commit/push は opencode が適宜実施し、意味のあるコミット
   メッセージを必ず付与する。
+
+## 個人リポジトリの CI 方針
+
+個人リポジトリ（`github.com/Seduce0068/*`）の Rust プロジェクトは、
+CI を共通の再利用可能ワークフローへ委譲し、ゲートをリポジトリごとに
+複製しない。
+
+- 提供側は private リポ `Seduce0068/workflows` の `rust-gates.yml`。
+  ゲートは fmt → check → test → clippy → extra_gates で、
+  `ソフトウェア変更の標準検証ループ` と同じ構成にする。
+- 呼び出し側は `.github/workflows/ci.yml` に `uses:` の 1 ジョブを置く。
+  `permissions: contents: read` と `concurrency` は呼び出し側に置く。
+- 入力（apt 依存、wasm ターゲット、追加ゲート等）と記述例は提供側
+  README を参照する。
+- 参照はタグ `v1` にピン留めする。互換を保つ更新はタグを付け替え、
+  破壊的変更は `v2` を切る。
+- 共通ワークフロー自体の変更は `self-test.yml`（fixtures/hello の
+  回帰テスト）で検証してからタグを動かす。
+- CI の変更は、まず共通ワークフロー側で対応できないか検討する。
+- public リポジトリから private の共通ワークフローは参照できない
+  （private のワークフローを参照できるのは private リポジトリの
+  呼び出し側のみ）。その場合は個別 CI とするか、共通ワークフローの
+  公開化をユーザーに確認する。
 
 ## MCP 利用方針
 
