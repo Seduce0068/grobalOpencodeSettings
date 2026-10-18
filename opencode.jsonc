@@ -391,22 +391,5 @@
       "*.log",
       "*.tmp"
     ]
-  },
-  "hooks": {
-    "onSessionStart": [
-      "rust-script ~/.config/opencode/notify.rs start 'セッション開始'"
-    ],
-    "onTaskStart": [
-      "rust-script ~/.config/opencode/notify.rs start 'タスク開始'"
-    ],
-    "onTaskComplete": [
-      "rust-script ~/.config/opencode/notify.rs complete 'タスク完了'"
-    ],
-    "onError": [
-      "rust-script ~/.config/opencode/notify.rs error 'エラー発生'"
-    ],
-    "onUserInputRequired": [
-      "rust-script ~/.config/opencode/notify.rs wait '入力待ち'"
-    ]
   }
 }
