@@ -13,6 +13,24 @@
  *   permission.asked            -> wait     (入力待ち: 許可要求)
  *   form.created                -> wait     (入力待ち: 質問)
  *
+ * 通知タイミング (バックグラウンド作業):
+ *   バックグラウンドシェル (shell.created から shell.exited まで) や
+ *   子セッション (subagent) が実行中の間は "タスク完了" を通知しない。
+ *   バックグラウンド作業がすべて終わると合成入力 (synthetic) でセッションが
+ *   再開 (wake) され、その実行の完了時に通知される。
+ *   また、合成入力で始まった wake 実行の "タスク開始" は通知しない。
+ *   結果として通知は「ユーザー起動の開始 + 完全終了時の完了」の 2 件になる。
+ *   追跡はマーカーファイルで行い、対応するイベントは次のとおり:
+ *     shell.created             -> jobs/<sessionID>__shell__<shellID> 作成
+ *     shell.exited              -> 同マーカー削除
+ *     session.created           -> jobs/<parentID>__child__<childID> 作成
+ *     session.execution.started -> 子セッション実行開始でも作成 (冪等)
+ *     session.execution.{succeeded,failed,interrupted}
+ *                               -> 子セッションのマーカー削除
+ *     session.inbox.enqueued    -> 次回実行のトリガー種別を記録
+ *     session.deleted           -> 当該セッションのマーカー/トリガー削除
+ *   マーカー/トリガーは TTL (12 時間) を過ぎると自動削除する。
+ *
  * フィルタ:
  *   execution.* は root セッションのみ通知する (サブエージェントの
  *   開始/完了はノイズになるため除外)。permission.asked / form.created は
@@ -48,9 +66,12 @@ import {
   closeSync,
   mkdirSync,
   openSync,
+  readFileSync,
   readdirSync,
+  renameSync,
   statSync,
   unlinkSync,
+  writeFileSync,
 } from "node:fs"
 import { homedir } from "node:os"
 import { join } from "node:path"
@@ -59,6 +80,9 @@ const NOTIFY_SCRIPT = join(homedir(), ".config/opencode/notify.rs")
 const LOG = join(homedir(), ".local/share/opencode/termux-notify.log")
 const CLAIM_DIR = join(homedir(), ".local/share/opencode/termux-notify-claims")
 const CLAIM_TTL_MS = 60 * 60 * 1000
+const JOB_DIR = join(homedir(), ".local/share/opencode/termux-notify-jobs")
+const TRIGGER_DIR = join(homedir(), ".local/share/opencode/termux-notify-triggers")
+const JOB_TTL_MS = 12 * 60 * 60 * 1000
 const DEBUG = process.env.OPENCODE_NOTIFY_DEBUG === "1"
 
 type NotifyType = "start" | "complete" | "error" | "wait"
@@ -82,7 +106,16 @@ interface OpenCodeEvent {
   id?: string
   created?: number
   type?: string
-  data?: { sessionID?: string }
+  data?: {
+    sessionID?: string
+    parentID?: string
+    id?: string
+    info?: {
+      id?: string
+      metadata?: { sessionID?: string }
+    }
+    item?: { type?: string }
+  }
 }
 
 interface SessionInfoLike {
@@ -157,6 +190,100 @@ function sweepClaims(): void {
   }
 }
 
+/** TTL を過ぎたファイルをディレクトリから削除する (ベストエフォート)。 */
+function sweepDir(dir: string, ttlMs: number): void {
+  try {
+    const now = Date.now()
+    for (const name of readdirSync(dir)) {
+      try {
+        const path = join(dir, name)
+        if (now - statSync(path).mtimeMs > ttlMs) {
+          unlinkSync(path)
+        }
+      } catch {
+        // 個別の失敗は無視する。
+      }
+    }
+  } catch {
+    // ディレクトリ未作成などの失敗は無視する。
+  }
+}
+
+/** バックグラウンド作業マーカーを登録する (冪等)。 */
+function addJob(name: string): void {
+  try {
+    mkdirSync(JOB_DIR, { recursive: true })
+    closeSync(openSync(join(JOB_DIR, name), "w"))
+    if (DEBUG) {
+      log(`bg-add ${name}`)
+    }
+    sweepDir(JOB_DIR, JOB_TTL_MS)
+  } catch (error) {
+    log(`ERROR bg-add ${name}: ${String(error)}`)
+  }
+}
+
+/** サフィックスに一致する作業マーカーを削除する (冪等)。 */
+function removeJobs(suffix: string): void {
+  try {
+    for (const name of readdirSync(JOB_DIR)) {
+      if (name.endsWith(suffix)) {
+        try {
+          unlinkSync(join(JOB_DIR, name))
+        } catch {
+          // 個別の失敗は無視する。
+        }
+      }
+    }
+    if (DEBUG) {
+      log(`bg-remove ${suffix}`)
+    }
+  } catch {
+    // ディレクトリ未作成などの失敗は無視する。
+  }
+}
+
+/** セッションに未完了のバックグラウンド作業があるか (判定不能時は false)。 */
+function hasPending(sessionID: string): boolean {
+  try {
+    const prefix = `${sessionID}__`
+    for (const name of readdirSync(JOB_DIR)) {
+      if (name.startsWith(prefix)) {
+        return true
+      }
+    }
+  } catch {
+    // 判定不能時は pending なしに倒す (fail-open: 通知する)。
+  }
+  return false
+}
+
+/** 直近の inbox 投入種別を記録する (wake 実行の判定に使う)。 */
+function setTrigger(sessionID: string, kind: string): void {
+  try {
+    mkdirSync(TRIGGER_DIR, { recursive: true })
+    const target = join(TRIGGER_DIR, sessionID)
+    const temp = `${target}.tmp`
+    writeFileSync(temp, kind)
+    renameSync(temp, target)
+    if (DEBUG) {
+      log(`trigger ${sessionID} ${kind}`)
+    }
+    sweepDir(TRIGGER_DIR, JOB_TTL_MS)
+  } catch (error) {
+    log(`ERROR trigger ${sessionID}: ${String(error)}`)
+  }
+}
+
+/** 直近の inbox 投入種別を返す (未記録なら undefined)。 */
+function getTrigger(sessionID: string): string | undefined {
+  try {
+    return readFileSync(join(TRIGGER_DIR, sessionID), "utf8").trim()
+  } catch {
+    return undefined
+  }
+}
+
 /** notify.rs を fire-and-forget で起動する。失敗しても例外を外へ出さない。 */
 function notify(type: NotifyType, message: string): void {
   if (DEBUG) {
@@ -186,26 +313,111 @@ function notify(type: NotifyType, message: string): void {
 
 async function handle(ctx: PluginContextLike, event: OpenCodeEvent): Promise<void> {
   const type = event.type
-  const mapping = type ? NOTIFICATIONS[type] : undefined
-  if (!type || !mapping) {
+  if (!type) {
+    return
+  }
+  const data = event.data
+  const sessionID = data?.sessionID
+
+  // --- バックグラウンド作業マーカーの維持 (通知対象外イベントも使う) ---
+
+  if (type === "shell.created") {
+    const info = data?.info
+    if (info?.id && info.metadata?.sessionID) {
+      addJob(`${info.metadata.sessionID}__shell__${info.id}`)
+    }
     return
   }
 
-  const sessionID = event.data?.sessionID
-  let title: string | undefined
+  if (type === "shell.exited") {
+    if (typeof data?.id === "string" && data.id.length > 0) {
+      removeJobs(`__shell__${data.id}`)
+    }
+    return
+  }
 
+  if (type === "session.created") {
+    if (sessionID && typeof data?.parentID === "string") {
+      addJob(`${data.parentID}__child__${sessionID}`)
+    }
+    return
+  }
+
+  if (type === "session.deleted") {
+    if (sessionID) {
+      removeJobs(`__child__${sessionID}`)
+      try {
+        unlinkSync(join(TRIGGER_DIR, sessionID))
+      } catch {
+        // 未作成などの失敗は無視する。
+      }
+    }
+    return
+  }
+
+  if (type === "session.inbox.enqueued") {
+    const itemType = data?.item?.type
+    if (sessionID && typeof itemType === "string") {
+      setTrigger(sessionID, itemType)
+    }
+    return
+  }
+
+  // --- 通知判定 ---
+
+  const mapping = NOTIFICATIONS[type]
+  const isExecution = type.startsWith("session.execution.")
+  if (!mapping && !isExecution) {
+    return
+  }
+
+  let session: SessionInfoLike | undefined
   if (sessionID) {
     try {
-      const session = await ctx.session.get({ sessionID })
-      if (ROOT_ONLY.has(type) && session.parentID) {
-        return
-      }
-      title = typeof session.title === "string" ? session.title : undefined
+      session = await ctx.session.get({ sessionID })
     } catch {
       // fail-open: 情報が取れなくても通知は送る。
     }
   }
 
+  // 子セッション (subagent) 実行のマーカー維持 (terminal は interrupted も含む)。
+  if (isExecution && sessionID) {
+    const parentID = session?.parentID
+    if (typeof parentID === "string" && parentID.length > 0) {
+      if (type === "session.execution.started") {
+        addJob(`${parentID}__child__${sessionID}`)
+      } else {
+        removeJobs(`__child__${sessionID}`)
+      }
+    }
+  }
+
+  if (!mapping) {
+    return
+  }
+
+  if (ROOT_ONLY.has(type) && session?.parentID) {
+    return
+  }
+
+  // バックグラウンド作業が残っている間は完了通知を保留する。
+  // (すべて終わると synthetic 入力で wake 実行され、その完了時に通知される)
+  if (type === "session.execution.succeeded" && sessionID && hasPending(sessionID)) {
+    if (DEBUG) {
+      log(`bg-defer session=${sessionID}`)
+    }
+    return
+  }
+
+  // 合成入力による wake 実行の開始通知は抑制する。
+  if (type === "session.execution.started" && sessionID && getTrigger(sessionID) === "synthetic") {
+    if (DEBUG) {
+      log(`bg-suppress-start session=${sessionID}`)
+    }
+    return
+  }
+
+  const title = typeof session?.title === "string" ? session.title : undefined
   const claimKey =
     typeof event.id === "string" && event.id.length > 0
       ? event.id
