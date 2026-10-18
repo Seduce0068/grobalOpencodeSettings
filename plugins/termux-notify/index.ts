@@ -18,7 +18,7 @@
  *   バックグラウンドシェル (shell.created から shell.exited まで) や
  *   子セッション (subagent) が実行中の間は "タスク完了" を通知しない。
  *   バックグラウンド作業がすべて終わると合成入力 (synthetic) でセッションが
- *   再開 (wake) されるため、その実行の完了時に通知される。
+ *   再開 (wake) される。最後の作業終了後 10 秒間新しい作業がなければ通知する。
  *   追跡はマーカーファイルで行い、対応するイベントは次のとおり:
  *     shell.created             -> jobs/<sessionID>__shell__<shellID> 作成
  *     shell.exited              -> 同マーカー削除
@@ -77,7 +77,17 @@ const CLAIM_DIR = join(homedir(), ".local/share/opencode/termux-notify-claims")
 const CLAIM_TTL_MS = 60 * 60 * 1000
 const JOB_DIR = join(homedir(), ".local/share/opencode/termux-notify-jobs")
 const JOB_TTL_MS = 12 * 60 * 60 * 1000
+const BG_QUIET_MS = 10 * 1000
 const DEBUG = process.env.OPENCODE_NOTIFY_DEBUG === "1"
+
+interface PendingCompletion {
+  eventID: string
+  title?: string
+  timer?: ReturnType<typeof setTimeout>
+}
+
+const pendingCompletions = new Map<string, PendingCompletion>()
+const backgroundActivity = new Set<string>()
 
 type NotifyType = "start" | "complete" | "error" | "wait"
 
@@ -205,6 +215,11 @@ function addJob(name: string): void {
   try {
     mkdirSync(JOB_DIR, { recursive: true })
     closeSync(openSync(join(JOB_DIR, name), "w"))
+    const sessionID = name.slice(0, name.indexOf("__"))
+    if (sessionID) {
+      backgroundActivity.add(sessionID)
+      cancelCompletionTimer(sessionID)
+    }
     if (DEBUG) {
       log(`bg-add ${name}`)
     }
@@ -217,10 +232,15 @@ function addJob(name: string): void {
 /** サフィックスに一致する作業マーカーを削除する (冪等)。 */
 function removeJobs(suffix: string): void {
   try {
+    const affectedSessions = new Set<string>()
     for (const name of readdirSync(JOB_DIR)) {
       if (name.endsWith(suffix)) {
         try {
           unlinkSync(join(JOB_DIR, name))
+          const separator = name.indexOf("__")
+          if (separator > 0) {
+            affectedSessions.add(name.slice(0, separator))
+          }
         } catch {
           // 個別の失敗は無視する。
         }
@@ -228,6 +248,9 @@ function removeJobs(suffix: string): void {
     }
     if (DEBUG) {
       log(`bg-remove ${suffix}`)
+    }
+    for (const sessionID of affectedSessions) {
+      scheduleCompletion(sessionID)
     }
   } catch {
     // ディレクトリ未作成などの失敗は無視する。
@@ -247,6 +270,49 @@ function hasPending(sessionID: string): boolean {
     // 判定不能時は pending なしに倒す (fail-open: 通知する)。
   }
   return false
+}
+
+/** 保留中の完了タイマーを取り消す。作業開始時に呼び出す。 */
+function cancelCompletionTimer(sessionID: string): void {
+  const pending = pendingCompletions.get(sessionID)
+  if (pending?.timer) {
+    clearTimeout(pending.timer)
+    pending.timer = undefined
+    if (DEBUG) {
+      log(`bg-quiet-reset session=${sessionID}`)
+    }
+  }
+}
+
+/** バックグラウンド作業がなく、静穏時間が経過した後に完了通知を送る。 */
+function scheduleCompletion(sessionID: string): void {
+  const pending = pendingCompletions.get(sessionID)
+  if (!pending) {
+    return
+  }
+  cancelCompletionTimer(sessionID)
+  if (hasPending(sessionID)) {
+    return
+  }
+
+  pending.timer = setTimeout(() => {
+    pending.timer = undefined
+    if (pendingCompletions.get(sessionID) !== pending) {
+      return
+    }
+    if (hasPending(sessionID)) {
+      return
+    }
+    if (claim(pending.eventID)) {
+      notify("complete", pending.title ? `タスク完了: ${pending.title}` : "タスク完了")
+    }
+    pendingCompletions.delete(sessionID)
+    backgroundActivity.delete(sessionID)
+  }, BG_QUIET_MS)
+  pending.timer.unref()
+  if (DEBUG) {
+    log(`bg-quiet-start session=${sessionID} ms=${BG_QUIET_MS}`)
+  }
 }
 
 /** notify.rs を fire-and-forget で起動する。失敗しても例外を外へ出さない。 */
@@ -334,6 +400,9 @@ async function handle(ctx: PluginContextLike, event: OpenCodeEvent): Promise<voi
 
   // 子セッション (subagent) 実行のマーカー維持 (terminal は interrupted も含む)。
   if (isExecution && sessionID) {
+    if (type === "session.execution.started") {
+      cancelCompletionTimer(sessionID)
+    }
     const parentID = session?.parentID
     if (typeof parentID === "string" && parentID.length > 0) {
       if (type === "session.execution.started") {
@@ -352,20 +421,21 @@ async function handle(ctx: PluginContextLike, event: OpenCodeEvent): Promise<voi
     return
   }
 
-  // バックグラウンド作業が残っている間は完了通知を保留する。
-  // (すべて終わると synthetic 入力で wake 実行され、その完了時に通知される)
-  if (type === "session.execution.succeeded" && sessionID && hasPending(sessionID)) {
-    if (DEBUG) {
-      log(`bg-defer session=${sessionID}`)
-    }
-    return
-  }
-
   const title = typeof session?.title === "string" ? session.title : undefined
   const claimKey =
     typeof event.id === "string" && event.id.length > 0
       ? event.id
       : `${type}:${sessionID ?? "unknown"}:${String(event.created ?? "unknown")}`
+  if (type === "session.execution.succeeded" && sessionID && backgroundActivity.has(sessionID)) {
+    const pending = pendingCompletions.get(sessionID)
+    if (pending?.timer) {
+      clearTimeout(pending.timer)
+    }
+    pendingCompletions.set(sessionID, { eventID: claimKey, title })
+    scheduleCompletion(sessionID)
+    return
+  }
+
   if (!claim(claimKey)) {
     return
   }
