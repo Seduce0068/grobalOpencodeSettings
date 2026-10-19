@@ -2,12 +2,46 @@
 
 ## Target: {{MODULE_NAME}}
 
+## Test basis
+
+| 項目 | 内容 |
+| --- | --- |
+| 対象 (test item) | {{MODULE_NAME}} |
+| 根拠 (test basis) | {{INVARIANT_SPEC}} / {{REQUIREMENT_DOC}} |
+| 判定基準 (test oracle) | {{PROPERTY_EXPRESSION}} |
+| プロファイル | {{PROFILE_NAME}} |
+
+## Risk & tier
+
+| risk_id | リスク | tier | 完了基準 |
+| --- | --- | --- | --- |
+| R-001 | {{RISK_DESCRIPTION}} | {{T1\|T2\|T3}} | numRuns {{N}} |
+
+## Design technique
+
+| 技法 | 29119-4 節 | 適用箇所 |
+| --- | --- | --- |
+| {{METAMORPHIC_TESTING}} | 5.2.11 | 可逆性・不変条件 |
+| {{RANDOM_TESTING}} | 5.2.10 | 入力randomization |
+| {{STATE_TRANSITION_TESTING}} | 5.2.8 | 状態機械 |
+
+## Document map
+
+| 29119-3 情報項目 | 該当セクション |
+| --- | --- |
+| Test case specification | プロパティ定義テンプレート |
+| Test design specification | Design technique |
+| Test data requirements | カスタム Arbitrary |
+| Test execution log / result | `evidence/test-run-*.json` |
+
 ### 概要
+
 プロパティベーステストで「仕様として常に成り立つべき不変条件」を定義し、数千ケースで自動検証する。
 
 ### フレームワーク
+
 | 言語 | ライブラリ | インストール |
-|---|---|---|
+| --- | --- | --- |
 | TypeScript | fast-check | `npm i -D fast-check` |
 | Rust | proptest | `cargo add proptest --dev` |
 | Python | hypothesis | `pip install hypothesis` |
@@ -17,6 +51,7 @@
 ## プロパティ定義テンプレート
 
 ### 1. 純粋関数のプロパティ
+
 ```typescript
 // tests/property/{{module}}.property.ts
 import * as fc from 'fast-check';
@@ -63,6 +98,7 @@ describe('Property: {{FUNCTION_NAME}}', () => {
 ```
 
 ### 2. 状態を持つシステムのプロパティ (State Machine)
+
 ```typescript
 // tests/property/{{module}}.state-machine.ts
 import * as fc from 'fast-check';
@@ -112,6 +148,7 @@ test('State Machine: {{SYSTEM}} maintains invariants', () => {
 ```
 
 ### 3. シリアライズ/デシリアライズの可逆性
+
 ```typescript
 test('roundtrip: deserialize(serialize(x)) === x', () => {
   fc.assert(fc.property(fc.{{ARBITRARY_FOR_TYPE}}(), (input) => {
@@ -123,6 +160,7 @@ test('roundtrip: deserialize(serialize(x)) === x', () => {
 ```
 
 ### 4. エンコード/デコードの可逆性
+
 ```typescript
 test('encoding roundtrip', () => {
   fc.assert(fc.property(fc.string(), (input) => {
@@ -134,6 +172,7 @@ test('encoding roundtrip', () => {
 ```
 
 ### 5. ソート・順序の不変性
+
 ```typescript
 test('sort stability: equal elements maintain relative order', () => {
   fc.assert(fc.property(fc.array(fc.record({ 
@@ -172,6 +211,7 @@ test('sort stability: equal elements maintain relative order', () => {
 ```
 
 ### CI 実行オプション
+
 ```bash
 # 開発時: 高速
 npm run test:property -- --numRuns=1000
@@ -250,7 +290,7 @@ test('user validation property', () => {
 ## よくあるプロパティパターン
 
 | カテゴリ | プロパティ | 適用例 |
-|---|---|---|
+| --- | --- | --- |
 | **代数的** | 可換・結合・単位元・冪等 | 数学関数、集合操作、CRDT |
 | **順序** | 単調性・反射・対称・推移 | ソート、比較、優先度キュー |
 | **可逆性** | ラウンドトリップ | シリアライズ、暗号、圧縮 |
@@ -266,3 +306,11 @@ test('user validation property', () => {
 - [ ] 期待される不変条件を数学的に定義可能
 - [ ] CI で `numRuns ≥ 10000` 確保
 - [ ] 失敗時の最小再現ケースを Issue に自動記録
+
+## Traceability
+
+| Property | Req | ASVS | 800-53 | CC | Technique | Tier | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| {{PROPERTY_ID}} | REQ-{{ID}} | {{v5.0.0-V0.0.0}} | {{SP800-53r5.2/XX-X}} | {{ATE_FUN.1}} | 5.2.11 | T2 | ⬜ TODO |
+
+ASVS / 800-53 / CC の各列は該当なしを `-` とする。空欄は禁止。

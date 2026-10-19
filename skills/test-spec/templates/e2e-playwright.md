@@ -2,7 +2,40 @@
 
 ## Target: {{APPLICATION_NAME}}
 
+## Test basis
+
+| 項目 | 内容 |
+| --- | --- |
+| 対象 (test item) | {{APPLICATION_NAME}} (主要ユーザーフロー) |
+| 根拠 (test basis) | {{USER_STORY}} / {{REQUIREMENT_DOC}} |
+| 判定基準 (test oracle) | {{VISIBLE_STATE_OR_API_RESPONSE}} |
+| プロファイル | {{PROFILE_NAME}} |
+
+## Risk & tier
+
+| risk_id | リスク | tier | 完了基準 |
+| --- | --- | --- | --- |
+| R-001 | {{RISK_DESCRIPTION}} | {{T1\|T2\|T3}} | e2e 主要フロー 100% |
+
+## Design technique
+
+| 技法 | 29119-4 節 | 適用箇所 |
+| --- | --- | --- |
+| {{SCENARIO_TESTING}} | 5.2.9 | ユーザーフロー |
+| {{STATE_TRANSITION_TESTING}} | 5.2.8 | 画面遷移・セッション |
+| {{ERROR_GUESSING}} | 5.4.1 | 異常系・リンク切れ |
+
+## Document map
+
+| 29119-3 情報項目 | 該当セクション |
+| --- | --- |
+| Test case specification | Test Specs (BDD Style) |
+| Test procedure specification | CI/CD 設定 |
+| Test environment requirements | Playwright MCP Configuration |
+| Test execution log / result | `evidence/test-run-*.json` |
+
 ### Playwright MCP Configuration
+
 ```json
 {
   "mcpServers": {
@@ -18,7 +51,8 @@
 ```
 
 ### Page Objects (推奨構造)
-```
+
+```text
 tests/e2e/
 ├── pages/
 │   ├── base.page.ts          # 共通操作・待機・スクショ
@@ -37,6 +71,7 @@ tests/e2e/
 ```
 
 ### Base Page (共通)
+
 ```typescript
 // tests/e2e/pages/base.page.ts
 import { Page, Locator, expect } from '@playwright/test';
@@ -68,6 +103,7 @@ export abstract class BasePage {
 ```
 
 ### Feature Page Object
+
 ```typescript
 // tests/e2e/pages/{{feature}}.page.ts
 import { Page, Locator, expect } from '@playwright/test';
@@ -107,6 +143,7 @@ export class {{Feature}}Page extends BasePage {
 ```
 
 ### Test Specs (BDD Style)
+
 ```typescript
 // tests/e2e/specs/{{feature}}.spec.ts
 import { test, expect } from '@playwright/test';
@@ -158,6 +195,7 @@ test.describe('{{FEATURE_NAME}}', () => {
 ```
 
 ### Visual Regression (オプション)
+
 ```typescript
 import { test, expect } from '@playwright/test';
 
@@ -174,6 +212,7 @@ test('Visual: {{FEATURE}} page matches baseline', async ({ page }) => {
 ```
 
 ### MCP Tools 連携 (自動化)
+
 ```typescript
 // tests/e2e/utils/mcp-helpers.ts
 import { Page } from '@playwright/test';
@@ -196,6 +235,7 @@ export async function mcpNetworkRequests(page: Page, filter?: string) {
 ```
 
 ### CI/CD 設定
+
 ```yaml
 # .github/workflows/e2e-test.yml
 name: E2E Tests (Playwright)
@@ -248,11 +288,20 @@ jobs:
 ```
 
 ### Selectors 設計指針
+
 | 優先度 | セレクタタイプ | 例 |
-|---|---|---|
+| --- | --- | --- |
 | 1 | `data-testid` | `[data-testid="submit-btn"]` |
 | 2 | ARIA role + name | `page.getByRole('button', {name: 'Submit'})` |
 | 3 | Semantic HTML | `page.getByLabel('Email')` |
 | 4 | CSS (最終手段) | `.btn-primary` |
 
 **禁止**: nth-child, クラス名のみ, インラインスタイル依存
+
+## Traceability
+
+| Scenario | Req | ASVS | 800-53 | CC | Technique | Tier | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| {{SCENARIO_ID}} | REQ-{{ID}} | {{v5.0.0-V0.0.0}} | {{SP800-53r5.2/XX-X}} | {{ATE_FUN.1}} | 5.2.9 | T1 | ⬜ TODO |
+
+ASVS / 800-53 / CC の各列は該当なしを `-` とする。空欄は禁止。

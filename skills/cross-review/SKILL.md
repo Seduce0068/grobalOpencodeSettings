@@ -38,6 +38,22 @@ Launch subagent ops-reviewer with:
 - Output: 同上形式
 ```
 
+### 2.5 テスト仕様の観点（変更に `specs/test-*.md` が含まれる場合）
+
+```text
+Focus:
+- 必須 4 セクション (Test basis / Risk & tier / Design technique /
+  Document map) の充足
+- Traceability の 1:1 対応 (仕様シナリオとテスト関数)
+- テスト基準 ID の実在性 (ASVS / SP 800-53 / CC 構成要素)
+- リスク tier と完了基準の対応
+- 29119-3:2021 Annex A の情報項目の充足
+- 適合の主張が境界を超えていないか (準拠・認証 の表現)
+Output: 発見事項を {file, line, severity, description, remediation} 形式で
+```
+
+静的試験はこの-Agentの担当であり、動的試験は `test-spec` スキルの担当である。
+
 ### 3. 統合・判定
 - 3エージェントの出力をマージ
 - 同一箇所の重複指摘を統合

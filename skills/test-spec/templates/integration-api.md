@@ -2,7 +2,44 @@
 
 ## Target: {{SERVICE_NAME}} API
 
+## Test basis
+
+| 項目 | 内容 |
+| --- | --- |
+| 対象 (test item) | {{SERVICE_NAME}} API |
+| 根拠 (test basis) | {{OPENAPI_SPEC}} / {{REQUIREMENT_DOC}} |
+| 判定基準 (test oracle) | {{STATUS_AND_BODY_SPEC}} |
+| プロファイル | {{PROFILE_NAME}} |
+| 対象スコープ | {{ASVS_CHAPTERS}} (ASVS 5.0.0 の章) |
+
+## Risk & tier
+
+| risk_id | リスク | tier | 完了基準 (カバレッジ) |
+| --- | --- | --- | --- |
+| R-001 | {{RISK_DESCRIPTION}} | {{T1\|T2\|T3}} | integration {{COV}} |
+
+## Design technique
+
+| 技法 | 29119-4 節 | 適用箇所 |
+| --- | --- | --- |
+| {{EQUIVALENCE_PARTITIONING}} | 5.2.1 | 正常系・異常系 |
+| {{BOUNDARY_VALUE_ANALYSIS}} | 5.2.3 | 境界値 |
+| {{DECISION_TABLE_TESTING}} | 5.2.6 | 認可・条件分岐 |
+| {{STATE_TRANSITION_TESTING}} | 5.2.8 | セッション・状態 |
+| {{REQUIREMENTS_BASED_TESTING}} | 5.2.12 | OpenAPI 定義との対応 |
+
+## Document map
+
+| 29119-3 情報項目 | 該当セクション |
+| --- | --- |
+| Test case specification | Test Suites |
+| Test procedure specification | CI/CD Integration |
+| Test data requirements | Test Data Management |
+| Test environment requirements | Base Configuration |
+| Test execution log / result | `evidence/test-run-*.json` |
+
 ### Base Configuration
+
 ```yaml
 base_url: "{{BASE_URL}}"  # 環境変数で注入
 timeout_ms: 10000
@@ -14,6 +51,7 @@ headers:
 ### Test Suites
 
 #### 1. Health & Readiness
+
 ```typescript
 describe('Health Endpoints', () => {
   test('GET /health → 200 + {status: "ok"}', async () => {
@@ -30,6 +68,7 @@ describe('Health Endpoints', () => {
 ```
 
 #### 2. CRUD Operations (per resource)
+
 ```typescript
 describe('{{RESOURCE}} CRUD', () => {
   let createdId: string;
@@ -74,6 +113,7 @@ describe('{{RESOURCE}} CRUD', () => {
 ```
 
 #### 3. Error Cases (共通)
+
 ```typescript
 describe('Error Handling', () => {
   const errorCases = [
@@ -105,6 +145,7 @@ describe('Error Handling', () => {
 ```
 
 #### 4. Contract Testing (Consumer-Driven)
+
 ```typescript
 // Pact を使用したコントラクトテスト
 import { PactV3, MatchersV3 } from '@pact-foundation/pact';
@@ -156,7 +197,7 @@ describe('Contract: {{RESOURCE}} API', () => {
 ## Test Data Management
 
 | 戦略 | 用途 | 実装 |
-|---|---|---|
+| --- | --- | --- |
 | **Fixtures** | 静的テストデータ | `tests/fixtures/*.json` |
 | **Factories** | 動的生成・バリエーション | `tests/factories/*.ts` (Factory.ts) |
 | **Builders** | 複雑なオブジェクト構築 | `tests/builders/*.ts` |
@@ -184,13 +225,13 @@ const inactive = createUser({ status: 'inactive' });
 
 ```yaml
 # .github/workflows/integration-test.yml
+
 name: Integration Tests
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
-
 jobs:
   integration:
     runs-on: ubuntu-latest
@@ -241,12 +282,24 @@ jobs:
 
 ---
 
+## Traceability
+
+| Scenario | Req | ASVS | 800-53 | CC | Technique | Tier | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| {{SCENARIO_ID}} | REQ-{{ID}} | {{v5.0.0-V0.0.0}} | {{SP800-53r5.2/XX-X}} | {{ATE_FUN.1}} | 5.2.6 | T1 | ⬜ TODO |
+
+ASVS / 800-53 / CC の各列は該当なしを `-` とする。空欄は禁止。
+
+---
+
 ## エビデンス出力例
 
 ```json
 {
   "spec_hash": "sha256:a1b2c3d4...",
   "timestamp": "2026-10-08T21:30:00+09:00",
+  "document_type": "test-execution-log",
+  "profile": "{{PROFILE_NAME}}",
   "environment": {
     "os": "linux",
     "runtime": "node",
@@ -265,6 +318,19 @@ jobs:
     },
     "mutation_score": 78.4
   },
+  "techniques": [
+    { "id": "equivalence-partitioning", "ref": "29119-4 5.2.1" },
+    { "id": "decision-table-testing", "ref": "29119-4 5.2.6" }
+  ],
+  "risk_items": [
+    { "id": "R-001", "tier": "T1", "asvs": ["v5.0.0-V8.1.1"] }
+  ],
+  "assurance": {
+    "level": "A2",
+    "cc_components": ["ATE_FUN.1", "ATE_COV.2"],
+    "independent_execution": false
+  },
+  "conformance": "tailored",
   "signature": "MEUCIQD..."
 }
 ```

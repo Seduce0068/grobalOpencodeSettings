@@ -10,10 +10,10 @@ description: レビュープロセス全体を管理する。PR作成→自動�
 
 ### Stage 1: 自動検証（ゲート: 必須通過 / 敵対的判定）
 | チェック | ツール | 失敗時アクション | 敵対的閾値 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Lint | `npm run lint` / `cargo clippy` / `ruff` | **Auto-Reject** | warning 0 件必須 |
 | 型検査 | `tsc --noEmit` / `mypy` / `cargo check` | **Auto-Reject** | error 0 件必須 |
-| テスト | `npm test` / `pytest` / `cargo test` | **Auto-Reject** | カバレッジ ≥ 80%、flaky 0 |
+| テスト | `npm test` / `pytest` / `cargo test` | **Auto-Reject** | リスク階層閾値 (`references/test/profiles/*.yaml` の `risk_tiers`)、flaky 0 |
 | ビルド | `npm run build` / `cargo build --release` | **Auto-Reject** | artifact 生成必須 |
 | 依存脆弱性 | `npm audit` / `cargo audit` / `pip-audit` | **Auto-Reject(High+)** | CVE High/Critical 0 |
 | 秘密検出 | `gitleaks` / `trufflehog` | **Auto-Reject** | 真陽性 0 件 |
@@ -189,7 +189,7 @@ opencode run "/review-flow gate-check 123 --json" > gate-result.json
 
 ### 自動拒否トリガー
 | 条件 | アクション | 理由 |
-|---|---|---|
+| --- | --- | --- |
 | Stage 1 で 1 件でも失敗 | **即座に Reject** | 品質基準未達 |
 | Stage 2 で Critical/High 指摘 | **即座に Reject** | 設計/セキュリティ欠陥 |
 | Stage 2 期限超過（24h） | **Auto-Reject** | レビュー遅延=品質リスク |
@@ -206,6 +206,33 @@ opencode run "/review-flow gate-check 123 --json" > gate-result.json
 ### 敵対的テスト生成（オプション）
 - 変更コードに対する **境界値・異常系・プロパティベーステスト** を自動生成提案
 - 既存テストの **ミューテーションテスト** 実行（生存ミュータント = テスト不足 = Reject）
+- 採用する技法は ISO/IEC/IEEE 29119-4 の節番号を明記する
+  (仕様ベース 5.2.1-5.2.12、構造ベース 5.3.1-5.3.7、経験ベース 5.4.1)
+
+## 静的試験と動的試験の分離
+
+| 種別 | 担当 | 根拠 |
+| --- | --- | --- |
+| 静的試験 (レビュー・検査・静的解析) | `review-flow` / `cross-review` | ISO/IEC 20246 |
+| 動的試験 (実行して確かめる) | `test-spec` スキル | ISO/IEC/IEEE 29119-2/-3/-4 |
+
+ISO/IEC/IEEE 29119 シリーズに静的試験は含まれない。
+ISO/IEC 29119-2:2021 の TP5 は test strategy が静的試験も含み得ると
+注記するが，シリーズ自体は動的試験を対象とする。
+`review-flow` が生成するレビュー指摘は 20246 の枠組みで表現する。
+
+## 開発側の安全実践 (NIST SP 800-218 SSDF)
+
+`review-flow` は動的試験とは別に，SSDF の実践が反映されているかを
+Stage 1 の観点として確認できる。判定は shall/should の引用で行い，
+適合の宣言はしない。
+
+| 実践 | 観点 |
+| --- | --- |
+| PO (準備) | 保護要件が仕様に反映されているか |
+| PS (設計) | 脅威モデルがテスト基準に落ちているか |
+| PW (実装) | 静的解析とテストがパイプラインに統合されているか |
+| RV (リリース) | 脆弱性情報が修正と追跡に結びついているか |
 
 ## メトリクス蓄積（SQLite / `~/.local/share/opencode/review-metrics.db`）
 
@@ -278,7 +305,7 @@ FROM reviews GROUP BY author;
 ## 実行コマンド
 
 | コマンド | 説明 |
-|---|---|
+| --- | --- |
 | `/review-flow start [pr-number]` | パイプライン開始（Stage 1→2→3） |
 | `/review-flow gate-check [pr-number] [--json] [--base main]` | Stage 1 のみ実行（CI用） |
 | `/review-flow status [pr-number]` | 進捗・ゲート状況・メトリクス表示 |

@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Seduce0068/grobalOpencodeSettings/schemas/test-evidence.schema.json",
+  "title": "Test Evidence",
+  "description": "test-spec スキルの実行エビデンス。ISO/IEC/IEEE 29119-3:2021 の情報項目 (test execution log / test result / test completion report) に対応させる。",
+  "type": "object",
+  "required": ["spec_hash", "timestamp", "environment", "results", "signature"],
+  "properties": {
+    "spec_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "現行テスト仕様のハッシュ。仕様変更後の再実行を検知する。"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "実行日時 (RFC 3339)。"
+    },
+    "environment": {
+      "type": "object",
+      "required": ["os", "runtime", "versions"],
+      "properties": {
+        "os": { "type": "string" },
+        "runtime": { "type": "string" },
+        "versions": { "type": "object" }
+      }
+    },
+    "results": {
+      "type": "object",
+      "required": [
+        "passed",
+        "failed",
+        "skipped",
+        "duration_ms",
+        "coverage",
+        "mutation_score"
+      ],
+      "properties": {
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "skipped": { "type": "integer" },
+        "duration_ms": { "type": "integer" },
+        "coverage": {
+          "type": "object",
+          "properties": {
+            "lines": { "type": "number" },
+            "branches": { "type": "number" },
+            "functions": { "type": "number" },
+            "statements": { "type": "number" }
+          }
+        },
+        "mutation_score": { "type": "number" }
+      }
+    },
+    "signature": {
+      "type": "string",
+      "description": "エビデンスの署名 (GPG / SSH / age)。空署名は不可。"
+    },
+
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "test-execution-log",
+        "test-result",
+        "test-summary-report"
+      ],
+      "description": "29119-3:2021 のどの情報項目に該当するか。"
+    },
+    "profile": {
+      "type": "string",
+      "description": "適用した検証プロファイル名 (references/test/profiles/)。"
+    },
+    "test_basis_ref": {
+      "type": "object",
+      "description": "テストの根拠の参照。",
+      "properties": {
+        "spec_path": { "type": "string" },
+        "spec_hash": { "type": "string" },
+        "requirements": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "techniques": {
+      "type": "array",
+      "description": "適用した試験設計技法 (29119-4)。",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "ref": {
+            "type": "string",
+            "description": "29119-4 の節番号 (例: 5.2.3)。"
+          }
+        }
+      }
+    },
+    "coverage_measures": {
+      "type": "object",
+      "description": "29119-4:2021 Clause 6 のカバレッジ種別別の値。",
+      "properties": {
+        "equivalence_partition": { "type": "number" },
+        "boundary_value": { "type": "number" },
+        "statement": { "type": "number" },
+        "branch": { "type": "number" },
+        "decision": { "type": "number" },
+        "mcdc": { "type": "number" },
+        "data_flow": { "type": "number" },
+        "error_guessing": { "type": "number" }
+      }
+    },
+    "risk_items": {
+      "type": "array",
+      "description": "リスク項目と割り当てたティア。",
+      "items": {
+        "type": "object",
+        "required": ["id", "tier"],
+        "properties": {
+          "id": { "type": "string" },
+          "tier": { "type": "string", "enum": ["T1", "T2", "T3"] },
+          "description": { "type": "string" },
+          "asvs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "版付き ASVS 要件 ID (例: v5.0.0-V1.2.5)。"
+          },
+          "controls": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "SP 800-53 統制 ID (例: SP800-53r5.2/AC-3)。"
+          }
+        }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "description": "内部保証尺度。EAL の名称は使用しない。",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["A0", "A1", "A2", "A3", "A4", "A5"]
+        },
+        "cc_components": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "根拠となる CC 保証構成要素 (例: ATE_COV.2)。"
+        },
+        "independent_execution": {
+          "type": "boolean",
+          "description": "CI の実行主体が開発者以外か (ATE_IND.2 相当)。"
+        }
+      }
+    },
+    "control_coverage": {
+      "type": "object",
+      "description": "SP 800-53 の統制カバレッジ。対象外と未達を区別する。",
+      "properties": {
+        "release": { "type": "string" },
+        "baseline": { "type": "string" },
+        "covered": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "description": "統制 ID から実施したテスト ID への対応。"
+        },
+        "not_applicable": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "対象外とした統制と理由。"
+        },
+        "not_tested": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "対象範囲だが未実施の統制。"
+        }
+      }
+    },
+    "conformance": {
+      "type": "string",
+      "enum": ["tailored"],
+      "description": "適合の形態。full は使用しない。"
+    }
+  }
+}
