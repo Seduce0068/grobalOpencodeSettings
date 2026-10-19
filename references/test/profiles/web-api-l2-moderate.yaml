@@ -1,0 +1,69 @@
+# 検証プロファイル: web-api-l2-moderate
+#
+# これは「このプロジェクトが何を主張するか」の宣言である。
+# 外部への適合宣言 (ASVS 準拠 / EAL 取得 / SP 800-53 適合) ではない。
+profile: web-api-l2-moderate
+description: web と API に対する検証。ASVS L2 と SP 800-53 moderate ベースライン。
+
+basis:
+  iso29119:
+    mode: tailored
+    parts: ["29119-2:2021", "29119-3:2021", "29119-4:2021"]
+  asvs:
+    version: "5.0.0"
+    level: 2
+    scope:
+      - V1
+      - V2
+      - V3
+      - V4
+      - V6
+      - V7
+      - V8
+      - V12
+      - V13
+      - V16
+  nist800_53:
+    release: "5.2.0"
+    baseline: moderate
+    focus: [AC, IA, SC, SI, AU, CP, RA, SA]
+  cc_assurance:
+    - ATE_FUN.1
+    - ATE_COV.2
+    - ALC_CMS.3
+
+techniques:
+  - {id: equivalence-partitioning, ref: "29119-4 5.2.1"}
+  - {id: boundary-value-analysis, ref: "29119-4 5.2.3"}
+  - {id: decision-table-testing, ref: "29119-4 5.2.6"}
+  - {id: state-transition-testing, ref: "29119-4 5.2.8"}
+  - {id: scenario-testing, ref: "29119-4 5.2.9"}
+  - {id: requirements-based-testing, ref: "29119-4 5.2.12"}
+  - {id: error-guessing, ref: "29119-4 5.4.1"}
+
+risk_tiers:
+  T1:
+    condition: 認証・認可・(金銭・個人情報) 取扱いに関わる
+    coverage: {unit: 0.90, integration: 0.80}
+    required_techniques:
+      - equivalence-partitioning
+      - boundary-value-analysis
+      - decision-table-testing
+      - state-transition-testing
+      - error-guessing
+  T2:
+    condition: 主要業務ロジック
+    coverage: {unit: 0.80, integration: 0.60}
+    required_techniques:
+      - equivalence-partitioning
+      - boundary-value-analysis
+  T3:
+    condition: 補助・周辺機能
+    coverage: {unit: 0.60, integration: 0.40}
+    required_techniques:
+      - equivalence-partitioning
+
+gates:
+  coverage: {unit: 0.80, integration: 0.60, e2e: 1.00}
+  flaky_runs: 10
+  assurance_target: A2

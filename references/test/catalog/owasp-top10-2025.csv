@@ -1,0 +1,11 @@
+ref_id,risk_id,title
+2025-A01,A01,Broken Access Control
+2025-A02,A02,Security Misconfiguration
+2025-A03,A03,Software Supply Chain Failures
+2025-A04,A04,Cryptographic Failures
+2025-A05,A05,Injection
+2025-A06,A06,Insecure Design
+2025-A07,A07,Authentication Failures
+2025-A08,A08,Software or Data Integrity Failures
+2025-A09,A09,Security Logging & Alerting Failures
+2025-A10,A10,Mishandling of Exceptional Conditions

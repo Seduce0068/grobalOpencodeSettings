@@ -1,0 +1,70 @@
+clause,component_id,title
+10.2.4,ADV_ARC.1,Security architecture description
+10.3.4,ADV_FSP.1,Basic functional specification
+10.4.4,ADV_IMP.1,Implementation representation of the TSF
+10.5.4,ADV_INT.1,Well-structured subset of TSF internals
+10.6.4,ADV_SPM.1,Formal TOE security policy model
+10.7.4,ADV_TDS.1,Basic design
+10.3.5,ADV_FSP.2,Security-enforcing functional specification
+10.4.5,ADV_IMP.2,Complete mapping of the implementation representation of the TSF
+10.5.5,ADV_INT.2,Well-structured internals
+10.7.5,ADV_TDS.2,Architectural design
+10.3.6,ADV_FSP.3,Functional specification with complete summary
+10.5.6,ADV_INT.3,Minimally complex internals
+10.7.6,ADV_TDS.3,Basic modular design
+10.3.7,ADV_FSP.4,Complete functional specification
+10.7.7,ADV_TDS.4,Semiformal modular design
+10.7.8,ADV_TDS.5,Complete semiformal modular design
+11.2.4,AGD_OPE.1,Operational user guidance
+11.3.4,AGD_PRE.1,Preparative procedures
+12.2.4,ALC_CMC.1,Labelling of the TOE
+12.3.4,ALC_CMS.1,TOE CM coverage
+12.4.4,ALC_DEL.1,Delivery procedures
+12.5.4,ALC_DVS.1,Identification of security controls
+12.6.4,ALC_FLR.1,Basic flaw remediation
+12.7.4,ALC_LCD.1,Developer defined life-cycle processes
+12.8.4,ALC_TDA.1,Uniquely identifying implementation representation
+12.9.4,ALC_TAT.1,Well-defined development tools
+12.2.5,ALC_CMC.2,Use of the CM system
+12.3.5,ALC_CMS.2,Parts of the TOE CM coverage
+12.5.5,ALC_DVS.2,Sufficiency of security controls
+12.6.5,ALC_FLR.2,Flaw reporting procedures
+12.7.5,ALC_LCD.2,Measurable life-cycle model
+12.8.5,ALC_TDA.2,Matching CMS scope of implementation representation
+12.9.5,ALC_TAT.2,Compliance with implementation standards
+12.2.6,ALC_CMC.3,Authorization controls
+12.3.6,ALC_CMS.3,Implementation representation CM coverage
+12.6.6,ALC_FLR.3,Systematic flaw remediation
+12.8.6,ALC_TDA.3,Regenerate TOE with well-defined development tools
+12.9.6,ALC_TAT.3,Compliance with implementation standards - all parts
+12.2.7,ALC_CMC.4,"Production support, acceptance procedures and automation"
+12.3.7,ALC_CMS.4,Problem tracking CM coverage
+12.2.8,ALC_CMC.5,Advanced support
+12.3.8,ALC_CMS.5,Development tools CM coverage
+9.2.2,ASE_INT.1,ST introduction
+9.3.2,ASE_CCL.1,Conformance claims
+9.4.2,ASE_SPD.1,Security problem definition
+9.5.3,ASE_OBJ.1,Security objectives for the operational environment
+9.6.2,ASE_ECD.1,Extended components definition
+9.7.3,ASE_REQ.1,Direct rationale security requirements
+9.8.3,ASE_TSS.1,TOE summary specification
+9.5.4,ASE_OBJ.2,Security objectives
+9.7.4,ASE_REQ.2,Derived security requirements
+9.8.4,ASE_TSS.2,TOE summary specification with architectural design summary
+13.2.4,ATE_COV.1,Evidence of coverage
+13.3.4,ATE_DPT.1,Testing: basic design
+13.4.4,ATE_FUN.1,Functional testing
+13.5.4,ATE_IND.1,Independent testing - conformance
+13.2.5,ATE_COV.2,Analysis of coverage
+13.3.5,ATE_DPT.2,Testing: security enforcing modules
+13.4.5,ATE_FUN.2,Ordered functional testing
+13.5.5,ATE_IND.2,Independent testing - sample
+13.2.6,ATE_COV.3,Rigorous analysis of coverage
+13.3.6,ATE_DPT.3,Testing: modular design
+13.5.6,ATE_IND.3,Independent testing - complete
+13.3.7,ATE_DPT.4,Testing: implementation representation
+14.3.3,AVA_VAN.1,Vulnerability survey
+14.3.4,AVA_VAN.2,Vulnerability analysis
+14.3.5,AVA_VAN.3,Focused vulnerability analysis
+14.3.6,AVA_VAN.4,Methodical vulnerability analysis
+14.3.7,AVA_VAN.5,Advanced methodical vulnerability analysis

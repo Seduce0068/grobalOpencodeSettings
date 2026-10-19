@@ -1,0 +1,1197 @@
+control_id,family,title
+AC-1,AC,Policy and Procedures
+AC-10,AC,Concurrent Session Control
+AC-11,AC,Device Lock
+AC-11.1,AC,Pattern-hiding Displays
+AC-12,AC,Session Termination
+AC-12.1,AC,User-initiated Logouts
+AC-12.2,AC,Termination Message
+AC-12.3,AC,Timeout Warning Message
+AC-13,AC,Supervision and Review — Access Control
+AC-14,AC,Permitted Actions Without Identification or Authentication
+AC-14.1,AC,Necessary Uses
+AC-15,AC,Automated Marking
+AC-16,AC,Security and Privacy Attributes
+AC-16.1,AC,Dynamic Attribute Association
+AC-16.10,AC,Attribute Configuration by Authorized Individuals
+AC-16.2,AC,Attribute Value Changes by Authorized Individuals
+AC-16.3,AC,Maintenance of Attribute Associations by System
+AC-16.4,AC,Association of Attributes by Authorized Individuals
+AC-16.5,AC,Attribute Displays on Objects to Be Output
+AC-16.6,AC,Maintenance of Attribute Association
+AC-16.7,AC,Consistent Attribute Interpretation
+AC-16.8,AC,Association Techniques and Technologies
+AC-16.9,AC,Attribute Reassignment — Regrading Mechanisms
+AC-17,AC,Remote Access
+AC-17.1,AC,Monitoring and Control
+AC-17.10,AC,Authenticate Remote Commands
+AC-17.2,AC,Protection of Confidentiality and Integrity Using Encryption
+AC-17.3,AC,Managed Access Control Points
+AC-17.4,AC,Privileged Commands and Access
+AC-17.5,AC,Monitoring for Unauthorized Connections
+AC-17.6,AC,Protection of Mechanism Information
+AC-17.7,AC,Additional Protection for Security Function Access
+AC-17.8,AC,Disable Nonsecure Network Protocols
+AC-17.9,AC,Disconnect or Disable Access
+AC-18,AC,Wireless Access
+AC-18.1,AC,Authentication and Encryption
+AC-18.2,AC,Monitoring Unauthorized Connections
+AC-18.3,AC,Disable Wireless Networking
+AC-18.4,AC,Restrict Configurations by Users
+AC-18.5,AC,Antennas and Transmission Power Levels
+AC-19,AC,Access Control for Mobile Devices
+AC-19.1,AC,Use of Writable and Portable Storage Devices
+AC-19.2,AC,Use of Personally Owned Portable Storage Devices
+AC-19.3,AC,Use of Portable Storage Devices with No Identifiable Owner
+AC-19.4,AC,Restrictions for Classified Information
+AC-19.5,AC,Full Device or Container-based Encryption
+AC-2,AC,Account Management
+AC-2.1,AC,Automated System Account Management
+AC-2.10,AC,Shared and Group Account Credential Change
+AC-2.11,AC,Usage Conditions
+AC-2.12,AC,Account Monitoring for Atypical Usage
+AC-2.13,AC,Disable Accounts for High-risk Individuals
+AC-2.2,AC,Automated Temporary and Emergency Account Management
+AC-2.3,AC,Disable Accounts
+AC-2.4,AC,Automated Audit Actions
+AC-2.5,AC,Inactivity Logout
+AC-2.6,AC,Dynamic Privilege Management
+AC-2.7,AC,Privileged User Accounts
+AC-2.8,AC,Dynamic Account Management
+AC-2.9,AC,Restrictions on Use of Shared and Group Accounts
+AC-20,AC,Use of External Systems
+AC-20.1,AC,Limits on Authorized Use
+AC-20.2,AC,Portable Storage Devices — Restricted Use
+AC-20.3,AC,Non-organizationally Owned Systems — Restricted Use
+AC-20.4,AC,Network Accessible Storage Devices — Prohibited Use
+AC-20.5,AC,Portable Storage Devices — Prohibited Use
+AC-21,AC,Information Sharing
+AC-21.1,AC,Automated Decision Support
+AC-21.2,AC,Information Search and Retrieval
+AC-22,AC,Publicly Accessible Content
+AC-23,AC,Data Mining Protection
+AC-24,AC,Access Control Decisions
+AC-24.1,AC,Transmit Access Authorization Information
+AC-24.2,AC,No User or Process Identity
+AC-25,AC,Reference Monitor
+AC-3,AC,Access Enforcement
+AC-3.1,AC,Restricted Access to Privileged Functions
+AC-3.10,AC,Audited Override of Access Control Mechanisms
+AC-3.11,AC,Restrict Access to Specific Information Types
+AC-3.12,AC,Assert and Enforce Application Access
+AC-3.13,AC,Attribute-based Access Control
+AC-3.14,AC,Individual Access
+AC-3.15,AC,Discretionary and Mandatory Access Control
+AC-3.2,AC,Dual Authorization
+AC-3.3,AC,Mandatory Access Control
+AC-3.4,AC,Discretionary Access Control
+AC-3.5,AC,Security-relevant Information
+AC-3.6,AC,Protection of User and System Information
+AC-3.7,AC,Role-based Access Control
+AC-3.8,AC,Revocation of Access Authorizations
+AC-3.9,AC,Controlled Release
+AC-4,AC,Information Flow Enforcement
+AC-4.1,AC,Object Security and Privacy Attributes
+AC-4.10,AC,Enable and Disable Security or Privacy Policy Filters
+AC-4.11,AC,Configuration of Security or Privacy Policy Filters
+AC-4.12,AC,Data Type Identifiers
+AC-4.13,AC,Decomposition into Policy-relevant Subcomponents
+AC-4.14,AC,Security or Privacy Policy Filter Constraints
+AC-4.15,AC,Detection of Unsanctioned Information
+AC-4.16,AC,Information Transfers on Interconnected Systems
+AC-4.17,AC,Domain Authentication
+AC-4.18,AC,Security Attribute Binding
+AC-4.19,AC,Validation of Metadata
+AC-4.2,AC,Processing Domains
+AC-4.20,AC,Approved Solutions
+AC-4.21,AC,Physical or Logical Separation of Information Flows
+AC-4.22,AC,Access Only
+AC-4.23,AC,Modify Non-releasable Information
+AC-4.24,AC,Internal Normalized Format
+AC-4.25,AC,Data Sanitization
+AC-4.26,AC,Audit Filtering Actions
+AC-4.27,AC,Redundant/Independent Filtering Mechanisms
+AC-4.28,AC,Linear Filter Pipelines
+AC-4.29,AC,Filter Orchestration Engines
+AC-4.3,AC,Dynamic Information Flow Control
+AC-4.30,AC,Filter Mechanisms Using Multiple Processes
+AC-4.31,AC,Failed Content Transfer Prevention
+AC-4.32,AC,Process Requirements for Information Transfer
+AC-4.4,AC,Flow Control of Encrypted Information
+AC-4.5,AC,Embedded Data Types
+AC-4.6,AC,Metadata
+AC-4.7,AC,One-way Flow Mechanisms
+AC-4.8,AC,Security and Privacy Policy Filters
+AC-4.9,AC,Human Reviews
+AC-5,AC,Separation of Duties
+AC-6,AC,Least Privilege
+AC-6.1,AC,Authorize Access to Security Functions
+AC-6.10,AC,Prohibit Non-privileged Users from Executing Privileged Functions
+AC-6.2,AC,Non-privileged Access for Nonsecurity Functions
+AC-6.3,AC,Network Access to Privileged Commands
+AC-6.4,AC,Separate Processing Domains
+AC-6.5,AC,Privileged Accounts
+AC-6.6,AC,Privileged Access by Non-organizational Users
+AC-6.7,AC,Review of User Privileges
+AC-6.8,AC,Privilege Levels for Code Execution
+AC-6.9,AC,Log Use of Privileged Functions
+AC-7,AC,Unsuccessful Logon Attempts
+AC-7.1,AC,Automatic Account Lock
+AC-7.2,AC,Purge or Wipe Mobile Device
+AC-7.3,AC,Biometric Attempt Limiting
+AC-7.4,AC,Use of Alternate Authentication Factor
+AC-8,AC,System Use Notification
+AC-9,AC,Previous Logon Notification
+AC-9.1,AC,Unsuccessful Logons
+AC-9.2,AC,Successful and Unsuccessful Logons
+AC-9.3,AC,Notification of Account Changes
+AC-9.4,AC,Additional Logon Information
+AT-1,AT,Policy and Procedures
+AT-2,AT,Literacy Training and Awareness
+AT-2.1,AT,Practical Exercises
+AT-2.2,AT,Insider Threat
+AT-2.3,AT,Social Engineering and Mining
+AT-2.4,AT,Suspicious Communications and Anomalous System Behavior
+AT-2.5,AT,Advanced Persistent Threat
+AT-2.6,AT,Cyber Threat Environment
+AT-3,AT,Role-based Training
+AT-3.1,AT,Environmental Controls
+AT-3.2,AT,Physical Security Controls
+AT-3.3,AT,Practical Exercises
+AT-3.4,AT,Suspicious Communications and Anomalous System Behavior
+AT-3.5,AT,Processing Personally Identifiable Information
+AT-4,AT,Training Records
+AT-5,AT,Contacts with Security Groups and Associations
+AT-6,AT,Training Feedback
+AU-1,AU,Policy and Procedures
+AU-10,AU,Non-repudiation
+AU-10.1,AU,Association of Identities
+AU-10.2,AU,Validate Binding of Information Producer Identity
+AU-10.3,AU,Chain of Custody
+AU-10.4,AU,Validate Binding of Information Reviewer Identity
+AU-10.5,AU,Digital Signatures
+AU-11,AU,Audit Record Retention
+AU-11.1,AU,Long-term Retrieval Capability
+AU-12,AU,Audit Record Generation
+AU-12.1,AU,System-wide and Time-correlated Audit Trail
+AU-12.2,AU,Standardized Formats
+AU-12.3,AU,Changes by Authorized Individuals
+AU-12.4,AU,Query Parameter Audits of Personally Identifiable Information
+AU-13,AU,Monitoring for Information Disclosure
+AU-13.1,AU,Use of Automated Tools
+AU-13.2,AU,Review of Monitored Sites
+AU-13.3,AU,Unauthorized Replication of Information
+AU-14,AU,Session Audit
+AU-14.1,AU,System Start-up
+AU-14.2,AU,Capture and Record Content
+AU-14.3,AU,Remote Viewing and Listening
+AU-15,AU,Alternate Audit Logging Capability
+AU-16,AU,Cross-organizational Audit Logging
+AU-16.1,AU,Identity Preservation
+AU-16.2,AU,Sharing of Audit Information
+AU-16.3,AU,Disassociability
+AU-2,AU,Event Logging
+AU-2.1,AU,Compilation of Audit Records from Multiple Sources
+AU-2.2,AU,Selection of Audit Events by Component
+AU-2.3,AU,Reviews and Updates
+AU-2.4,AU,Privileged Functions
+AU-3,AU,Content of Audit Records
+AU-3.1,AU,Additional Audit Information
+AU-3.2,AU,Centralized Management of Planned Audit Record Content
+AU-3.3,AU,Limit Personally Identifiable Information Elements
+AU-4,AU,Audit Log Storage Capacity
+AU-4.1,AU,Transfer to Alternate Storage
+AU-5,AU,Response to Audit Logging Process Failures
+AU-5.1,AU,Storage Capacity Warning
+AU-5.2,AU,Real-time Alerts
+AU-5.3,AU,Configurable Traffic Volume Thresholds
+AU-5.4,AU,Shutdown on Failure
+AU-5.5,AU,Alternate Audit Logging Capability
+AU-6,AU,"Audit Record Review, Analysis, and Reporting"
+AU-6.1,AU,Automated Process Integration
+AU-6.10,AU,Audit Level Adjustment
+AU-6.2,AU,Automated Security Alerts
+AU-6.3,AU,Correlate Audit Record Repositories
+AU-6.4,AU,Central Review and Analysis
+AU-6.5,AU,Integrated Analysis of Audit Records
+AU-6.6,AU,Correlation with Physical Monitoring
+AU-6.7,AU,Permitted Actions
+AU-6.8,AU,Full Text Analysis of Privileged Commands
+AU-6.9,AU,Correlation with Information from Nontechnical Sources
+AU-7,AU,Audit Record Reduction and Report Generation
+AU-7.1,AU,Automatic Processing
+AU-7.2,AU,Automatic Sort and Search
+AU-8,AU,Time Stamps
+AU-8.1,AU,Synchronization with Authoritative Time Source
+AU-8.2,AU,Secondary Authoritative Time Source
+AU-9,AU,Protection of Audit Information
+AU-9.1,AU,Hardware Write-once Media
+AU-9.2,AU,Store on Separate Physical Systems or Components
+AU-9.3,AU,Cryptographic Protection
+AU-9.4,AU,Access by Subset of Privileged Users
+AU-9.5,AU,Dual Authorization
+AU-9.6,AU,Read-only Access
+AU-9.7,AU,Store on Component with Different Operating System
+CA-1,CA,Policy and Procedures
+CA-2,CA,Control Assessments
+CA-2.1,CA,Independent Assessors
+CA-2.2,CA,Specialized Assessments
+CA-2.3,CA,Leveraging Results from External Organizations
+CA-3,CA,Information Exchange
+CA-3.1,CA,Unclassified National Security System Connections
+CA-3.2,CA,Classified National Security System Connections
+CA-3.3,CA,Unclassified Non-national Security System Connections
+CA-3.4,CA,Connections to Public Networks
+CA-3.5,CA,Restrictions on External System Connections
+CA-3.6,CA,Transfer Authorizations
+CA-3.7,CA,Transitive Information Exchanges
+CA-4,CA,Security Certification
+CA-5,CA,Plan of Action and Milestones
+CA-5.1,CA,Automation Support for Accuracy and Currency
+CA-6,CA,Authorization
+CA-6.1,CA,Joint Authorization — Intra-organization
+CA-6.2,CA,Joint Authorization — Inter-organization
+CA-7,CA,Continuous Monitoring
+CA-7.1,CA,Independent Assessment
+CA-7.2,CA,Types of Assessments
+CA-7.3,CA,Trend Analyses
+CA-7.4,CA,Risk Monitoring
+CA-7.5,CA,Consistency Analysis
+CA-7.6,CA,Automation Support for Monitoring
+CA-8,CA,Penetration Testing
+CA-8.1,CA,Independent Penetration Testing Agent or Team
+CA-8.2,CA,Red Team Exercises
+CA-8.3,CA,Facility Penetration Testing
+CA-9,CA,Internal System Connections
+CA-9.1,CA,Compliance Checks
+CM-1,CM,Policy and Procedures
+CM-10,CM,Software Usage Restrictions
+CM-10.1,CM,Open-source Software
+CM-11,CM,User-installed Software
+CM-11.1,CM,Alerts for Unauthorized Installations
+CM-11.2,CM,Software Installation with Privileged Status
+CM-11.3,CM,Automated Enforcement and Monitoring
+CM-12,CM,Information Location
+CM-12.1,CM,Automated Tools to Support Information Location
+CM-13,CM,Data Action Mapping
+CM-14,CM,Signed Components
+CM-2,CM,Baseline Configuration
+CM-2.1,CM,Reviews and Updates
+CM-2.2,CM,Automation Support for Accuracy and Currency
+CM-2.3,CM,Retention of Previous Configurations
+CM-2.4,CM,Unauthorized Software
+CM-2.5,CM,Authorized Software
+CM-2.6,CM,Development and Test Environments
+CM-2.7,CM,Configure Systems and Components for High-risk Areas
+CM-3,CM,Configuration Change Control
+CM-3.1,CM,"Automated Documentation, Notification, and Prohibition of Changes"
+CM-3.2,CM,"Testing, Validation, and Documentation of Changes"
+CM-3.3,CM,Automated Change Implementation
+CM-3.4,CM,Security and Privacy Representatives
+CM-3.5,CM,Automated Security Response
+CM-3.6,CM,Cryptography Management
+CM-3.7,CM,Review System Changes
+CM-3.8,CM,Prevent or Restrict Configuration Changes
+CM-4,CM,Impact Analyses
+CM-4.1,CM,Separate Test Environments
+CM-4.2,CM,Verification of Controls
+CM-5,CM,Access Restrictions for Change
+CM-5.1,CM,Automated Access Enforcement and Audit Records
+CM-5.2,CM,Review System Changes
+CM-5.3,CM,Signed Components
+CM-5.4,CM,Dual Authorization
+CM-5.5,CM,Privilege Limitation for Production and Operation
+CM-5.6,CM,Limit Library Privileges
+CM-5.7,CM,Automatic Implementation of Security Safeguards
+CM-6,CM,Configuration Settings
+CM-6.1,CM,"Automated Management, Application, and Verification"
+CM-6.2,CM,Respond to Unauthorized Changes
+CM-6.3,CM,Unauthorized Change Detection
+CM-6.4,CM,Conformance Demonstration
+CM-7,CM,Least Functionality
+CM-7.1,CM,Periodic Review
+CM-7.2,CM,Prevent Program Execution
+CM-7.3,CM,Registration Compliance
+CM-7.4,CM,Unauthorized Software — Deny-by-exception
+CM-7.5,CM,Authorized Software — Allow-by-exception
+CM-7.6,CM,Confined Environments with Limited Privileges
+CM-7.7,CM,Code Execution in Protected Environments
+CM-7.8,CM,Binary or Machine Executable Code
+CM-7.9,CM,Prohibiting The Use of Unauthorized Hardware
+CM-8,CM,System Component Inventory
+CM-8.1,CM,Updates During Installation and Removal
+CM-8.2,CM,Automated Maintenance
+CM-8.3,CM,Automated Unauthorized Component Detection
+CM-8.4,CM,Accountability Information
+CM-8.5,CM,No Duplicate Accounting of Components
+CM-8.6,CM,Assessed Configurations and Approved Deviations
+CM-8.7,CM,Centralized Repository
+CM-8.8,CM,Automated Location Tracking
+CM-8.9,CM,Assignment of Components to Systems
+CM-9,CM,Configuration Management Plan
+CM-9.1,CM,Assignment of Responsibility
+CP-1,CP,Policy and Procedures
+CP-10,CP,System Recovery and Reconstitution
+CP-10.1,CP,Contingency Plan Testing
+CP-10.2,CP,Transaction Recovery
+CP-10.3,CP,Compensating Security Controls
+CP-10.4,CP,Restore Within Time Period
+CP-10.5,CP,Failover Capability
+CP-10.6,CP,Component Protection
+CP-11,CP,Alternate Communications Protocols
+CP-12,CP,Safe Mode
+CP-13,CP,Alternative Security Mechanisms
+CP-2,CP,Contingency Plan
+CP-2.1,CP,Coordinate with Related Plans
+CP-2.2,CP,Capacity Planning
+CP-2.3,CP,Resume Mission and Business Functions
+CP-2.4,CP,Resume All Mission and Business Functions
+CP-2.5,CP,Continue Mission and Business Functions
+CP-2.6,CP,Alternate Processing and Storage Sites
+CP-2.7,CP,Coordinate with External Service Providers
+CP-2.8,CP,Identify Critical Assets
+CP-3,CP,Contingency Training
+CP-3.1,CP,Simulated Events
+CP-3.2,CP,Mechanisms Used in Training Environments
+CP-4,CP,Contingency Plan Testing
+CP-4.1,CP,Coordinate with Related Plans
+CP-4.2,CP,Alternate Processing Site
+CP-4.3,CP,Automated Testing
+CP-4.4,CP,Full Recovery and Reconstitution
+CP-4.5,CP,Self-challenge
+CP-5,CP,Contingency Plan Update
+CP-6,CP,Alternate Storage Site
+CP-6.1,CP,Separation from Primary Site
+CP-6.2,CP,Recovery Time and Recovery Point Objectives
+CP-6.3,CP,Accessibility
+CP-7,CP,Alternate Processing Site
+CP-7.1,CP,Separation from Primary Site
+CP-7.2,CP,Accessibility
+CP-7.3,CP,Priority of Service
+CP-7.4,CP,Preparation for Use
+CP-7.5,CP,Equivalent Information Security Safeguards
+CP-7.6,CP,Inability to Return to Primary Site
+CP-8,CP,Telecommunications Services
+CP-8.1,CP,Priority of Service Provisions
+CP-8.2,CP,Single Points of Failure
+CP-8.3,CP,Separation of Primary and Alternate Providers
+CP-8.4,CP,Provider Contingency Plan
+CP-8.5,CP,Alternate Telecommunication Service Testing
+CP-9,CP,System Backup
+CP-9.1,CP,Testing for Reliability and Integrity
+CP-9.2,CP,Test Restoration Using Sampling
+CP-9.3,CP,Separate Storage for Critical Information
+CP-9.4,CP,Protection from Unauthorized Modification
+CP-9.5,CP,Transfer to Alternate Storage Site
+CP-9.6,CP,Redundant Secondary System
+CP-9.7,CP,Dual Authorization for Deletion or Destruction
+CP-9.8,CP,Cryptographic Protection
+IA-1,IA,Policy and Procedures
+IA-10,IA,Adaptive Authentication
+IA-11,IA,Re-authentication
+IA-12,IA,Identity Proofing
+IA-12.1,IA,Supervisor Authorization
+IA-12.2,IA,Identity Evidence
+IA-12.3,IA,Identity Evidence Validation and Verification
+IA-12.4,IA,In-person Validation and Verification
+IA-12.5,IA,Address Confirmation
+IA-12.6,IA,Accept Externally-proofed Identities
+IA-13,IA,Identity Providers and Authorization Servers
+IA-13.1,IA,Protection of Cryptographic Keys
+IA-13.2,IA,Verification of Identity Assertions and Access Tokens
+IA-13.3,IA,Token Management
+IA-2,IA,Identification and Authentication (Organizational Users)
+IA-2.1,IA,Multi-factor Authentication to Privileged Accounts
+IA-2.10,IA,Single Sign-on
+IA-2.11,IA,Remote Access — Separate Device
+IA-2.12,IA,Acceptance of PIV Credentials
+IA-2.13,IA,Out-of-band Authentication
+IA-2.2,IA,Multi-factor Authentication to Non-privileged Accounts
+IA-2.3,IA,Local Access to Privileged Accounts
+IA-2.4,IA,Local Access to Non-privileged Accounts
+IA-2.5,IA,Individual Authentication with Group Authentication
+IA-2.6,IA,Access to Accounts —separate Device
+IA-2.7,IA,Network Access to Non-privileged Accounts — Separate Device
+IA-2.8,IA,Access to Accounts — Replay Resistant
+IA-2.9,IA,Network Access to Non-privileged Accounts — Replay Resistant
+IA-3,IA,Device Identification and Authentication
+IA-3.1,IA,Cryptographic Bidirectional Authentication
+IA-3.2,IA,Cryptographic Bidirectional Network Authentication
+IA-3.3,IA,Dynamic Address Allocation
+IA-3.4,IA,Device Attestation
+IA-4,IA,Identifier Management
+IA-4.1,IA,Prohibit Account Identifiers as Public Identifiers
+IA-4.2,IA,Supervisor Authorization
+IA-4.3,IA,Multiple Forms of Certification
+IA-4.4,IA,Identify User Status
+IA-4.5,IA,Dynamic Management
+IA-4.6,IA,Cross-organization Management
+IA-4.7,IA,In-person Registration
+IA-4.8,IA,Pairwise Pseudonymous Identifiers
+IA-4.9,IA,Attribute Maintenance and Protection
+IA-5,IA,Authenticator Management
+IA-5.1,IA,Password-based Authentication
+IA-5.10,IA,Dynamic Credential Binding
+IA-5.11,IA,Hardware Token-based Authentication
+IA-5.12,IA,Biometric Authentication Performance
+IA-5.13,IA,Expiration of Cached Authenticators
+IA-5.14,IA,Managing Content of PKI Trust Stores
+IA-5.15,IA,GSA-approved Products and Services
+IA-5.16,IA,In-person or Trusted External Party Authenticator Issuance
+IA-5.17,IA,Presentation Attack Detection for Biometric Authenticators
+IA-5.18,IA,Password Managers
+IA-5.2,IA,Public Key-based Authentication
+IA-5.3,IA,In-person or Trusted External Party Registration
+IA-5.4,IA,Automated Support for Password Strength Determination
+IA-5.5,IA,Change Authenticators Prior to Delivery
+IA-5.6,IA,Protection of Authenticators
+IA-5.7,IA,No Embedded Unencrypted Static Authenticators
+IA-5.8,IA,Multiple System Accounts
+IA-5.9,IA,Federated Credential Management
+IA-6,IA,Authentication Feedback
+IA-7,IA,Cryptographic Module Authentication
+IA-8,IA,Identification and Authentication (Non-organizational Users)
+IA-8.1,IA,Acceptance of PIV Credentials from Other Agencies
+IA-8.2,IA,Acceptance of External Authenticators
+IA-8.3,IA,Use of FICAM-approved Products
+IA-8.4,IA,Use of Defined Profiles
+IA-8.5,IA,Acceptance of PIV-I Credentials
+IA-8.6,IA,Disassociability
+IA-9,IA,Service Identification and Authentication
+IA-9.1,IA,Information Exchange
+IA-9.2,IA,Transmission of Decisions
+IR-1,IR,Policy and Procedures
+IR-10,IR,Integrated Information Security Analysis Team
+IR-2,IR,Incident Response Training
+IR-2.1,IR,Simulated Events
+IR-2.2,IR,Automated Training Environments
+IR-2.3,IR,Breach
+IR-3,IR,Incident Response Testing
+IR-3.1,IR,Automated Testing
+IR-3.2,IR,Coordination with Related Plans
+IR-3.3,IR,Continuous Improvement
+IR-4,IR,Incident Handling
+IR-4.1,IR,Automated Incident Handling Processes
+IR-4.10,IR,Supply Chain Coordination
+IR-4.11,IR,Integrated Incident Response Team
+IR-4.12,IR,Malicious Code and Forensic Analysis
+IR-4.13,IR,Behavior Analysis
+IR-4.14,IR,Security Operations Center
+IR-4.15,IR,Public Relations and Reputation Repair
+IR-4.2,IR,Dynamic Reconfiguration
+IR-4.3,IR,Continuity of Operations
+IR-4.4,IR,Information Correlation
+IR-4.5,IR,Automatic Disabling of System
+IR-4.6,IR,Insider Threats
+IR-4.7,IR,Insider Threats — Intra-organization Coordination
+IR-4.8,IR,Correlation with External Organizations
+IR-4.9,IR,Dynamic Response Capability
+IR-5,IR,Incident Monitoring
+IR-5.1,IR,"Automated Tracking, Data Collection, and Analysis"
+IR-6,IR,Incident Reporting
+IR-6.1,IR,Automated Reporting
+IR-6.2,IR,Vulnerabilities Related to Incidents
+IR-6.3,IR,Supply Chain Coordination
+IR-7,IR,Incident Response Assistance
+IR-7.1,IR,Automation Support for Availability of Information and Support
+IR-7.2,IR,Coordination with External Providers
+IR-8,IR,Incident Response Plan
+IR-8.1,IR,Breaches
+IR-9,IR,Information Spillage Response
+IR-9.1,IR,Responsible Personnel
+IR-9.2,IR,Training
+IR-9.3,IR,Post-spill Operations
+IR-9.4,IR,Exposure to Unauthorized Personnel
+MA-1,MA,Policy and Procedures
+MA-2,MA,Controlled Maintenance
+MA-2.1,MA,Record Content
+MA-2.2,MA,Automated Maintenance Activities
+MA-3,MA,Maintenance Tools
+MA-3.1,MA,Inspect Tools
+MA-3.2,MA,Inspect Media
+MA-3.3,MA,Prevent Unauthorized Removal
+MA-3.4,MA,Restricted Tool Use
+MA-3.5,MA,Execution with Privilege
+MA-3.6,MA,Software Updates and Patches
+MA-4,MA,Nonlocal Maintenance
+MA-4.1,MA,Logging and Review
+MA-4.2,MA,Document Nonlocal Maintenance
+MA-4.3,MA,Comparable Security and Sanitization
+MA-4.4,MA,Authentication and Separation of Maintenance Sessions
+MA-4.5,MA,Approvals and Notifications
+MA-4.6,MA,Cryptographic Protection
+MA-4.7,MA,Disconnect Verification
+MA-5,MA,Maintenance Personnel
+MA-5.1,MA,Individuals Without Appropriate Access
+MA-5.2,MA,Security Clearances for Classified Systems
+MA-5.3,MA,Citizenship Requirements for Classified Systems
+MA-5.4,MA,Foreign Nationals
+MA-5.5,MA,Non-system Maintenance
+MA-6,MA,Timely Maintenance
+MA-6.1,MA,Preventive Maintenance
+MA-6.2,MA,Predictive Maintenance
+MA-6.3,MA,Automated Support for Predictive Maintenance
+MA-7,MA,Field Maintenance
+MP-1,MP,Policy and Procedures
+MP-2,MP,Media Access
+MP-2.1,MP,Automated Restricted Access
+MP-2.2,MP,Cryptographic Protection
+MP-3,MP,Media Marking
+MP-4,MP,Media Storage
+MP-4.1,MP,Cryptographic Protection
+MP-4.2,MP,Automated Restricted Access
+MP-5,MP,Media Transport
+MP-5.1,MP,Protection Outside of Controlled Areas
+MP-5.2,MP,Documentation of Activities
+MP-5.3,MP,Custodians
+MP-5.4,MP,Cryptographic Protection
+MP-6,MP,Media Sanitization
+MP-6.1,MP,"Review, Approve, Track, Document, and Verify"
+MP-6.2,MP,Equipment Testing
+MP-6.3,MP,Nondestructive Techniques
+MP-6.4,MP,Controlled Unclassified Information
+MP-6.5,MP,Classified Information
+MP-6.6,MP,Media Destruction
+MP-6.7,MP,Dual Authorization
+MP-6.8,MP,Remote Purging or Wiping of Information
+MP-7,MP,Media Use
+MP-7.1,MP,Prohibit Use Without Owner
+MP-7.2,MP,Prohibit Use of Sanitization-resistant Media
+MP-8,MP,Media Downgrading
+MP-8.1,MP,Documentation of Process
+MP-8.2,MP,Equipment Testing
+MP-8.3,MP,Controlled Unclassified Information
+MP-8.4,MP,Classified Information
+PE-1,PE,Policy and Procedures
+PE-10,PE,Emergency Shutoff
+PE-10.1,PE,Accidental and Unauthorized Activation
+PE-11,PE,Emergency Power
+PE-11.1,PE,Alternate Power Supply — Minimal Operational Capability
+PE-11.2,PE,Alternate Power Supply — Self-contained
+PE-12,PE,Emergency Lighting
+PE-12.1,PE,Essential Mission and Business Functions
+PE-13,PE,Fire Protection
+PE-13.1,PE,Detection Systems — Automatic Activation and Notification
+PE-13.2,PE,Suppression Systems — Automatic Activation and Notification
+PE-13.3,PE,Automatic Fire Suppression
+PE-13.4,PE,Inspections
+PE-14,PE,Environmental Controls
+PE-14.1,PE,Automatic Controls
+PE-14.2,PE,Monitoring with Alarms and Notifications
+PE-15,PE,Water Damage Protection
+PE-15.1,PE,Automation Support
+PE-16,PE,Delivery and Removal
+PE-17,PE,Alternate Work Site
+PE-18,PE,Location of System Components
+PE-18.1,PE,Facility Site
+PE-19,PE,Information Leakage
+PE-19.1,PE,National Emissions Policies and Procedures
+PE-2,PE,Physical Access Authorizations
+PE-2.1,PE,Access by Position or Role
+PE-2.2,PE,Two Forms of Identification
+PE-2.3,PE,Restrict Unescorted Access
+PE-20,PE,Asset Monitoring and Tracking
+PE-21,PE,Electromagnetic Pulse Protection
+PE-22,PE,Component Marking
+PE-23,PE,Facility Location
+PE-3,PE,Physical Access Control
+PE-3.1,PE,System Access
+PE-3.2,PE,Facility and Systems
+PE-3.3,PE,Continuous Guards
+PE-3.4,PE,Lockable Casings
+PE-3.5,PE,Tamper Protection
+PE-3.6,PE,Facility Penetration Testing
+PE-3.7,PE,Physical Barriers
+PE-3.8,PE,Access Control Vestibules
+PE-4,PE,Access Control for Transmission
+PE-5,PE,Access Control for Output Devices
+PE-5.1,PE,Access to Output by Authorized Individuals
+PE-5.2,PE,Link to Individual Identity
+PE-5.3,PE,Marking Output Devices
+PE-6,PE,Monitoring Physical Access
+PE-6.1,PE,Intrusion Alarms and Surveillance Equipment
+PE-6.2,PE,Automated Intrusion Recognition and Responses
+PE-6.3,PE,Video Surveillance
+PE-6.4,PE,Monitoring Physical Access to Systems
+PE-7,PE,Visitor Control
+PE-8,PE,Visitor Access Records
+PE-8.1,PE,Automated Records Maintenance and Review
+PE-8.2,PE,Physical Access Records
+PE-8.3,PE,Limit Personally Identifiable Information Elements
+PE-9,PE,Power Equipment and Cabling
+PE-9.1,PE,Redundant Cabling
+PE-9.2,PE,Automatic Voltage Controls
+PL-1,PL,Policy and Procedures
+PL-10,PL,Baseline Selection
+PL-11,PL,Baseline Tailoring
+PL-2,PL,System Security and Privacy Plans
+PL-2.1,PL,Concept of Operations
+PL-2.2,PL,Functional Architecture
+PL-2.3,PL,Plan and Coordinate with Other Organizational Entities
+PL-3,PL,System Security Plan Update
+PL-4,PL,Rules of Behavior
+PL-4.1,PL,Social Media and External Site/Application Usage Restrictions
+PL-5,PL,Privacy Impact Assessment
+PL-6,PL,Security-related Activity Planning
+PL-7,PL,Concept of Operations
+PL-8,PL,Security and Privacy Architectures
+PL-8.1,PL,Defense in Depth
+PL-8.2,PL,Supplier Diversity
+PL-9,PL,Central Management
+PM-1,PM,Information Security Program Plan
+PM-10,PM,Authorization Process
+PM-11,PM,Mission and Business Process Definition
+PM-12,PM,Insider Threat Program
+PM-13,PM,Security and Privacy Workforce
+PM-14,PM,"Testing, Training, and Monitoring"
+PM-15,PM,Security and Privacy Groups and Associations
+PM-16,PM,Threat Awareness Program
+PM-16.1,PM,Automated Means for Sharing Threat Intelligence
+PM-17,PM,Protecting Controlled Unclassified Information on External Systems
+PM-18,PM,Privacy Program Plan
+PM-19,PM,Privacy Program Leadership Role
+PM-2,PM,Information Security Program Leadership Role
+PM-20,PM,Dissemination of Privacy Program Information
+PM-20.1,PM,"Privacy Policies on Websites, Applications, and Digital Services"
+PM-21,PM,Accounting of Disclosures
+PM-22,PM,Personally Identifiable Information Quality Management
+PM-23,PM,Data Governance Body
+PM-24,PM,Data Integrity Board
+PM-25,PM,"Minimization of Personally Identifiable Information Used in Testing, Training, and Research"
+PM-26,PM,Complaint Management
+PM-27,PM,Privacy Reporting
+PM-28,PM,Risk Framing
+PM-29,PM,Risk Management Program Leadership Roles
+PM-3,PM,Information Security and Privacy Resources
+PM-30,PM,Supply Chain Risk Management Strategy
+PM-30.1,PM,Suppliers of Critical or Mission-essential Items
+PM-31,PM,Continuous Monitoring Strategy
+PM-32,PM,Purposing
+PM-4,PM,Plan of Action and Milestones Process
+PM-5,PM,System Inventory
+PM-5.1,PM,Inventory of Personally Identifiable Information
+PM-6,PM,Measures of Performance
+PM-7,PM,Enterprise Architecture
+PM-7.1,PM,Offloading
+PM-8,PM,Critical Infrastructure Plan
+PM-9,PM,Risk Management Strategy
+PS-1,PS,Policy and Procedures
+PS-2,PS,Position Risk Designation
+PS-3,PS,Personnel Screening
+PS-3.1,PS,Classified Information
+PS-3.2,PS,Formal Indoctrination
+PS-3.3,PS,Information Requiring Special Protective Measures
+PS-3.4,PS,Citizenship Requirements
+PS-4,PS,Personnel Termination
+PS-4.1,PS,Post-employment Requirements
+PS-4.2,PS,Automated Actions
+PS-5,PS,Personnel Transfer
+PS-6,PS,Access Agreements
+PS-6.1,PS,Information Requiring Special Protection
+PS-6.2,PS,Classified Information Requiring Special Protection
+PS-6.3,PS,Post-employment Requirements
+PS-7,PS,External Personnel Security
+PS-8,PS,Personnel Sanctions
+PS-9,PS,Position Descriptions
+PT-1,PT,Policy and Procedures
+PT-2,PT,Authority to Process Personally Identifiable Information
+PT-2.1,PT,Data Tagging
+PT-2.2,PT,Automation
+PT-3,PT,Personally Identifiable Information Processing Purposes
+PT-3.1,PT,Data Tagging
+PT-3.2,PT,Automation
+PT-4,PT,Consent
+PT-4.1,PT,Tailored Consent
+PT-4.2,PT,Just-in-time Consent
+PT-4.3,PT,Revocation
+PT-5,PT,Privacy Notice
+PT-5.1,PT,Just-in-time Notice
+PT-5.2,PT,Privacy Act Statements
+PT-6,PT,System of Records Notice
+PT-6.1,PT,Routine Uses
+PT-6.2,PT,Exemption Rules
+PT-7,PT,Specific Categories of Personally Identifiable Information
+PT-7.1,PT,Social Security Numbers
+PT-7.2,PT,First Amendment Information
+PT-8,PT,Computer Matching Requirements
+RA-1,RA,Policy and Procedures
+RA-10,RA,Threat Hunting
+RA-2,RA,Security Categorization
+RA-2.1,RA,Impact-level Prioritization
+RA-3,RA,Risk Assessment
+RA-3.1,RA,Supply Chain Risk Assessment
+RA-3.2,RA,Use of All-source Intelligence
+RA-3.3,RA,Dynamic Threat Awareness
+RA-3.4,RA,Predictive Cyber Analytics
+RA-4,RA,Risk Assessment Update
+RA-5,RA,Vulnerability Monitoring and Scanning
+RA-5.1,RA,Update Tool Capability
+RA-5.10,RA,Correlate Scanning Information
+RA-5.11,RA,Public Disclosure Program
+RA-5.2,RA,Update Vulnerabilities to Be Scanned
+RA-5.3,RA,Breadth and Depth of Coverage
+RA-5.4,RA,Discoverable Information
+RA-5.5,RA,Privileged Access
+RA-5.6,RA,Automated Trend Analyses
+RA-5.7,RA,Automated Detection and Notification of Unauthorized Components
+RA-5.8,RA,Review Historic Audit Logs
+RA-5.9,RA,Penetration Testing and Analyses
+RA-6,RA,Technical Surveillance Countermeasures Survey
+RA-7,RA,Risk Response
+RA-8,RA,Privacy Impact Assessments
+RA-9,RA,Criticality Analysis
+SA-1,SA,Policy and Procedures
+SA-10,SA,Developer Configuration Management
+SA-10.1,SA,Software and Firmware Integrity Verification
+SA-10.2,SA,Alternative Configuration Management Processes
+SA-10.3,SA,Hardware Integrity Verification
+SA-10.4,SA,Trusted Generation
+SA-10.5,SA,Mapping Integrity for Version Control
+SA-10.6,SA,Trusted Distribution
+SA-10.7,SA,Security and Privacy Representatives
+SA-11,SA,Developer Testing and Evaluation
+SA-11.1,SA,Static Code Analysis
+SA-11.2,SA,Threat Modeling and Vulnerability Analyses
+SA-11.3,SA,Independent Verification of Assessment Plans and Evidence
+SA-11.4,SA,Manual Code Reviews
+SA-11.5,SA,Penetration Testing
+SA-11.6,SA,Attack Surface Reviews
+SA-11.7,SA,Verify Scope of Testing and Evaluation
+SA-11.8,SA,Dynamic Code Analysis
+SA-11.9,SA,Interactive Application Security Testing
+SA-12,SA,Supply Chain Protection
+SA-12.1,SA,Acquisition Strategies / Tools / Methods
+SA-12.10,SA,Validate as Genuine and Not Altered
+SA-12.11,SA,"Penetration Testing / Analysis of Elements, Processes, and Actors"
+SA-12.12,SA,Inter-organizational Agreements
+SA-12.13,SA,Critical Information System Components
+SA-12.14,SA,Identity and Traceability
+SA-12.15,SA,Processes to Address Weaknesses or Deficiencies
+SA-12.2,SA,Supplier Reviews
+SA-12.3,SA,Trusted Shipping and Warehousing
+SA-12.4,SA,Diversity of Suppliers
+SA-12.5,SA,Limitation of Harm
+SA-12.6,SA,Minimizing Procurement Time
+SA-12.7,SA,Assessments Prior to Selection / Acceptance / Update
+SA-12.8,SA,Use of All-source Intelligence
+SA-12.9,SA,Operations Security
+SA-13,SA,Trustworthiness
+SA-14,SA,Criticality Analysis
+SA-14.1,SA,Critical Components with No Viable Alternative Sourcing
+SA-15,SA,"Development Process, Standards, and Tools"
+SA-15.1,SA,Quality Metrics
+SA-15.10,SA,Incident Response Plan
+SA-15.11,SA,Archive System or Component
+SA-15.12,SA,Minimize Personally Identifiable Information
+SA-15.13,SA,Logging Syntax
+SA-15.2,SA,Security and Privacy Tracking Tools
+SA-15.3,SA,Criticality Analysis
+SA-15.4,SA,Threat Modeling and Vulnerability Analysis
+SA-15.5,SA,Attack Surface Reduction
+SA-15.6,SA,Continuous Improvement
+SA-15.7,SA,Automated Vulnerability Analysis
+SA-15.8,SA,Reuse of Threat and Vulnerability Information
+SA-15.9,SA,Use of Live Data
+SA-16,SA,Developer-provided Training
+SA-17,SA,Developer Security and Privacy Architecture and Design
+SA-17.1,SA,Formal Policy Model
+SA-17.2,SA,Security-relevant Components
+SA-17.3,SA,Formal Correspondence
+SA-17.4,SA,Informal Correspondence
+SA-17.5,SA,Conceptually Simple Design
+SA-17.6,SA,Structure for Testing
+SA-17.7,SA,Structure for Least Privilege
+SA-17.8,SA,Orchestration
+SA-17.9,SA,Design Diversity
+SA-18,SA,Tamper Resistance and Detection
+SA-18.1,SA,Multiple Phases of System Development Life Cycle
+SA-18.2,SA,Inspection of Systems or Components
+SA-19,SA,Component Authenticity
+SA-19.1,SA,Anti-counterfeit Training
+SA-19.2,SA,Configuration Control for Component Service and Repair
+SA-19.3,SA,Component Disposal
+SA-19.4,SA,Anti-counterfeit Scanning
+SA-2,SA,Allocation of Resources
+SA-20,SA,Customized Development of Critical Components
+SA-21,SA,Developer Screening
+SA-21.1,SA,Validation of Screening
+SA-22,SA,Unsupported System Components
+SA-22.1,SA,Alternative Sources for Continued Support
+SA-23,SA,Specialization
+SA-24,SA,Design For Cyber Resiliency
+SA-3,SA,System Development Life Cycle
+SA-3.1,SA,Manage Preproduction Environment
+SA-3.2,SA,Use of Live or Operational Data
+SA-3.3,SA,Technology Refresh
+SA-4,SA,Acquisition Process
+SA-4.1,SA,Functional Properties of Controls
+SA-4.10,SA,Use of Approved PIV Products
+SA-4.11,SA,System of Records
+SA-4.12,SA,Data Ownership
+SA-4.2,SA,Design and Implementation Information for Controls
+SA-4.3,SA,"Development Methods, Techniques, and Practices"
+SA-4.4,SA,Assignment of Components to Systems
+SA-4.5,SA,"System, Component, and Service Configurations"
+SA-4.6,SA,Use of Information Assurance Products
+SA-4.7,SA,NIAP-approved Protection Profiles
+SA-4.8,SA,Continuous Monitoring Plan for Controls
+SA-4.9,SA,"Functions, Ports, Protocols, and Services in Use"
+SA-5,SA,System Documentation
+SA-5.1,SA,Functional Properties of Security Controls
+SA-5.2,SA,Security-relevant External System Interfaces
+SA-5.3,SA,High-level Design
+SA-5.4,SA,Low-level Design
+SA-5.5,SA,Source Code
+SA-6,SA,Software Usage Restrictions
+SA-7,SA,User-installed Software
+SA-8,SA,Security and Privacy Engineering Principles
+SA-8.1,SA,Clear Abstractions
+SA-8.10,SA,Hierarchical Trust
+SA-8.11,SA,Inverse Modification Threshold
+SA-8.12,SA,Hierarchical Protection
+SA-8.13,SA,Minimized Security Elements
+SA-8.14,SA,Least Privilege
+SA-8.15,SA,Predicate Permission
+SA-8.16,SA,Self-reliant Trustworthiness
+SA-8.17,SA,Secure Distributed Composition
+SA-8.18,SA,Trusted Communications Channels
+SA-8.19,SA,Continuous Protection
+SA-8.2,SA,Least Common Mechanism
+SA-8.20,SA,Secure Metadata Management
+SA-8.21,SA,Self-analysis
+SA-8.22,SA,Accountability and Traceability
+SA-8.23,SA,Secure Defaults
+SA-8.24,SA,Secure Failure and Recovery
+SA-8.25,SA,Economic Security
+SA-8.26,SA,Performance Security
+SA-8.27,SA,Human Factored Security
+SA-8.28,SA,Acceptable Security
+SA-8.29,SA,Repeatable and Documented Procedures
+SA-8.3,SA,Modularity and Layering
+SA-8.30,SA,Procedural Rigor
+SA-8.31,SA,Secure System Modification
+SA-8.32,SA,Sufficient Documentation
+SA-8.33,SA,Minimization
+SA-8.4,SA,Partially Ordered Dependencies
+SA-8.5,SA,Efficiently Mediated Access
+SA-8.6,SA,Minimized Sharing
+SA-8.7,SA,Reduced Complexity
+SA-8.8,SA,Secure Evolvability
+SA-8.9,SA,Trusted Components
+SA-9,SA,External System Services
+SA-9.1,SA,Risk Assessments and Organizational Approvals
+SA-9.2,SA,"Identification of Functions, Ports, Protocols, and Services"
+SA-9.3,SA,Establish and Maintain Trust Relationship with Providers
+SA-9.4,SA,Consistent Interests of Consumers and Providers
+SA-9.5,SA,"Processing, Storage, and Service Location"
+SA-9.6,SA,Organization-controlled Cryptographic Keys
+SA-9.7,SA,Organization-controlled Integrity Checking
+SA-9.8,SA,Processing and Storage Location — U.S. Jurisdiction
+SC-1,SC,Policy and Procedures
+SC-10,SC,Network Disconnect
+SC-11,SC,Trusted Path
+SC-11.1,SC,Irrefutable Communications Path
+SC-12,SC,Cryptographic Key Establishment and Management
+SC-12.1,SC,Availability
+SC-12.2,SC,Symmetric Keys
+SC-12.3,SC,Asymmetric Keys
+SC-12.4,SC,PKI Certificates
+SC-12.5,SC,PKI Certificates / Hardware Tokens
+SC-12.6,SC,Physical Control of Keys
+SC-13,SC,Cryptographic Protection
+SC-13.1,SC,FIPS-validated Cryptography
+SC-13.2,SC,NSA-approved Cryptography
+SC-13.3,SC,Individuals Without Formal Access Approvals
+SC-13.4,SC,Digital Signatures
+SC-14,SC,Public Access Protections
+SC-15,SC,Collaborative Computing Devices and Applications
+SC-15.1,SC,Physical or Logical Disconnect
+SC-15.2,SC,Blocking Inbound and Outbound Communications Traffic
+SC-15.3,SC,Disabling and Removal in Secure Work Areas
+SC-15.4,SC,Explicitly Indicate Current Participants
+SC-16,SC,Transmission of Security and Privacy Attributes
+SC-16.1,SC,Integrity Verification
+SC-16.2,SC,Anti-spoofing Mechanisms
+SC-16.3,SC,Cryptographic Binding
+SC-17,SC,Public Key Infrastructure Certificates
+SC-18,SC,Mobile Code
+SC-18.1,SC,Identify Unacceptable Code and Take Corrective Actions
+SC-18.2,SC,"Acquisition, Development, and Use"
+SC-18.3,SC,Prevent Downloading and Execution
+SC-18.4,SC,Prevent Automatic Execution
+SC-18.5,SC,Allow Execution Only in Confined Environments
+SC-19,SC,Voice Over Internet Protocol
+SC-2,SC,Separation of System and User Functionality
+SC-2.1,SC,Interfaces for Non-privileged Users
+SC-2.2,SC,Disassociability
+SC-20,SC,Secure Name/Address Resolution Service (Authoritative Source)
+SC-20.1,SC,Child Subspaces
+SC-20.2,SC,Data Origin and Integrity
+SC-21,SC,Secure Name/Address Resolution Service (Recursive or Caching Resolver)
+SC-21.1,SC,Data Origin and Integrity
+SC-22,SC,Architecture and Provisioning for Name/Address Resolution Service
+SC-23,SC,Session Authenticity
+SC-23.1,SC,Invalidate Session Identifiers at Logout
+SC-23.2,SC,User-initiated Logouts and Message Displays
+SC-23.3,SC,Unique System-generated Session Identifiers
+SC-23.4,SC,Unique Session Identifiers with Randomization
+SC-23.5,SC,Allowed Certificate Authorities
+SC-24,SC,Fail in Known State
+SC-25,SC,Thin Nodes
+SC-26,SC,Decoys
+SC-26.1,SC,Detection of Malicious Code
+SC-27,SC,Platform-independent Applications
+SC-28,SC,Protection of Information at Rest
+SC-28.1,SC,Cryptographic Protection
+SC-28.2,SC,Offline Storage
+SC-28.3,SC,Cryptographic Keys
+SC-29,SC,Heterogeneity
+SC-29.1,SC,Virtualization Techniques
+SC-3,SC,Security Function Isolation
+SC-3.1,SC,Hardware Separation
+SC-3.2,SC,Access and Flow Control Functions
+SC-3.3,SC,Minimize Nonsecurity Functionality
+SC-3.4,SC,Module Coupling and Cohesiveness
+SC-3.5,SC,Layered Structures
+SC-30,SC,Concealment and Misdirection
+SC-30.1,SC,Virtualization Techniques
+SC-30.2,SC,Randomness
+SC-30.3,SC,Change Processing and Storage Locations
+SC-30.4,SC,Misleading Information
+SC-30.5,SC,Concealment of System Components
+SC-31,SC,Covert Channel Analysis
+SC-31.1,SC,Test Covert Channels for Exploitability
+SC-31.2,SC,Maximum Bandwidth
+SC-31.3,SC,Measure Bandwidth in Operational Environments
+SC-32,SC,System Partitioning
+SC-32.1,SC,Separate Physical Domains for Privileged Functions
+SC-33,SC,Transmission Preparation Integrity
+SC-34,SC,Non-modifiable Executable Programs
+SC-34.1,SC,No Writable Storage
+SC-34.2,SC,Integrity Protection on Read-only Media
+SC-34.3,SC,Hardware-based Protection
+SC-35,SC,External Malicious Code Identification
+SC-36,SC,Distributed Processing and Storage
+SC-36.1,SC,Polling Techniques
+SC-36.2,SC,Synchronization
+SC-37,SC,Out-of-band Channels
+SC-37.1,SC,Ensure Delivery and Transmission
+SC-38,SC,Operations Security
+SC-39,SC,Process Isolation
+SC-39.1,SC,Hardware Separation
+SC-39.2,SC,Separate Execution Domain Per Thread
+SC-4,SC,Information in Shared System Resources
+SC-4.1,SC,Security Levels
+SC-4.2,SC,Multilevel or Periods Processing
+SC-40,SC,Wireless Link Protection
+SC-40.1,SC,Electromagnetic Interference
+SC-40.2,SC,Reduce Detection Potential
+SC-40.3,SC,Imitative or Manipulative Communications Deception
+SC-40.4,SC,Signal Parameter Identification
+SC-41,SC,Port and I/O Device Access
+SC-42,SC,Sensor Capability and Data
+SC-42.1,SC,Reporting to Authorized Individuals or Roles
+SC-42.2,SC,Authorized Use
+SC-42.3,SC,Prohibit Use of Devices
+SC-42.4,SC,Notice of Collection
+SC-42.5,SC,Collection Minimization
+SC-43,SC,Usage Restrictions
+SC-44,SC,Detonation Chambers
+SC-45,SC,System Time Synchronization
+SC-45.1,SC,Synchronization with Authoritative Time Source
+SC-45.2,SC,Secondary Authoritative Time Source
+SC-46,SC,Cross Domain Policy Enforcement
+SC-47,SC,Alternate Communications Paths
+SC-48,SC,Sensor Relocation
+SC-48.1,SC,Dynamic Relocation of Sensors or Monitoring Capabilities
+SC-49,SC,Hardware-enforced Separation and Policy Enforcement
+SC-5,SC,Denial-of-service Protection
+SC-5.1,SC,Restrict Ability to Attack Other Systems
+SC-5.2,SC,"Capacity, Bandwidth, and Redundancy"
+SC-5.3,SC,Detection and Monitoring
+SC-50,SC,Software-enforced Separation and Policy Enforcement
+SC-51,SC,Hardware-based Protection
+SC-6,SC,Resource Availability
+SC-7,SC,Boundary Protection
+SC-7.1,SC,Physically Separated Subnetworks
+SC-7.10,SC,Prevent Exfiltration
+SC-7.11,SC,Restrict Incoming Communications Traffic
+SC-7.12,SC,Host-based Protection
+SC-7.13,SC,"Isolation of Security Tools, Mechanisms, and Support Components"
+SC-7.14,SC,Protect Against Unauthorized Physical Connections
+SC-7.15,SC,Networked Privileged Accesses
+SC-7.16,SC,Prevent Discovery of System Components
+SC-7.17,SC,Automated Enforcement of Protocol Formats
+SC-7.18,SC,Fail Secure
+SC-7.19,SC,Block Communication from Non-organizationally Configured Hosts
+SC-7.2,SC,Public Access
+SC-7.20,SC,Dynamic Isolation and Segregation
+SC-7.21,SC,Isolation of System Components
+SC-7.22,SC,Separate Subnets for Connecting to Different Security Domains
+SC-7.23,SC,Disable Sender Feedback on Protocol Validation Failure
+SC-7.24,SC,Personally Identifiable Information
+SC-7.25,SC,Unclassified National Security System Connections
+SC-7.26,SC,Classified National Security System Connections
+SC-7.27,SC,Unclassified Non-national Security System Connections
+SC-7.28,SC,Connections to Public Networks
+SC-7.29,SC,Separate Subnets to Isolate Functions
+SC-7.3,SC,Access Points
+SC-7.4,SC,External Telecommunications Services
+SC-7.5,SC,Deny by Default — Allow by Exception
+SC-7.6,SC,Response to Recognized Failures
+SC-7.7,SC,Split Tunneling for Remote Devices
+SC-7.8,SC,Route Traffic to Authenticated Proxy Servers
+SC-7.9,SC,Restrict Threatening Outgoing Communications Traffic
+SC-8,SC,Transmission Confidentiality and Integrity
+SC-8.1,SC,Cryptographic Protection
+SC-8.2,SC,Pre- and Post-transmission Handling
+SC-8.3,SC,Cryptographic Protection for Message Externals
+SC-8.4,SC,Conceal or Randomize Communications
+SC-8.5,SC,Protected Distribution System
+SC-9,SC,Transmission Confidentiality
+SI-1,SI,Policy and Procedures
+SI-10,SI,Information Input Validation
+SI-10.1,SI,Manual Override Capability
+SI-10.2,SI,Review and Resolve Errors
+SI-10.3,SI,Predictable Behavior
+SI-10.4,SI,Timing Interactions
+SI-10.5,SI,Restrict Inputs to Trusted Sources and Approved Formats
+SI-10.6,SI,Injection Prevention
+SI-11,SI,Error Handling
+SI-12,SI,Information Management and Retention
+SI-12.1,SI,Limit Personally Identifiable Information Elements
+SI-12.2,SI,"Minimize Personally Identifiable Information in Testing, Training, and Research"
+SI-12.3,SI,Information Disposal
+SI-13,SI,Predictable Failure Prevention
+SI-13.1,SI,Transferring Component Responsibilities
+SI-13.2,SI,Time Limit on Process Execution Without Supervision
+SI-13.3,SI,Manual Transfer Between Components
+SI-13.4,SI,Standby Component Installation and Notification
+SI-13.5,SI,Failover Capability
+SI-14,SI,Non-persistence
+SI-14.1,SI,Refresh from Trusted Sources
+SI-14.2,SI,Non-persistent Information
+SI-14.3,SI,Non-persistent Connectivity
+SI-15,SI,Information Output Filtering
+SI-16,SI,Memory Protection
+SI-17,SI,Fail-safe Procedures
+SI-18,SI,Personally Identifiable Information Quality Operations
+SI-18.1,SI,Automation Support
+SI-18.2,SI,Data Tags
+SI-18.3,SI,Collection
+SI-18.4,SI,Individual Requests
+SI-18.5,SI,Notice of Correction or Deletion
+SI-19,SI,De-identification
+SI-19.1,SI,Collection
+SI-19.2,SI,Archiving
+SI-19.3,SI,Release
+SI-19.4,SI,"Removal, Masking, Encryption, Hashing, or Replacement of Direct Identifiers"
+SI-19.5,SI,Statistical Disclosure Control
+SI-19.6,SI,Differential Privacy
+SI-19.7,SI,Validated Algorithms and Software
+SI-19.8,SI,Motivated Intruder
+SI-2,SI,Flaw Remediation
+SI-2.1,SI,Central Management
+SI-2.2,SI,Automated Flaw Remediation Status
+SI-2.3,SI,Time to Remediate Flaws and Benchmarks for Corrective Actions
+SI-2.4,SI,Automated Patch Management Tools
+SI-2.5,SI,Automatic Software and Firmware Updates
+SI-2.6,SI,Removal of Previous Versions of Software and Firmware
+SI-2.7,SI,Root Cause Analysis
+SI-20,SI,Tainting
+SI-21,SI,Information Refresh
+SI-22,SI,Information Diversity
+SI-23,SI,Information Fragmentation
+SI-3,SI,Malicious Code Protection
+SI-3.1,SI,Central Management
+SI-3.10,SI,Malicious Code Analysis
+SI-3.2,SI,Automatic Updates
+SI-3.3,SI,Non-privileged Users
+SI-3.4,SI,Updates Only by Privileged Users
+SI-3.5,SI,Portable Storage Devices
+SI-3.6,SI,Testing and Verification
+SI-3.7,SI,Nonsignature-based Detection
+SI-3.8,SI,Detect Unauthorized Commands
+SI-3.9,SI,Authenticate Remote Commands
+SI-4,SI,System Monitoring
+SI-4.1,SI,System-wide Intrusion Detection System
+SI-4.10,SI,Visibility of Encrypted Communications
+SI-4.11,SI,Analyze Communications Traffic Anomalies
+SI-4.12,SI,Automated Organization-generated Alerts
+SI-4.13,SI,Analyze Traffic and Event Patterns
+SI-4.14,SI,Wireless Intrusion Detection
+SI-4.15,SI,Wireless to Wireline Communications
+SI-4.16,SI,Correlate Monitoring Information
+SI-4.17,SI,Integrated Situational Awareness
+SI-4.18,SI,Analyze Traffic and Covert Exfiltration
+SI-4.19,SI,Risk for Individuals
+SI-4.2,SI,Automated Tools and Mechanisms for Real-time Analysis
+SI-4.20,SI,Privileged Users
+SI-4.21,SI,Probationary Periods
+SI-4.22,SI,Unauthorized Network Services
+SI-4.23,SI,Host-based Devices
+SI-4.24,SI,Indicators of Compromise
+SI-4.25,SI,Optimize Network Traffic Analysis
+SI-4.3,SI,Automated Tool and Mechanism Integration
+SI-4.4,SI,Inbound and Outbound Communications Traffic
+SI-4.5,SI,System-generated Alerts
+SI-4.6,SI,Restrict Non-privileged Users
+SI-4.7,SI,Automated Response to Suspicious Events
+SI-4.8,SI,Protection of Monitoring Information
+SI-4.9,SI,Testing of Monitoring Tools and Mechanisms
+SI-5,SI,"Security Alerts, Advisories, and Directives"
+SI-5.1,SI,Automated Alerts and Advisories
+SI-6,SI,Security and Privacy Function Verification
+SI-6.1,SI,Notification of Failed Security Tests
+SI-6.2,SI,Automation Support for Distributed Testing
+SI-6.3,SI,Report Verification Results
+SI-7,SI,"Software, Firmware, and Information Integrity"
+SI-7.1,SI,Integrity Checks
+SI-7.10,SI,Protection of Boot Firmware
+SI-7.11,SI,Confined Environments with Limited Privileges
+SI-7.12,SI,Integrity Verification
+SI-7.13,SI,Code Execution in Protected Environments
+SI-7.14,SI,Binary or Machine Executable Code
+SI-7.15,SI,Code Authentication
+SI-7.16,SI,Time Limit on Process Execution Without Supervision
+SI-7.17,SI,Runtime Application Self-protection
+SI-7.2,SI,Automated Notifications of Integrity Violations
+SI-7.3,SI,Centrally Managed Integrity Tools
+SI-7.4,SI,Tamper-evident Packaging
+SI-7.5,SI,Automated Response to Integrity Violations
+SI-7.6,SI,Cryptographic Protection
+SI-7.7,SI,Integration of Detection and Response
+SI-7.8,SI,Auditing Capability for Significant Events
+SI-7.9,SI,Verify Boot Process
+SI-8,SI,Spam Protection
+SI-8.1,SI,Central Management
+SI-8.2,SI,Automatic Updates
+SI-8.3,SI,Continuous Learning Capability
+SI-9,SI,Information Input Restrictions
+SR-1,SR,Policy and Procedures
+SR-10,SR,Inspection of Systems or Components
+SR-11,SR,Component Authenticity
+SR-11.1,SR,Anti-counterfeit Training
+SR-11.2,SR,Configuration Control for Component Service and Repair
+SR-11.3,SR,Anti-counterfeit Scanning
+SR-12,SR,Component Disposal
+SR-2,SR,Supply Chain Risk Management Plan
+SR-2.1,SR,Establish SCRM Team
+SR-3,SR,Supply Chain Controls and Processes
+SR-3.1,SR,Diverse Supply Base
+SR-3.2,SR,Limitation of Harm
+SR-3.3,SR,Sub-tier Flow Down
+SR-4,SR,Provenance
+SR-4.1,SR,Identity
+SR-4.2,SR,Track and Trace
+SR-4.3,SR,Validate as Genuine and Not Altered
+SR-4.4,SR,Supply Chain Integrity — Pedigree
+SR-5,SR,"Acquisition Strategies, Tools, and Methods"
+SR-5.1,SR,Adequate Supply
+SR-5.2,SR,"Assessments Prior to Selection, Acceptance, Modification, or Update"
+SR-6,SR,Supplier Assessments and Reviews
+SR-6.1,SR,Testing and Analysis
+SR-7,SR,Supply Chain Operations Security
+SR-8,SR,Notification Agreements
+SR-9,SR,Tamper Resistance and Detection
+SR-9.1,SR,Multiple Stages of System Development Life Cycle

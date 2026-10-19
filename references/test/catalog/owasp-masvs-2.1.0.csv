@@ -1,0 +1,25 @@
+ref_id,control_id,group_id,group_title,statement
+v2.1.0-MASVS-AUTH-1,MASVS-AUTH-1,MASVS-AUTH,MASVS-AUTH,The app uses secure authentication and authorization protocols and follows the relevant best practices.
+v2.1.0-MASVS-AUTH-2,MASVS-AUTH-2,MASVS-AUTH,MASVS-AUTH,The app performs local authentication securely according to the platform best practices.
+v2.1.0-MASVS-AUTH-3,MASVS-AUTH-3,MASVS-AUTH,MASVS-AUTH,The app secures sensitive operations with additional authentication.
+v2.1.0-MASVS-CODE-1,MASVS-CODE-1,MASVS-CODE,MASVS-CODE,The app requires an up-to-date platform version.
+v2.1.0-MASVS-CODE-2,MASVS-CODE-2,MASVS-CODE,MASVS-CODE,The app has a mechanism for enforcing app updates.
+v2.1.0-MASVS-CODE-3,MASVS-CODE-3,MASVS-CODE,MASVS-CODE,The app only uses software components without known vulnerabilities.
+v2.1.0-MASVS-CODE-4,MASVS-CODE-4,MASVS-CODE,MASVS-CODE,The app validates and sanitizes all untrusted inputs.
+v2.1.0-MASVS-CRYPTO-1,MASVS-CRYPTO-1,MASVS-CRYPTO,MASVS-CRYPTO,The app employs current strong cryptography and uses it according to industry best practices.
+v2.1.0-MASVS-CRYPTO-2,MASVS-CRYPTO-2,MASVS-CRYPTO,MASVS-CRYPTO,The app performs key management according to industry best practices.
+v2.1.0-MASVS-NETWORK-1,MASVS-NETWORK-1,MASVS-NETWORK,MASVS-NETWORK,The app secures all network traffic according to the current best practices.
+v2.1.0-MASVS-NETWORK-2,MASVS-NETWORK-2,MASVS-NETWORK,MASVS-NETWORK,The app performs identity pinning for all remote endpoints under the developer's control.
+v2.1.0-MASVS-PLATFORM-1,MASVS-PLATFORM-1,MASVS-PLATFORM,MASVS-PLATFORM,The app uses IPC mechanisms securely.
+v2.1.0-MASVS-PLATFORM-2,MASVS-PLATFORM-2,MASVS-PLATFORM,MASVS-PLATFORM,The app uses WebViews securely.
+v2.1.0-MASVS-PLATFORM-3,MASVS-PLATFORM-3,MASVS-PLATFORM,MASVS-PLATFORM,The app uses the user interface securely.
+v2.1.0-MASVS-PRIVACY-1,MASVS-PRIVACY-1,MASVS-PRIVACY,MASVS-PRIVACY,The app minimizes access to sensitive data and resources.
+v2.1.0-MASVS-PRIVACY-2,MASVS-PRIVACY-2,MASVS-PRIVACY,MASVS-PRIVACY,The app prevents identification of the user.
+v2.1.0-MASVS-PRIVACY-3,MASVS-PRIVACY-3,MASVS-PRIVACY,MASVS-PRIVACY,The app is transparent about data collection and usage.
+v2.1.0-MASVS-PRIVACY-4,MASVS-PRIVACY-4,MASVS-PRIVACY,MASVS-PRIVACY,The app offers user control over their data.
+v2.1.0-MASVS-RESILIENCE-1,MASVS-RESILIENCE-1,MASVS-RESILIENCE,MASVS-RESILIENCE,The app validates the integrity of the platform.
+v2.1.0-MASVS-RESILIENCE-2,MASVS-RESILIENCE-2,MASVS-RESILIENCE,MASVS-RESILIENCE,The app implements anti-tampering mechanisms.
+v2.1.0-MASVS-RESILIENCE-3,MASVS-RESILIENCE-3,MASVS-RESILIENCE,MASVS-RESILIENCE,The app implements anti-static analysis mechanisms.
+v2.1.0-MASVS-RESILIENCE-4,MASVS-RESILIENCE-4,MASVS-RESILIENCE,MASVS-RESILIENCE,The app implements anti-dynamic analysis techniques.
+v2.1.0-MASVS-STORAGE-1,MASVS-STORAGE-1,MASVS-STORAGE,MASVS-STORAGE,The app securely stores sensitive data.
+v2.1.0-MASVS-STORAGE-2,MASVS-STORAGE-2,MASVS-STORAGE,MASVS-STORAGE,The app prevents leakage of sensitive data.
