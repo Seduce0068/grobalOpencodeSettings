@@ -158,12 +158,12 @@
           "tavily-mcp@latest"
         ],
         "environment": {
-          "DEFAULT_PARAMETERS": "{\"include_images\": true, \"max_results\": 15, \"search_depth\": \"advanced\"}",
+          "DEFAULT_PARAMETERS": "{\"include_images\": false, \"max_results\": 8, \"search_depth\": \"basic\"}",
           "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
         "timeout": {
-          "startup": 30000,
+          "startup": 90000,
           "catalog": 30000,
           "execution": 120000
         }
