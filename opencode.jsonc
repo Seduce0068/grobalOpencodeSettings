@@ -49,6 +49,7 @@
       }
     }
   },
+  "websearch": false,
   "permission": {
     "*": "allow",
     "cargo": "allow",
@@ -226,7 +227,7 @@
         "environment": {
           "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
-        "disabled": false,
+        "disabled": true,
         "timeout": {
           "startup": 15000,
           "catalog": 10000,
@@ -250,20 +251,14 @@
         }
       },
       "context7": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "@upstash/context7-mcp@latest"
-        ],
-        "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-        },
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "oauth": false,
         "disabled": false,
         "timeout": {
-          "startup": 15000,
-          "catalog": 10000,
-          "execution": 60000
+          "startup": 30000,
+          "catalog": 30000,
+          "execution": 120000
         }
       },
       "sequential-thinking": {

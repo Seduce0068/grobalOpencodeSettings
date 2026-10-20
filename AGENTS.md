@@ -275,13 +275,13 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 
 | サーバ | 用途 | 備考 |
 | --- | --- | --- |
-| `context7` | ライブラリ/CLI/クラウドの公式ドキュメント | 調査の第一候補 |
+| `context7` | ライブラリ/CLI/クラウドの公式ドキュメント | リモート MCP。調査の第一候補 |
 | `exa` | Web 検索・ページ取得 | 最新情報、一般調査 |
 | `tavily-mcp` | 深掘りリサーチ | 広範なトピックの横断調査 |
 | `deepwiki` | 外部 GitHub リポジトリの理解 | OSS の構造・設計調査 |
 | `grepapp` | 公開 GitHub コード検索 | 公開実装の実例調査のみ |
 | `lsp` | ローカルコードの意味解析 | 定義、参照、型、診断 |
-| `github` | issue/PR 等の参照・操作 | トークン権限の範囲で使用 |
+| `github` | 無効（設定は保持） | `gh` CLI を使う |
 | `git` | ローカル git 操作 | 破壊的操作は禁止 |
 | `playwright` | ブラウザ自動化・E2E | headless 既定 |
 | `chrome-devtools` | 実ブラウザデバッグ | 性能、ネットワーク、CDP |
@@ -298,8 +298,8 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 - 一般・最新情報: `exa`。広範な深掘り: `tavily-mcp`。
 - ブラウザ検証: 自動化は `playwright`、実機デバッグは
   `chrome-devtools`。
-- Web 検索は `exa` / `tavily-mcp` を優先し、利用できない場合は
-  組み込みの webfetch / websearch を使う。
+- Web 検索は `exa` / `tavily-mcp` を使う。組み込み `websearch` は
+  無効化済みのため、URL 取得が必要なら `webfetch` を使う。
 
 ### ファクトチェックとグラウンディング
 
