@@ -287,19 +287,46 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 | `chrome-devtools` | 実ブラウザデバッグ | 性能、ネットワーク、CDP |
 | `time` | 現在日時の取得 | `date` コマンドと併用 |
 | `memory` | セッション横断の知識保存 | 機密情報は保存しない |
-| `sequential-thinking` | 複雑タスクの構造化思考 | Plan フェーズで使用 |
+| `sequential-thinking` | 無効（設定は保持） | モデル内蔵の推論で代替 |
 
-### 調査の優先順位
+### ツール選択の自動判断
+
+利用者に「どの MCP を使うか」を確認しない。次の表で自動決定する。
+
+| 状況 | 選択 | 判断基準 |
+| --- | --- | --- |
+| ライブラリ/API/CLI の仕様 | `context7` | バージョン付き一次情報が必要 |
+| 一般的な最新情報 | `web_search_exa` | 意味検索で足りる |
+| ドメイン/日付/カテゴリ指定 | `web_search_advanced_exa` | フィルタが必須 |
+| 通常の事実確認 | `tavily_search` basic | 低コストで十分 |
+| ニッチ/直近/多面 | `tavily_search` advanced | 網羅性が必要 |
+| 複数ソースの統合・比較 | `tavily_research` | 調査専用 |
+| 既知 URL の本文 | `web_fetch_exa` | 一括取得が速い |
+| JS/表/保護ページ | `tavily_extract` advanced | 抽出成功率が高い |
+| サイト構造/一括収集 | `tavily_map` → `tavily_crawl` | 範囲を制御できる |
+| 公開コード例 | `grepapp` | 実装検索 |
+| GitHub 操作 | `gh` CLI | MCP より軽量 |
+| ローカルコード | `lsp` | 意味解析 |
+| OSS の設計/FAQ | `deepwiki` | リポジトリ知識 |
+| ブラウザ操作/実機検証 | `playwright` / `chrome-devtools` | 操作と診断で使い分け |
+
+判断ルール:
 
 - ローカルで解決できる調査には MCP を使わない。
-- ライブラリ・CLI・クラウドの仕様: `context7` を優先し、
-  不足時は `exa` を使う。
-- 外部 OSS の設計・FAQ: `deepwiki`。公開実装例: `grepapp`。
-- 一般・最新情報: `exa`。広範な深掘り: `tavily-mcp`。
-- ブラウザ検証: 自動化は `playwright`、実機デバッグは
-  `chrome-devtools`。
-- Web 検索は `exa` / `tavily-mcp` を使う。組み込み `websearch` は
-  無効化済みのため、URL 取得が必要なら `webfetch` を使う。
+- 安い選択肢から試す。`basic` → `advanced` → `research` / `crawl` の順。
+- `advanced` は次に該当する場合だけ使う。
+  - 日付・ドメイン・カテゴリのフィルタが必須
+  - `basic` の結果が不足、または直近/ニッチな題材
+  - 表・埋め込み・JS 依存ページの抽出
+  - 複数ファセットを 1 回で網羅する必要がある
+- 同じ検索を exa と tavily に重複して投げない。
+- 失敗時は別プロバイダを 1 回だけ試す。連続リトライしない。
+- 結果が足りない場合だけ一段階上げる。理由の長い説明は不要。
+- `context7` は `resolve-library-id` → `query-docs` の順で使い、
+  `topic` とバージョンを指定する。
+- 組み込み `websearch` は無効。URL 取得が必要なら `webfetch` を使う。
+- 複雑タスクの分解はモデル内蔵の推論で行う。
+  `sequential-thinking` は無効化済み。
 
 ### ファクトチェックとグラウンディング
 

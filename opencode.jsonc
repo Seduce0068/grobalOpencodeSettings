@@ -271,7 +271,7 @@
         "environment": {
           "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
-        "disabled": false,
+        "disabled": true,
         "timeout": {
           "startup": 10000,
           "catalog": 5000,
