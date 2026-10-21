@@ -124,9 +124,6 @@
           "-y",
           "lsp-mcp-server@latest"
         ],
-        "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-        },
         "cwd": "."
       },
       "chrome-devtools": {
@@ -140,9 +137,6 @@
           ".opencode/browser-session",
           "--no-usage-statistics"
         ],
-        "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-        },
         "disabled": false,
         "timeout": {
           "startup": 45000,
@@ -165,12 +159,6 @@
       "exa": {
         "type": "remote",
         "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa",
-        "oauth": false,
-        "disabled": false
-      },
-      "grepapp": {
-        "type": "remote",
-        "url": "https://mcp.grep.app",
         "oauth": false,
         "disabled": false
       },
@@ -201,47 +189,13 @@
         ],
         "environment": {
           "PLAYWRIGHT_BROWSERS_PATH": "0",
-          "PLAYWRIGHT_MCP_HEADLESS": "true",
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+          "PLAYWRIGHT_MCP_HEADLESS": "true"
         },
         "disabled": false,
         "timeout": {
           "startup": 60000,
           "catalog": 30000,
           "execution": 300000
-        }
-      },
-      "github": {
-        "type": "local",
-        "command": [
-          "sh",
-          "-c",
-          "GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_TOKEN:-$(gh auth token)} exec npx -y @modelcontextprotocol/server-github"
-        ],
-        "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-        },
-        "disabled": true,
-        "timeout": {
-          "startup": 15000,
-          "catalog": 10000,
-          "execution": 60000
-        }
-      },
-      "git": {
-        "type": "local",
-        "cwd": ".",
-        "command": [
-          "uvx",
-          "mcp-server-git@latest",
-          "-r",
-          "."
-        ],
-        "disabled": false,
-        "timeout": {
-          "startup": 15000,
-          "catalog": 5000,
-          "execution": 30000
         }
       },
       "context7": {
@@ -252,23 +206,6 @@
         "timeout": {
           "startup": 30000,
           "catalog": 30000,
-          "execution": 120000
-        }
-      },
-      "sequential-thinking": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-sequential-thinking"
-        ],
-        "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-        },
-        "disabled": true,
-        "timeout": {
-          "startup": 10000,
-          "catalog": 5000,
           "execution": 120000
         }
       },
@@ -288,23 +225,6 @@
           "execution": 30000
         }
       },
-      "postgres": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-postgres"
-        ],
-        "environment": {
-          "POSTGRES_CONNECTION_STRING": "{env:POSTGRES_URL}"
-        },
-        "disabled": true,
-        "timeout": {
-          "startup": 15000,
-          "catalog": 10000,
-          "execution": 60000
-        }
-      },
       "memory": {
         "type": "local",
         "command": [
@@ -313,34 +233,9 @@
           "@modelcontextprotocol/server-memory"
         ],
         "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so",
-          "MEMORY_FILE_PATH": "/data/data/com.termux/files/home/.local/share/opencode/memory.jsonl"
+          "MEMORY_FILE_PATH": "/home/koppe/.local/share/opencode/memory.jsonl"
         },
         "disabled": false,
-        "timeout": {
-          "startup": 10000,
-          "catalog": 5000,
-          "execution": 30000
-        }
-      },
-      "time": {
-        "type": "local",
-        "command": [
-          "uvx",
-          "mcp-server-time@latest",
-          "--local-timezone",
-          "Asia/Tokyo"
-        ],
-        "disabled": false
-      },
-      "everything": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-everything"
-        ],
-        "disabled": true,
         "timeout": {
           "startup": 10000,
           "catalog": 5000,

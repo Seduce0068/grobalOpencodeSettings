@@ -294,8 +294,8 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 - 新しい MCP サーバの追加や `disabled` の解除は、ユーザーの承認を
   得てから行う。
 - 秘密情報 (トークン、鍵、`.env`、非公開コード) をクエリや本文に
-  含めない。外部通信を伴うサーバ (exa、tavily-mcp、grepapp、
-  deepwiki、github、context7) ほど厳格に扱う。
+  含めない。外部通信を伴うサーバ (exa、tavily-mcp、deepwiki、
+  context7) ほど厳格に扱う。
 
 ### サーバ別用途
 
@@ -305,15 +305,10 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 | `exa` | Web 検索・ページ取得 | 最新情報、一般調査 |
 | `tavily-mcp` | 深掘りリサーチ | 広範なトピックの横断調査 |
 | `deepwiki` | 外部 GitHub リポジトリの理解 | OSS の構造・設計調査 |
-| `grepapp` | 公開 GitHub コード検索 | 公開実装の実例調査のみ |
 | `lsp` | ローカルコードの意味解析 | 定義、参照、型、診断 |
-| `github` | 無効（設定は保持） | `gh` CLI を使う |
-| `git` | ローカル git 操作 | 破壊的操作は禁止 |
 | `playwright` | ブラウザ自動化・E2E | headless 既定 |
 | `chrome-devtools` | 実ブラウザデバッグ | 性能、ネットワーク、CDP |
-| `time` | 現在日時の取得 | `date` コマンドと併用 |
 | `memory` | セッション横断の知識保存 | 機密情報は保存しない |
-| `sequential-thinking` | 無効（設定は保持） | モデル内蔵の推論で代替 |
 
 ### ツール選択の自動判断
 
@@ -330,7 +325,7 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 | 既知 URL の本文 | `web_fetch_exa` | 一括取得が速い |
 | JS/表/保護ページ | `tavily_extract` advanced | 抽出成功率が高い |
 | サイト構造/一括収集 | `tavily_map` → `tavily_crawl` | 範囲を制御できる |
-| 公開コード例 | `grepapp` | 実装検索 |
+| 公開コード例 | `gh search code` | 実装検索 |
 | GitHub 操作 | `gh` CLI | MCP より軽量 |
 | ローカルコード | `lsp` | 意味解析 |
 | OSS の設計/FAQ | `deepwiki` | リポジトリ知識 |
@@ -352,7 +347,6 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
   `topic` とバージョンを指定する。
 - 組み込み `websearch` は無効。URL 取得が必要なら `webfetch` を使う。
 - 複雑タスクの分解はモデル内蔵の推論で行う。
-  `sequential-thinking` は無効化済み。
 
 ### ファクトチェックとグラウンディング
 
