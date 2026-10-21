@@ -151,17 +151,11 @@
         }
       },
       "tavily-mcp": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "tavily-mcp@latest"
-        ],
-        "environment": {
-          "DEFAULT_PARAMETERS": "{\"include_images\": false, \"max_results\": 8, \"search_depth\": \"basic\"}",
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        "type": "remote",
+        "url": "https://mcp.tavily.com/mcp/",
+        "headers": {
+          "DEFAULT_PARAMETERS": "{\"include_images\": false, \"max_results\": 8, \"search_depth\": \"basic\"}"
         },
-        "disabled": false,
         "timeout": {
           "startup": 90000,
           "catalog": 30000,
