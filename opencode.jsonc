@@ -149,6 +149,9 @@
           ".opencode/browser-session",
           "--no-usage-statistics"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "disabled": false,
         "timeout": {
           "startup": 45000,
@@ -200,7 +203,8 @@
         ],
         "environment": {
           "PLAYWRIGHT_BROWSERS_PATH": "0",
-          "PLAYWRIGHT_MCP_HEADLESS": "true"
+          "PLAYWRIGHT_MCP_HEADLESS": "true",
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
         "timeout": {
@@ -243,7 +247,8 @@
           "@modelcontextprotocol/server-memory"
         ],
         "environment": {
-          "MEMORY_FILE_PATH": "/home/koppe/.local/share/opencode/memory.jsonl"
+          "MEMORY_FILE_PATH": "/data/data/com.termux/files/home/.local/share/opencode/memory.jsonl",
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
         "disabled": false,
         "timeout": {
