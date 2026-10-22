@@ -133,6 +133,9 @@
           "-y",
           "lsp-mcp-server@latest"
         ],
+        "environment": {
+          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+        },
         "cwd": "."
       },
       "chrome-devtools": {
