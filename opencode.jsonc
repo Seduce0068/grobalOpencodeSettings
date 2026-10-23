@@ -1,36 +1,32 @@
 {
   "providers": {
-    "openrouter": {
-      "package": "aisdk:@ai-sdk/openai",
-      "name": "OpenRouter (Cloud)",
-      "settings": {
-        "baseURL": "https://openrouter.ai/api/v1",
-        "headers": {
-          "HTTP-Referer": "https://opencode.ai",
-          "X-Title": "OpenCode"
-        }
-      },
+    "agentrouter": {
       "models": {
-        "google/gemini-3.1-flash-lite-preview:free": {
-          "name": "Gemini 3.1 Flash-Lite (Free)"
+        "gpt-5.6-sol": {
+          "name": "GPT 5.6 Sol (Responses API)",
+          "package": "@opencode/ai/providers/openai/responses",
+          "limit": {
+            "context": 1050000,
+            "output": 16384
+          }
         },
-        "google/gemini-3.0-flash:free": {
-          "name": "Gemini 3.0 Flash (Free)"
-        },
-        "google/gemini-2.5-pro:free": {
-          "name": "Gemini 2.5 Pro (Free)"
-        },
-        "google/gemma-4-31b-it:free": {
-          "name": "Gemma 4 31B (Free Cloud)"
-        },
+        "gpt-6-astra": {
+          "name": "GPT 6 Astra (Responses API)",
+          "package": "@opencode/ai/providers/openai/responses",
+          "limit": {
+            "context": 1050000,
+            "output": 16384
+          }
+        }
+      }
+    },
+    "orcarouter": {
+      "models": {
         "openai/gpt-5.6-sol": {
-          "name": "GPT 5.6 Sol (Responses API)"
-        },
-        "openai/gpt-5.6-terra": {
-          "name": "GPT 5.6 Terra (Responses API)"
-        },
-        "openai/gpt-5.6-luna": {
-          "name": "GPT 5.6 Luna (Responses API)"
+          "limit": {
+            "context": 1050000,
+            "output": 16384
+          }
         }
       }
     },
@@ -126,6 +122,21 @@
   },
   "mcp": {
     "servers": {
+      // agentrouter.to is a separate capability gateway (AGENTIC_API_KEY, aak_ tokens),
+      // not the agentrouter.org model API. Enable only for email/phone/etc. tools.
+      "agentrouter-capabilities": {
+        "type": "remote",
+        "url": "https://mcp.agentrouter.to",
+        "headers": {
+          "Authorization": "Bearer {env:AGENTIC_API_KEY}"
+        },
+        "disabled": true,
+        "timeout": {
+          "startup": 30000,
+          "catalog": 30000,
+          "execution": 120000
+        }
+      },
       "lsp": {
         "type": "local",
         "command": [
