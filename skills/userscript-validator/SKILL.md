@@ -1,6 +1,10 @@
 ---
 name: userscript-validator
-description: Userscriptの構文検証、メタデータ（@match, @grant等）の確認、およびDOM監視（MutationObserver等）のコードレビューを行う。WHEN: "validate userscript", "check script", "userscript audit", "review userscript", "メタデータ確認", "スクリプト検証".
+description: >-
+  Userscriptの構文検証、メタデータ（@match, @grant等）の確認、
+  およびDOM監視（MutationObserver等）のコードレビューを行う。
+  WHEN: "validate userscript", "check script", "userscript audit",
+  "review userscript", "メタデータ確認", "スクリプト検証".
 ---
 
 # Userscript Validator & Reviewer Skill
