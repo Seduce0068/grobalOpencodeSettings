@@ -1,4 +1,6 @@
 {
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/deepseek-v4.1-flash-free",
   "providers": {
     "agentrouter": {
       "models": {
@@ -147,7 +149,7 @@
           "lsp-mcp-server@latest"
         ],
         "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+          "LD_PRELOAD": "{env:OPENCODE_LD_PRELOAD}"
         },
         "cwd": ".",
         "disabled": true
@@ -162,7 +164,7 @@
         "type": "local",
         "cwd": ".",
         "command": [
-          "/home/koppe/.local/bin/serena",
+          "{env:HOME}/.local/bin/serena",
           "start-mcp-server",
           "--context",
           "ide",
@@ -194,7 +196,7 @@
           "--no-usage-statistics"
         ],
         "environment": {
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+          "LD_PRELOAD": "{env:OPENCODE_LD_PRELOAD}"
         },
         "disabled": false,
         "timeout": {
@@ -248,7 +250,7 @@
         "environment": {
           "PLAYWRIGHT_BROWSERS_PATH": "0",
           "PLAYWRIGHT_MCP_HEADLESS": "true",
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+          "LD_PRELOAD": "{env:OPENCODE_LD_PRELOAD}"
         },
         "disabled": false,
         "timeout": {
@@ -286,13 +288,12 @@
       "memory": {
         "type": "local",
         "command": [
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-memory"
+          "{env:OPENCODE_NODE}",
+          "{env:OPENCODE_NODE_MODULES}/@modelcontextprotocol/server-memory/dist/index.js"
         ],
         "environment": {
-          "MEMORY_FILE_PATH": "/data/data/com.termux/files/home/.local/share/opencode/memory.jsonl",
-          "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+          "MEMORY_FILE_PATH": "{env:HOME}/.local/share/opencode/memory.jsonl",
+          "LD_PRELOAD": "{env:OPENCODE_LD_PRELOAD}"
         },
         "disabled": false,
         "timeout": {
