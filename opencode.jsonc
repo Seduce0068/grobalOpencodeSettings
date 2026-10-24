@@ -149,6 +149,36 @@
         },
         "cwd": "."
       },
+      // Serena: LSP-based semantic code toolkit, positioned as the replacement for the
+      // standalone lsp MCP above. Serena v2 defaults to the REPL agent interface, which
+      // exposes only initial_instructions, activate_project, and serena_repl.
+      // --project-from-cwd auto-activates the nearest git/.serena project.
+      // The dashboard is disabled to avoid browser popups and port contention when
+      // opencode spawns one Serena instance per session.
+      "serena": {
+        "type": "local",
+        "cwd": ".",
+        "command": [
+          "/home/koppe/.local/bin/serena",
+          "start-mcp-server",
+          "--context",
+          "ide",
+          "--project-from-cwd",
+          "--enable-web-dashboard",
+          "false",
+          "--open-web-dashboard",
+          "false"
+        ],
+        "environment": {
+          "PYTHONUNBUFFERED": "1"
+        },
+        "disabled": false,
+        "timeout": {
+          "startup": 120000,
+          "catalog": 60000,
+          "execution": 180000
+        }
+      },
       "chrome-devtools": {
         "type": "local",
         "cwd": ".",

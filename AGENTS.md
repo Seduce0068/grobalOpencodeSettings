@@ -319,6 +319,7 @@ MCP は調査・操作の補助ツールとして使用する。ローカル情�
 | `tavily-mcp` | 深掘りリサーチ | 広範なトピックの横断調査 |
 | `deepwiki` | 外部 GitHub リポジトリの理解 | OSS の構造・設計調査 |
 | `lsp` | ローカルコードの意味解析 | 定義、参照、型、診断 |
+| `serena` | LSP ベースの意味解析・編集 (REPL) | シンボル検索、参照、リネーム。初回に `initial_instructions` |
 | `playwright` | ブラウザ自動化・E2E | headless 既定 |
 | `chrome-devtools` | 実ブラウザデバッグ | 性能、ネットワーク、CDP |
 | `memory` | セッション横断の知識保存 | 機密情報は保存しない |
