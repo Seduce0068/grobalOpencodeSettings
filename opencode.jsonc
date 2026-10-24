@@ -175,7 +175,8 @@
           "false"
         ],
         "environment": {
-          "PYTHONUNBUFFERED": "1"
+          "PYTHONUNBUFFERED": "1",
+          "ANDROID_APP_PATH": "{env:HOME}"
         },
         "disabled": false,
         "timeout": {

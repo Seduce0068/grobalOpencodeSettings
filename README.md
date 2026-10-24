@@ -59,6 +59,44 @@ setx OPENCODE_NODE_MODULES (npm root -g)
 | serena | `{env:HOME}/.local/bin/serena` | 未導入環境では接続失敗（他へ影響なし） |
 | chrome-devtools / playwright | `npx -y` | Termux では npx の bin 解決に失敗する場合がある |
 
+## Serena の導入 (Termux)
+
+Termux では `psutil` の公式 sdist が Android を拒否し、`cryptography` の
+ソースビルドは `dlopen` に失敗する。次の手順で導入する。
+
+### 1. psutil の patched wheel
+
+```bash
+mkdir -p /data/data/com.termux/files/usr/tmp/serena && cd /data/data/com.termux/files/usr/tmp/serena
+URL=$(curl -s https://pypi.org/pypi/psutil/7.0.0/json \
+  | python3 -c "import sys,json; print([u['url'] for u in json.load(sys.stdin)['urls'] if u['packagetype']=='sdist'][0])")
+curl -sL -o psutil.tar.gz "$URL" && tar xf psutil.tar.gz
+sed -i 's/LINUX = sys.platform.startswith("linux")/LINUX = sys.platform.startswith(("linux", "android"))/' \
+  psutil-7.0.0/psutil/_common.py
+uv build --wheel --out-dir wheels ./psutil-7.0.0
+```
+
+### 2. serena-agent の導入
+
+```bash
+pkg install -y python-cryptography
+uv tool install -p "$(command -v python3)" --find-links wheels serena-agent
+```
+
+`cryptography` は Termux パッケージ版に差し替える。
+
+```bash
+SYS=/data/data/com.termux/files/usr/lib/python3.14/site-packages
+VENV=$HOME/.local/share/uv/tools/serena-agent/lib/python3.14/site-packages
+rm -rf "$VENV/cryptography" && cp -a "$SYS/cryptography" "$VENV/cryptography"
+```
+
+### 3. pywebview の Android 対応
+
+`pywebview` は Android で `ANDROID_APP_PATH` を参照し、未設定だと
+`os.path.exists(None)` で落ちる。serena の MCP 環境変数に
+`ANDROID_APP_PATH={env:HOME}` を設定済み。
+
 ## 廃止した方式
 
 - `scripts/materialize-paths.rs` によるプレースホルダー置換
