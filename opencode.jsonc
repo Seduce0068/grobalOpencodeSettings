@@ -1,6 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "opencode/deepseek-v4.1-flash-free",
+  // A session launched from $HOME treats the entire home directory as its
+  // worktree. Snapshot indexing then reads tens of GB and blocks the session.
+  // Enable per project with "snapshots": true where undo/restore is needed.
+  "snapshots": false,
   "providers": {
     "agentrouter": {
       "models": {
