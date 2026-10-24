@@ -137,6 +137,8 @@
           "execution": 120000
         }
       },
+      // Superseded by Serena below. Kept as a disabled fallback: flip disabled to false
+      // if Serena's language backend does not cover a target language.
       "lsp": {
         "type": "local",
         "command": [
@@ -147,7 +149,8 @@
         "environment": {
           "LD_PRELOAD": "/data/data/com.termux/files/usr/lib/libtermux-exec.so"
         },
-        "cwd": "."
+        "cwd": ".",
+        "disabled": true
       },
       // Serena: LSP-based semantic code toolkit, positioned as the replacement for the
       // standalone lsp MCP above. Serena v2 defaults to the REPL agent interface, which
