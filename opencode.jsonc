@@ -193,9 +193,8 @@
         "type": "local",
         "cwd": ".",
         "command": [
-          "npx",
-          "-y",
-          "chrome-devtools-mcp@latest",
+          "{env:OPENCODE_NODE}",
+          "{env:OPENCODE_NODE_MODULES}/chrome-devtools-mcp/build/src/bin/chrome-devtools-mcp.js",
           "--user-data-dir",
           ".opencode/browser-session",
           "--no-usage-statistics"
@@ -248,9 +247,8 @@
       "playwright": {
         "type": "local",
         "command": [
-          "npx",
-          "-y",
-          "@playwright/mcp@latest"
+          "{env:OPENCODE_NODE}",
+          "{env:OPENCODE_NODE_MODULES}/@playwright/mcp/cli.js"
         ],
         "environment": {
           "PLAYWRIGHT_BROWSERS_PATH": "0",

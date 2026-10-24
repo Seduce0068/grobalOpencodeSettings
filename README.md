@@ -57,7 +57,7 @@ setx OPENCODE_NODE_MODULES (npm root -g)
 | --- | --- | --- |
 | memory | `{env:OPENCODE_NODE}` + モジュール絶対パス | `@modelcontextprotocol/server-memory` をグローバル導入 |
 | serena | `{env:HOME}/.local/bin/serena` | 未導入環境では接続失敗（他へ影響なし） |
-| chrome-devtools / playwright | `npx -y` | Termux では npx の bin 解決に失敗する場合がある |
+| chrome-devtools / playwright | `{env:OPENCODE_NODE}` + グローバルモジュール | `npm i -g chrome-devtools-mcp @playwright/mcp` が必要 |
 
 ## Serena の導入 (Termux)
 
