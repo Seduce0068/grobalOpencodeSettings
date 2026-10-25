@@ -1,7 +1,7 @@
 ---
 description: 運用・保守視点のコードレビュー専門。観測性、エラー処理、設定外部化、マイグレーション安全性、ロールバック容易性を評価する。
 mode: subagent
-model: opencode/deepseek-v4.1-flash-free
+model: opencode-go/deepseek-v4.1-flash
 permissions:
   - action: read
     resource: "*"
