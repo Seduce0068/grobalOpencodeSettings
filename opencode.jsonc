@@ -328,6 +328,28 @@
           "catalog": 5000,
           "execution": 30000
         }
+      },
+      // time-mcp: timezone-aware clock tools (current_time, convert_time, etc.).
+      // Requires: npm install -g time-mcp
+      // The upstream entrypoint prints a startup banner to stdout; this launcher
+      // forwards only JSON-RPC lines so the stdio transport stays clean.
+      "timemcp": {
+        "type": "local",
+        "cwd": ".",
+        "command": [
+          "{env:OPENCODE_NODE}",
+          "{env:HOME}/.config/opencode/time-mcp-launcher.cjs"
+        ],
+        "environment": {
+          "TIME_MCP_ENTRY": "{env:OPENCODE_NODE_MODULES}/time-mcp/dist/index.js",
+          "LD_PRELOAD": "{env:OPENCODE_LD_PRELOAD}"
+        },
+        "disabled": false,
+        "timeout": {
+          "startup": 15000,
+          "catalog": 10000,
+          "execution": 30000
+        }
       }
     },
     "timeout": {
