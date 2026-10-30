@@ -59,6 +59,23 @@ setx OPENCODE_NODE_MODULES (npm root -g)
 | serena | `{env:HOME}/.local/bin/serena` | 未導入環境では接続失敗（他へ影響なし） |
 | chrome-devtools / playwright | `{env:OPENCODE_NODE}` + グローバルモジュール | `npm i -g chrome-devtools-mcp @playwright/mcp` が必要 |
 
+## Termux のヘッドレスブラウザ
+
+Termux には Playwright 公式のブラウザビルドがなく、`playwright-core` は
+`process.platform === "android"` を未サポートとして読み込み時に例外を投げる。
+そのため `pkg install chromium` のシステム Chromium を両 MCP で共用する。
+
+- 実行ファイル: `/data/data/com.termux/files/usr/lib/chromium/chrome`
+- `chrome-devtools`: `--headless` と `--chromeArg=--no-sandbox` を指定する
+- `playwright`: `playwright-mcp-launcher.cjs` が `process.platform` を
+  `linux` として提示してから `@playwright/mcp` を読み込む
+- Android では sandbox と `/dev/shm` が使えないため、`--no-sandbox` と
+  `--disable-dev-shm-usage` を必ず渡す
+
+Playwright の永続プロファイルは
+`~/.cache/ms-playwright/mcp-chromium-<workspace-hash>` に作成され、
+自動出力は `~/.cache/playwright-mcp/output` に退避する。
+
 ## Serena の導入 (Termux)
 
 Termux では `psutil` の公式 sdist が Android を拒否し、`cryptography` の
