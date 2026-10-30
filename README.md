@@ -61,9 +61,12 @@ setx OPENCODE_NODE_MODULES (npm root -g)
 
 ## Termux のヘッドレスブラウザ
 
-Termux には Playwright 公式のブラウザビルドがなく、`playwright-core` は
-`process.platform === "android"` を未サポートとして読み込み時に例外を投げる。
-そのため `pkg install chromium` のシステム Chromium を両 MCP で共用する。
+Termux には Playwright の Linux ARM64 ビルドを取得できるが、
+`playwright-core` は `process.platform === "android"` を未サポートとして
+読み込み時に例外を投げる。さらに `glibc-runner` で起動する場合も、
+glibc 版の `libnspr4.so` と `libnss3.so` が Termux の glibc リポジトリに
+存在しない。そのため `pkg install chromium` のシステム Chromium を
+両 MCP で共用する。
 
 - 実行ファイル: `/data/data/com.termux/files/usr/lib/chromium/chrome`
 - `chrome-devtools`: `--headless` と `--chromeArg=--no-sandbox` を指定する
