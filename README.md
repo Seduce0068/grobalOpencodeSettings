@@ -63,17 +63,30 @@ setx OPENCODE_NODE_MODULES (npm root -g)
 
 Termux には Playwright の Linux ARM64 ビルドを取得できるが、
 `playwright-core` は `process.platform === "android"` を未サポートとして
-読み込み時に例外を投げる。さらに `glibc-runner` で起動する場合も、
-glibc 版の `libnspr4.so` と `libnss3.so` が Termux の glibc リポジトリに
-存在しない。そのため `pkg install chromium` のシステム Chromium を
-両 MCP で共用する。
+読み込み時に例外を投げる。`playwright-mcp-launcher.cjs` が `linux` として
+提示してから読み込むことで回避する。
+
+ブラウザは 2 系統を使い分ける。
+
+- chrome-devtools: `pkg install chromium` のシステム Chromium (Bionic)
+- playwright: glibc 版の Chrome Headless Shell 155
+
+### システム Chromium (chrome-devtools)
 
 - 実行ファイル: `/data/data/com.termux/files/usr/lib/chromium/chrome`
-- `chrome-devtools`: `--headless` と `--chromeArg=--no-sandbox` を指定する
-- `playwright`: `playwright-mcp-launcher.cjs` が `process.platform` を
-  `linux` として提示してから `@playwright/mcp` を読み込む
-- Android では sandbox と `/dev/shm` が使えないため、`--no-sandbox` と
-  `--disable-dev-shm-usage` を必ず渡す
+- `--headless` と `--chromeArg=--no-sandbox` を指定する
+- Android では sandbox と `/dev/shm` が使えないため、
+  `--no-sandbox` と `--disable-dev-shm-usage` を必ず渡す
+
+### glibc 版 Playwright
+
+`scripts/termux-glibc/` の手順で NSPR/NSS と依存ライブラリをビルドする。
+
+- 実行ファイル:
+  `~/.cache/ms-playwright/chromium_headless_shell-1247/chrome-headless-shell-linux-arm64/chrome-headless-shell`
+- `playwright-mcp-launcher.cjs` が `process.platform` を `linux` として提示し、
+  `LD_PRELOAD` を削除してから `@playwright/mcp` を読み込む
+- `--no-sandbox` と `--disable-dev-shm-usage` を渡す
 
 Playwright の永続プロファイルは
 `~/.cache/ms-playwright/mcp-chromium-<workspace-hash>` に作成され、
