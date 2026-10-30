@@ -66,27 +66,18 @@ Termux には Playwright の Linux ARM64 ビルドを取得できるが、
 読み込み時に例外を投げる。`playwright-mcp-launcher.cjs` が `linux` として
 提示してから読み込むことで回避する。
 
-ブラウザは 2 系統を使い分ける。
-
-- chrome-devtools: `pkg install chromium` のシステム Chromium (Bionic)
-- playwright: glibc 版の Chrome Headless Shell 155
-
-### システム Chromium (chrome-devtools)
+ブラウザは両 MCP とも `pkg install chromium` のシステム Chromium (Bionic) を
+使う。glibc 版 Playwright ブラウザの構築手順は `scripts/termux-glibc/` に
+残してあり、必要時に `--executable-path` を切り替えられる。
 
 - 実行ファイル: `/data/data/com.termux/files/usr/lib/chromium/chrome`
 - `--headless` と `--chromeArg=--no-sandbox` を指定する
 - Android では sandbox と `/dev/shm` が使えないため、
   `--no-sandbox` と `--disable-dev-shm-usage` を必ず渡す
+- `playwright-mcp-launcher.cjs` が `process.platform` を `linux` として提示する
 
-### glibc 版 Playwright
-
-`scripts/termux-glibc/` の手順で NSPR/NSS と依存ライブラリをビルドする。
-
-- 実行ファイル:
-  `~/.cache/ms-playwright/chromium_headless_shell-1247/chrome-headless-shell-linux-arm64/chrome-headless-shell`
-- `playwright-mcp-launcher.cjs` が `process.platform` を `linux` として提示し、
-  `LD_PRELOAD` を削除してから `@playwright/mcp` を読み込む
-- `--no-sandbox` と `--disable-dev-shm-usage` を渡す
+glibc 版は `scripts/termux-glibc/README.md` の手順で再現できる。
+`patchelf` でインタプリタを差し替え、`LD_PRELOAD` を外す必要がある。
 
 Playwright の永続プロファイルは
 `~/.cache/ms-playwright/mcp-chromium-<workspace-hash>` に作成され、

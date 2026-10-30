@@ -270,14 +270,14 @@
           "--headless",
           "--no-sandbox",
           "--executable-path",
-          "/data/data/com.termux/files/home/.cache/ms-playwright/chromium_headless_shell-1247/chrome-headless-shell-linux-arm64/chrome-headless-shell",
+          "/data/data/com.termux/files/usr/lib/chromium/chrome",
           "--output-dir",
           "{env:HOME}/.cache/playwright-mcp/output",
           "--viewport-size",
           "1280x720"
         ],
         "environment": {
-          "LD_PRELOAD": ""
+          "LD_PRELOAD": "{env:OPENCODE_LD_PRELOAD}"
         },
         "disabled": false,
         "timeout": {

@@ -23,10 +23,6 @@ if (!process.env.PLAYWRIGHT_HOST_PLATFORM_OVERRIDE) {
   process.env.PLAYWRIGHT_HOST_PLATFORM_OVERRIDE = "ubuntu24.04-arm64";
 }
 
-// glibc 版 Chromium は Bionic 用の LD_PRELOAD を受け付けない。
-// Node.js の起動後なので、ここで外しても MCP サーバー自体には影響しない。
-delete process.env.LD_PRELOAD;
-
 const path = require("path");
 const bases = [
   process.env.OPENCODE_NODE_MODULES,
