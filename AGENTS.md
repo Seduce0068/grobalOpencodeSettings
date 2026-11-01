@@ -195,6 +195,19 @@ generated:
 - GPUはASUS GTX1660 SUPERを使用する。
 - マザーボードはASUS PRIME B450-PLUSを使用する。
 - ケースはG-GEAR ミドルタワーケース 69JDを使用する。
+- 対話シェルはNushellを使う。ユーザーに提示するコマンド例は
+  Nushellで動作する構文にする。Bash固有の構文を提示しない。
+  - `eval`は無い。`$env.VAR = (command)`を使う。
+  - `mkdir`は親ディレクトリも作成する。`-p`は無い。
+  - `cat > file <<'EOF'`は使えない。
+    `r#'...'# | save --force file`を使う。
+  - `export VAR=value`は使えない。`$env.VAR = value`を使う。
+  - `$(...)`は`(...)`を使う。
+  - `cmd && cmd`は`cmd; cmd`を使う。
+  - `if [ ... ]; then ...; fi`は`if condition { ... }`を使う。
+  - `for x in ...; do ...; done`は`for x in ... { ... }`を使う。
+  - `$?`は`$env.LAST_EXIT_CODE`を使う。
+  - 外部コマンドは`^chmod`のように`^`を付ける。
 
 ### 参照
 
