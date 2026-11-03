@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# 無課金プロファイルで OpenCode を起動する。
+# - opencode-go (Go サブスク) を policies で deny し、全エージェントを無料モデルへ固定する
+# - 共有サービスはグローバル設定を保持しているため、--standalone でプライベートサーバーを使う
+# 使い方: ~/.config/opencode/scripts/opencode-free [opencode の引数...]
+set -euo pipefail
+
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+PROFILE="$CONFIG_HOME/opencode/profiles/free.json"
+
+if [ ! -f "$PROFILE" ]; then
+  echo "error: profile not found: $PROFILE" >&2
+  exit 1
+fi
+
+export OPENCODE_CONFIG_CONTENT
+OPENCODE_CONFIG_CONTENT="$(cat "$PROFILE")"
+
+exec opencode --standalone "$@"
