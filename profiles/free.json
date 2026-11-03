@@ -11,6 +11,9 @@
   "agents": {
     "security-reviewer": {
       "model": "openrouter/freecoder"
+    },
+    "test-author": {
+      "model": "ollama-cloud/beam"
     }
   }
 }

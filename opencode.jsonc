@@ -387,13 +387,13 @@
     "general": {
       // 実測 (2026-11-03): 正しい provider は console-nvidia ではなく nvidia。
       // nvidia/deepseek-ai/deepseek-v4.1-flash は無料 (0/0) かつ疎通確認済み。
-      // console-chutes は Invalid token、console-nvidia は応答なしだった。
-      // OpenCode V2 の agents.model は単一指定のみ (fallback 構造なし) なので,
-      // 制限ヒット時は /models で以下の順に切替する:
-      //   1) nvidia/deepseek-ai/deepseek-v4.1-flash (無料・疎通済み)
-      //   2) openrouter/freecoder  (OpenRouter 側 fallback chain、自動遷移)
-      //   3) ollama-cloud/beam     (Ollama Cloud の唯一の無料モデル)
-      //   4) opencode/deepseek-v4.1-flash-free (Console built-in)
+      // OpenCode V2 の agents.model は単一指定で NVIDIA 側に fallback 機構がないため,
+      // 制限ヒット時は /models で以下の順に手動切替する:
+      //   1) nvidia/deepseek-ai/deepseek-v4.1-flash (現行・無料)
+      //   2) nvidia/nvidia/nemotron-3-ultra-550b-a55b (NVIDIA 内フォールバック・無料)
+      //   3) openrouter/freecoder  (OpenRouter 側 fallback chain、自動遷移)
+      //   4) ollama-cloud/beam     (Ollama Cloud の唯一の無料モデル)
+      //   5) opencode/deepseek-v4.1-flash-free (Console built-in)
       "model": "nvidia/deepseek-ai/deepseek-v4.1-flash"
     }
   },
