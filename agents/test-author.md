@@ -1,7 +1,7 @@
 ---
 description: テスト仕様書・テストコード・テストデータの生成専門。test-spec スキル（ISO/IEC/IEEE 29119 準拠）に従い、プロジェクトのテスト規約に整合する成果物を生成する。
 mode: subagent
-model: opencode-go/deepseek-v4.1-flash
+model: console-nvidia/deepseek-ai/deepseek-v4.1-flash
 permissions:
   - action: read
     resource: "*"

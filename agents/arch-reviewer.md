@@ -1,7 +1,7 @@
 ---
 description: アーキテクチャ視点のコードレビュー専門。責務分離、依存方向、インターフェース設計、拡張性、技術的負債を評価する。
 mode: subagent
-model: opencode-go/muse-spark-1.3-contributor
+model: openrouter/freecoder
 permissions:
   - action: read
     resource: "*"

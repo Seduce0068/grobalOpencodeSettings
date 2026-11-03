@@ -1,7 +1,7 @@
 ---
 description: テスト品質視点のコードレビュー専門。テストの網羅性、アサーションの有効性、偽陽性・偽陰性、フレーキーリスク、テストデータの妥当性を評価する。
 mode: subagent
-model: opencode-go/muse-spark-1.3-contributor
+model: openrouter/freecoder
 permissions:
   - action: read
     resource: "*"
