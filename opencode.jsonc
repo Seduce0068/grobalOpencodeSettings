@@ -385,15 +385,16 @@
       "model": "opencode/deepseek-v4.1-flash-free"
     },
     "general": {
-      // 実測 (2026-11-03): console-nvidia は CLI 直接でも 6 分応答なし、
-      // console-chutes は Invalid token で使用不可。動作した無料経路は
-      // openrouter/freecoder (OpenRouter fallback chain) と opencode/*-free。
+      // 実測 (2026-11-03): 正しい provider は console-nvidia ではなく nvidia。
+      // nvidia/deepseek-ai/deepseek-v4.1-flash は無料 (0/0) かつ疎通確認済み。
+      // console-chutes は Invalid token、console-nvidia は応答なしだった。
       // OpenCode V2 の agents.model は単一指定のみ (fallback 構造なし) なので,
       // 制限ヒット時は /models で以下の順に切替する:
-      //   1) openrouter/freecoder  (OpenRouter 側 fallback chain、自動遷移)
-      //   2) opencode/deepseek-v4.1-flash-free (Console built-in)
-      //   3) opencode/glm-5.3-flash-free (Console built-in)
-      "model": "openrouter/freecoder"
+      //   1) nvidia/deepseek-ai/deepseek-v4.1-flash (無料・疎通済み)
+      //   2) openrouter/freecoder  (OpenRouter 側 fallback chain、自動遷移)
+      //   3) ollama-cloud/beam     (Ollama Cloud の唯一の無料モデル)
+      //   4) opencode/deepseek-v4.1-flash-free (Console built-in)
+      "model": "nvidia/deepseek-ai/deepseek-v4.1-flash"
     }
   },
   "experimental": {
