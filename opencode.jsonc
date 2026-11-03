@@ -385,20 +385,21 @@
       "model": "opencode/deepseek-v4.1-flash-free"
     },
     "general": {
-      // 実測 (2026-11-03): 正しい provider は console-nvidia ではなく nvidia。
-      // nvidia/deepseek-ai/deepseek-v4.1-flash は無料 (0/0) かつ疎通確認済み。
-      // OpenCode V2 の agents.model は単一指定で NVIDIA 側に fallback 機構がないため,
-      // 制限ヒット時は /models で以下の順に手動切替する:
-      //   1) nvidia/deepseek-ai/deepseek-v4.1-flash (現行・無料)
-      //   2) nvidia/nvidia/nemotron-3-ultra-550b-a55b (NVIDIA 内フォールバック・無料)
-      //   3) openrouter/freecoder  (OpenRouter 側 fallback chain、自動遷移)
-      //   4) ollama-cloud/beam     (Ollama Cloud の唯一の無料モデル)
-      //   5) opencode/deepseek-v4.1-flash-free (Console built-in)
-      "model": "nvidia/deepseek-ai/deepseek-v4.1-flash"
+      // 制限ヒット時のフォールバック手順:
+      //   1. 現在有効な "model" 行をコメントアウトする
+      //   2. 次の候補行のコメントを解除する
+      //   3. 保存すると config は自動リロードされる (restart 不要)
+      // 各行に末尾カンマを付けてあるため、どの行を有効化しても構文エラーにならない。
+      "model": "nvidia/deepseek-ai/deepseek-v4.1-flash",
+      // "model": "nvidia/nvidia/nemotron-3-ultra-550b-a55b",
+      // "model": "ollama-cloud/beam",
+      // "model": "openrouter/freecoder",
+      // "model": "opencode/deepseek-v4.1-flash-free",
     }
   },
   "experimental": {
-    "todo": true
+    "todo": true,
+    "background_compaction" : true
   },
   "formatter": true,
   "compaction": {
