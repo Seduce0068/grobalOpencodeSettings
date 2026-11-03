@@ -1,7 +1,14 @@
 ---
 description: セキュリティ視点のコードレビュー専門。入力検証、認証認可、秘密管理、依存脆弱性、インジェクション攻撃対策を評価する。
 mode: subagent
+# 制限ヒット時のフォールバック手順:
+#   1. 現在有効な "model" 行をコメントアウトする
+#   2. 次の候補行のコメントを解除する
+#   3. 保存すると config は自動リロードされる (restart 不要)
 model: opencode-go/deepseek-v4-pro#high
+# model: openrouter/freecoder
+# model: nvidia/deepseek-ai/deepseek-v4.1-flash
+# model: opencode/deepseek-v4.1-flash-free
 permissions:
   - action: read
     resource: "*"

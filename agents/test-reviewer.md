@@ -1,7 +1,14 @@
 ---
 description: テスト品質視点のコードレビュー専門。テストの網羅性、アサーションの有効性、偽陽性・偽陰性、フレーキーリスク、テストデータの妥当性を評価する。
 mode: subagent
+# 制限ヒット時のフォールバック手順:
+#   1. 現在有効な "model" 行をコメントアウトする
+#   2. 次の候補行のコメントを解除する
+#   3. 保存すると config は自動リロードされる (restart 不要)
 model: openrouter/freecoder
+# model: nvidia/deepseek-ai/deepseek-v4.1-flash
+# model: ollama-cloud/beam
+# model: opencode/deepseek-v4.1-flash-free
 permissions:
   - action: read
     resource: "*"

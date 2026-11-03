@@ -1,7 +1,15 @@
 ---
 description: テスト仕様書・テストコード・テストデータの生成専門。test-spec スキル（ISO/IEC/IEEE 29119 準拠）に従い、プロジェクトのテスト規約に整合する成果物を生成する。
 mode: subagent
+# 制限ヒット時のフォールバック手順:
+#   1. 現在有効な "model" 行をコメントアウトする
+#   2. 次の候補行のコメントを解除する
+#   3. 保存すると config は自動リロードされる (restart 不要)
 model: opencode-go/beam-free#max
+# model: ollama-cloud/beam
+# model: nvidia/deepseek-ai/deepseek-v4.1-flash
+# model: openrouter/freecoder
+# model: opencode/deepseek-v4.1-flash-free
 permissions:
   - action: read
     resource: "*"
