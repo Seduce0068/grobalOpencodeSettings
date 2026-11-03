@@ -363,8 +363,11 @@
       "model": "opencode/deepseek-v4.1-flash-free"
     },
     "general": {
-      // マルチステップ調査: 出力単価が最安級。学習利用同意済み（ユーザー方針）
-      "model": "opencode-go/muse-spark-1.3-contributor"
+      // Console 接続 NVIDIA NIM: 全17モデルがカタログ価格 0 円。主力と同系の
+      // DeepSeek V4.1 Flash をサブエージェント調査へ振り、Go 有料枠の消費を抑える。
+      // 2-3 セッション実測後、品質/レートが不十分なら
+      // console-chutes/moonshotai/Kimi-K2.7-Code へ切替。
+      "model": "console-nvidia/deepseek-ai/deepseek-v4.1-flash"
     }
   },
   "experimental": {
