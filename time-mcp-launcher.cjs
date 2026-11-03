@@ -2,28 +2,36 @@
 "use strict";
 
 /**
- * time-mcp launcher for OpenCode on Termux.
+ * Cross-platform launcher for time-mcp.
  *
- * time-mcp は起動時に "Starting Time MCP server..." を stdout へ書くが、
- * MCP stdio トランスポートでは stdout は JSON-RPC 専用。非 JSON 行を
- * 除去してからクライアントへ中継する。
+ * time-mcp prints a startup banner to stdout, but MCP's stdio transport
+ * reserves stdout for JSON-RPC. The launcher forwards only JSON lines so the
+ * transport stays clean.
  *
- * 解決順:
- *   1. TIME_MCP_ENTRY (opencode.jsonc から渡す)
- *   2. OPENCODE_NODE_MODULES/time-mcp/dist/index.js
- *   3. Termux のグローバル node_modules
+ * Resolution order:
+ *   1. TIME_MCP_ENTRY (explicit override)
+ *   2. time-mcp resolved from the shared module roots in mcp-paths.cjs
  */
 
+const fs = require("node:fs");
 const { spawn } = require("node:child_process");
-const path = require("node:path");
 const readline = require("node:readline");
+const { resolveModule } = require("./mcp-paths.cjs");
 
-const nodeModules =
-  process.env.OPENCODE_NODE_MODULES ||
-  "/data/data/com.termux/files/usr/lib/node_modules";
-const entry =
-  process.env.TIME_MCP_ENTRY ||
-  path.join(nodeModules, "time-mcp", "dist", "index.js");
+const candidates = [
+  process.env.TIME_MCP_ENTRY,
+  resolveModule("time-mcp/dist/index.js"),
+].filter((candidate) => typeof candidate === "string" && candidate.length > 0);
+
+const entry = candidates.find((candidate) => fs.existsSync(candidate));
+
+if (!entry) {
+  process.stderr.write(
+    `time-mcp not found. Install it with:\n` +
+      `  npm install --prefix "$HOME/.local/share/opencode/mcp" time-mcp@latest\n`,
+  );
+  process.exit(1);
+}
 
 const child = spawn(process.execPath, [entry, ...process.argv.slice(2)], {
   stdio: ["pipe", "pipe", "inherit"],
@@ -37,7 +45,7 @@ const lines = readline.createInterface({
 });
 
 lines.on("line", (line) => {
-  // MCP の JSON-RPC は 1 行 1 メッセージ。バナーやログは転送しない。
+  // MCP JSON-RPC is one message per line. Drop banners and log output.
   if (!line.trimStart().startsWith("{")) return;
   if (!process.stdout.write(`${line}\n`)) lines.pause();
 });
