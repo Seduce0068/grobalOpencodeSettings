@@ -385,15 +385,15 @@
       "model": "opencode/deepseek-v4.1-flash-free"
     },
     "general": {
-      // Console 接続 NVIDIA NIM: 全17モデルがカタログ価格 0 円。主力と同系の
-      // DeepSeek V4.1 Flash をサブエージェント調査へ振り、Go 有料枠の消費を抑える。
+      // 実測 (2026-11-03): console-nvidia は CLI 直接でも 6 分応答なし、
+      // console-chutes は Invalid token で使用不可。動作した無料経路は
+      // openrouter/freecoder (OpenRouter fallback chain) と opencode/*-free。
       // OpenCode V2 の agents.model は単一指定のみ (fallback 構造なし) なので,
       // 制限ヒット時は /models で以下の順に切替する:
       //   1) openrouter/freecoder  (OpenRouter 側 fallback chain、自動遷移)
-      //   2) console-chutes/moonshotai/Kimi-K2.7-Code
-      //   3) console-chutes/deepseek-ai/DeepSeek-V4.1-Flash-1017
-      //   4) opencode/glm-5.3-flash-free (Console built-in)
-      "model": "console-nvidia/deepseek-ai/deepseek-v4.1-flash"
+      //   2) opencode/deepseek-v4.1-flash-free (Console built-in)
+      //   3) opencode/glm-5.3-flash-free (Console built-in)
+      "model": "openrouter/freecoder"
     }
   },
   "experimental": {
