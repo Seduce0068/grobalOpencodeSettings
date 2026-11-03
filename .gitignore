@@ -28,3 +28,6 @@ browser-session
 # OS
 .DS_Store
 Thumbs.db
+# OpenCode managed service credentials (never commit)
+service.json
+service-*.json
