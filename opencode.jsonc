@@ -64,29 +64,7 @@
         }
       }
     },
-    "ollama": {
-      "package": "aisdk:@ai-sdk/openai-compatible",
-      "name": "Ollama (Local)",
-      "settings": {
-        "baseURL": "http://localhost:11434/v1"
-      },
-      "models": {
-        "gemma4:4b": {
-          "name": "Gemma 4 4B (Super Fast)",
-          "limit": {
-            "context": 65536,
-            "output": 4096
-          }
-        },
-        "gemma4:26b": {
-          "name": "Gemma 4 26B MoE (Intelligent)",
-          "limit": {
-            "context": 65536,
-            "output": 4096
-          }
-        }
-      }
-    }
+
   },
   "websearch": false,
   "permission": {
