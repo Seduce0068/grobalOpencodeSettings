@@ -195,24 +195,22 @@ generated:
 - GPUはASUS GTX1660 SUPERを使用する。
 - マザーボードはASUS PRIME B450-PLUSを使用する。
 - ケースはG-GEAR ミドルタワーケース 69JDを使用する。
-- 対話シェルはNushellを使う。ユーザーに提示するコマンド例は
-  Nushellで動作する構文にする。Bash固有の構文を提示しない。
-  - `eval`は無い。`$env.VAR = (command)`を使う。
-  - `mkdir`は親ディレクトリも作成する。`-p`は無い。
-  - `cat > file <<'EOF'`は使えない。
-    `r#'...'# | save --force file`を使う。
-  - `export VAR=value`は使えない。`$env.VAR = value`を使う。
-  - `$(...)`は`(...)`を使う。
-  - `cmd && cmd`は`cmd; cmd`を使う。
-  - `if [ ... ]; then ...; fi`は`if condition { ... }`を使う。
-  - `for x in ...; do ...; done`は`for x in ... { ... }`を使う。
-  - `$?`は`$env.LAST_EXIT_CODE`を使う。
-  - 外部コマンドは`^chmod`のように`^`を付ける。
+- 対話シェルとスクリプトはbashを使う。ユーザーに提示するコマンド例は
+  bashで動作する構文にする。Nushell・zsh・fish固有の構文を提示しない。
+  - スクリプトは`#!/usr/bin/env bash`と`set -euo pipefail`を基本とする。
+  - `$(...)`、`&&`、`if ...; then ...; fi`、`for ...; do ...; done`、
+    ヒアドキュメント（`<<'EOF'`）を使う。
+  - 環境変数は`export VAR=value`、終了コードは`$?`で扱う。
+  - 配列は`arr=(a b c)`、連想配列は`declare -A`を使う。
+  - 外部コマンドに`^`を付けない。パイプとリダイレクトはPOSIX準拠で書く。
+  - 提示前に`bash -n`、`shellcheck`、`shfmt -d`で検証する。
+  - 構造化データは`jq`/`yq`/`jc`で扱い、シェル内でJSONを手組みしない。
 - ユーザーに実行してもらう確認コマンドは、1つのコードブロックに
   まとめる。複数のブロックに分割しない。
   - コピー&ペーストで順に実行できる形にする。
   - 各コマンドの前に`echo`で見出しを付け、途中経過を分かるようにする。
-  - 実行環境（Nushell / Bash / リモートホスト）を直前に明記する。
+  - 実行環境（Termux / Kubuntu / リモートホスト）を直前に明記する。
+    シェルは明示がない限りbashとする。
   - 確認と修正が混在する場合は、確認 → 修正 → 再確認の順に
     同じブロック内へ並べる。
 
