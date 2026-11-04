@@ -75,47 +75,37 @@
 
   },
   "websearch": false,
-  "permission": {
-    "*": "allow",
-    "cargo": "allow",
-    "read": {
-      ".env": "deny",
-      ".env.*": "deny",
-      ".env.example": "allow",
-      "*.pem": "deny",
-      "*.key": "deny",
-      "id_rsa*": "deny",
-      "*.kdbx": "deny",
-      "secrets/**": "deny",
-      ".aws/credentials": "deny",
-      "*/.aws/*": "deny",
-      "*/.kube/*": "deny",
-      "*/.config/gcloud/*": "deny",
-      "*/.npmrc": "deny"
-    },
-    "edit": {
-      "": "allow",
-      ".env": "deny",
-      ".env.*": "deny",
-      "*.pem": "deny",
-      "*.key": "deny",
-      "id_rsa*": "deny",
-      "*.kdbx": "deny",
-      "secrets/**": "deny",
-      ".aws/credentials": "deny",
-      "*/.aws/*": "deny",
-      "*/.kube/*": "deny",
-      "*/.config/gcloud/*": "deny",
-      "*/.npmrc": "deny"
-    },
-    "glob": "allow",
-    "grep": "allow",
-    "list": "allow",
-    "webfetch": "allow",
-    "websearch": "allow",
-    "patch": "allow",
-    "task": "allow"
-  },
+  // V2 の ordered rules。最後にマッチしたルールが勝つため、
+  // 全許可の後に機密パスの deny を置く。
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": ".env", "effect": "deny" },
+    { "action": "read", "resource": ".env.*", "effect": "deny" },
+    { "action": "read", "resource": ".env.example", "effect": "allow" },
+    { "action": "read", "resource": "*.pem", "effect": "deny" },
+    { "action": "read", "resource": "*.key", "effect": "deny" },
+    { "action": "read", "resource": "id_rsa*", "effect": "deny" },
+    { "action": "read", "resource": "*.kdbx", "effect": "deny" },
+    { "action": "read", "resource": "secrets/**", "effect": "deny" },
+    { "action": "read", "resource": ".aws/credentials", "effect": "deny" },
+    { "action": "read", "resource": "*/.aws/*", "effect": "deny" },
+    { "action": "read", "resource": "*/.kube/*", "effect": "deny" },
+    { "action": "read", "resource": "*/.config/gcloud/*", "effect": "deny" },
+    { "action": "read", "resource": "*/.npmrc", "effect": "deny" },
+    { "action": "edit", "resource": "*", "effect": "allow" },
+    { "action": "edit", "resource": ".env", "effect": "deny" },
+    { "action": "edit", "resource": ".env.*", "effect": "deny" },
+    { "action": "edit", "resource": "*.pem", "effect": "deny" },
+    { "action": "edit", "resource": "*.key", "effect": "deny" },
+    { "action": "edit", "resource": "id_rsa*", "effect": "deny" },
+    { "action": "edit", "resource": "*.kdbx", "effect": "deny" },
+    { "action": "edit", "resource": "secrets/**", "effect": "deny" },
+    { "action": "edit", "resource": ".aws/credentials", "effect": "deny" },
+    { "action": "edit", "resource": "*/.aws/*", "effect": "deny" },
+    { "action": "edit", "resource": "*/.kube/*", "effect": "deny" },
+    { "action": "edit", "resource": "*/.config/gcloud/*", "effect": "deny" },
+    { "action": "edit", "resource": "*/.npmrc", "effect": "deny" }
+  ],
   "lsp": {
     "rust": {
       "command": [
@@ -133,12 +123,6 @@
         }
       }
     }
-  },
-  "security": {
-    "strictPermissionChecks": true
-  },
-  "storage": {
-    "gcBufferMb": 4096
   },
   "mcp": {
     "servers": {
