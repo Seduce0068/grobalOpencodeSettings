@@ -84,9 +84,10 @@
     { "action": "read", "resource": ".env.example", "effect": "allow" },
     { "action": "read", "resource": "*.pem", "effect": "deny" },
     { "action": "read", "resource": "*.key", "effect": "deny" },
-    { "action": "read", "resource": "id_rsa*", "effect": "deny" },
+    { "action": "read", "resource": "*id_rsa*", "effect": "deny" },
     { "action": "read", "resource": "*.kdbx", "effect": "deny" },
     { "action": "read", "resource": "secrets/**", "effect": "deny" },
+    { "action": "read", "resource": "*secrets/**", "effect": "deny" },
     { "action": "read", "resource": ".aws/credentials", "effect": "deny" },
     { "action": "read", "resource": "*/.aws/*", "effect": "deny" },
     { "action": "read", "resource": "*/.kube/*", "effect": "deny" },
@@ -97,33 +98,16 @@
     { "action": "edit", "resource": ".env.*", "effect": "deny" },
     { "action": "edit", "resource": "*.pem", "effect": "deny" },
     { "action": "edit", "resource": "*.key", "effect": "deny" },
-    { "action": "edit", "resource": "id_rsa*", "effect": "deny" },
+    { "action": "edit", "resource": "*id_rsa*", "effect": "deny" },
     { "action": "edit", "resource": "*.kdbx", "effect": "deny" },
     { "action": "edit", "resource": "secrets/**", "effect": "deny" },
+    { "action": "edit", "resource": "*secrets/**", "effect": "deny" },
     { "action": "edit", "resource": ".aws/credentials", "effect": "deny" },
     { "action": "edit", "resource": "*/.aws/*", "effect": "deny" },
     { "action": "edit", "resource": "*/.kube/*", "effect": "deny" },
     { "action": "edit", "resource": "*/.config/gcloud/*", "effect": "deny" },
     { "action": "edit", "resource": "*/.npmrc", "effect": "deny" }
   ],
-  "lsp": {
-    "rust": {
-      "command": [
-        "rust-analyzer"
-      ],
-      "extensions": [
-        "rs"
-      ],
-      "initialization": {
-        "checkOnSave": {
-          "command": "clippy"
-        },
-        "cargo": {
-          "allFeatures": true
-        }
-      }
-    }
-  },
   "mcp": {
     "servers": {
       // agentrouter.to is a separate capability gateway (AGENTIC_API_KEY, aak_ tokens),
