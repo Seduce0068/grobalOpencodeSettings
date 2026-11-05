@@ -29,6 +29,14 @@
             "context": 1050000,
             "output": 16384
           }
+        },
+        "gpt-6.1-sol": {
+          "name": "GPT 6.1 Sol (Responses API)",
+          "package": "@opencode/ai/providers/openai/responses",
+          "limit": {
+            "context": 1050000,
+            "output": 16384
+          }
         }
       }
     },
