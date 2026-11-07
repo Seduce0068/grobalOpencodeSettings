@@ -173,8 +173,7 @@ generated:
 ### 環境
 
 - OSは[Kubuntu](https://kubuntu.org)を使う。
-- スマホブラウザは[firefox](https://www.firefox.com/ja)の
-  Android版を使う。
+- スマホブラウザは[Microsoft Edge](https://www.microsoft.com/ja-jp/edge) を使う。
 - PCブラウザは[firefox](https://www.firefox.com/ja) を使う。
 - スマホはAndroidスマートフォンとする。
 - スマホはSIMフリーのGalaxy S26 Ultra 1TB SM-S948Qを使う。
