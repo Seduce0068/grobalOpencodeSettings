@@ -1,0 +1,67 @@
+name: check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Secret scan (tracked files)
+        run: |
+          python3 - <<'PY'
+          import re, subprocess, pathlib
+          pats = [re.compile(r'github_pat_[A-Za-z0-9_]{30,}'),
+                  re.compile(r'ghp_[A-Za-z0-9]{30,}'),
+                  re.compile(r'sk-[A-Za-z0-9_-]{30,}'),
+                  re.compile(r'AKIA[0-9A-Z]{16}'),
+                  re.compile(r'nvapi-[A-Za-z0-9_-]{20,}'),
+                  re.compile(r'-----BEGIN [A-Z ]*PRIVATE KEY-----')]
+          hits = []
+          for rel in subprocess.run(['git','ls-files'], capture_output=True, text=True).stdout.splitlines():
+              p = pathlib.Path(rel)
+              if not p.is_file() or p.stat().st_size > 1024 * 1024:
+                  continue
+              if any(rx.search(p.read_text(errors='ignore')) for rx in pats):
+                  hits.append(rel)
+          if hits:
+              print('secret-like content:', hits)
+              raise SystemExit(1)
+          print('secret scan: OK')
+          PY
+      - name: Guard: opencode.jsonc must stay untracked
+        run: |
+          if git ls-files --error-unmatch opencode.jsonc >/dev/null 2>&1; then
+            echo "opencode.jsonc must not be tracked (contains local API keys)"
+            exit 1
+          fi
+          grep -qxF 'opencode.jsonc' .gitignore || { echo "opencode.jsonc missing from .gitignore"; exit 1; }
+          echo 'guard: OK'
+      - name: Validate AGENTS.md and skills
+        run: |
+          test -s AGENTS.md || { echo 'AGENTS.md missing/empty'; exit 1; }
+          python3 - <<'PY'
+          import pathlib, re
+          need = ['name', 'description']
+          bad = []
+          for p in pathlib.Path('skills').glob('*/SKILL.md'):
+              t = p.read_text(errors='ignore')
+              m = re.match(r'^---\n(.*?)\n---\n', t, re.S)
+              if not m:
+                  bad.append(str(p)); continue
+              body = m.group(1)
+              for k in need:
+                  if not re.search(rf'^{k}:', body, re.M):
+                      bad.append(str(p)); break
+          if bad:
+              print('invalid skills:', bad[:10]); raise SystemExit(1)
+          print('skills: OK')
+          PY
