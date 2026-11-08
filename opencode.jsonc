@@ -72,6 +72,178 @@
         }
       }
     },
+    // DeepAI Code (https://deepai.org/chat/ai-code) の非公開バックエンド。
+    // OpenAI 互換の /deepai_code/chat/completions を叩く。認証は Bearer ではなく
+    // Api-Key ヘッダー (UUID 形式)。キーはリポジトリに含めず、
+    // ~/.config/opencode/deepai.key から {file:...} で読み込む。
+    // X-DeepAI-Code-Theos は課金レーンのバージョン。欠けると 426 を返す。
+    // X-DeepAI-Code-Machine は無料デイリー Theos の付与に使うマシン識別子で、
+    // sha256(/etc/machine-id)。別マシンへ移す場合は再計算する。
+    "deepai": {
+      "name": "DeepAI Code",
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": {
+        "baseURL": "https://api.deepai.org/deepai_code",
+        "apiKey": "{file:~/.config/opencode/deepai.key}"
+      },
+      "headers": {
+        "Api-Key": "{file:~/.config/opencode/deepai.key}",
+        "X-DeepAI-Code-Theos": "2",
+        "X-DeepAI-Code-Machine": "b2f59641b1d56c7d7d824b73ab7ef4dd685a97b079f55b51fa56733e32a56fd0"
+      },
+      "compatibility": {
+        // /deepai_code/models の maxTokens を max_tokens として送る。
+        "maxTokensField": "max_tokens"
+      },
+      "models": {
+        // 無料枠 (Theos 非消費)。認証付き GET /deepai_code/models の
+        // premier=false 8 モデル。
+        "glm-5.3-flash": {
+          "name": "GLM 5.3 Flash",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "deepseek-v4.1-flash": {
+          "name": "DeepSeek V4.1 Flash",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "mimo-2.6-flash": {
+          "name": "MiMo 2.6 Flash",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "solar-mini-4": {
+          "name": "Solar Mini 4",
+          "capabilities": {
+            "tools": true,
+            "input": ["text"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 524288, "output": 131072 }
+        },
+        "gpt-6-luna": {
+          "name": "GPT-6 Luna",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 128000 }
+        },
+        "mimo-2.6-pro": {
+          "name": "MiMo 2.6 Pro",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "crouton-alpha": {
+          "name": "Crouton Alpha",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "deepai-cyber": {
+          "name": "DeepAI Cyber",
+          "capabilities": {
+            "tools": true,
+            "input": ["text"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 65536, "output": 8192 }
+        },
+        // 以下は Theos を消費する premier モデル。コストは USD ではなく
+        // Theos 建てのため cost は設定しない (0 表示になる)。
+        "gpt-6.1-sol": {
+          "name": "GPT-6.1 Sol",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 128000 }
+        },
+        "glm-5.3": {
+          "name": "GLM 5.3",
+          "capabilities": {
+            "tools": true,
+            "input": ["text"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "kimi-k3": {
+          "name": "Kimi K3",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 131072 }
+        },
+        "claude-opus-5-5": {
+          "name": "Claude Opus 5.5",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1000000, "output": 64000 }
+        },
+        "claude-fable-5-1": {
+          "name": "Claude Fable 5.1",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1000000, "output": 64000 }
+        },
+        // Responses API を使うモデルは /deepai_code/responses へ送る。
+        "gpt-6-astra": {
+          "name": "GPT-6 Astra",
+          "package": "@opencode/ai/providers/openai-compatible/responses",
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "reasoning": { "supported": true }
+          },
+          "limit": { "context": 1048576, "output": 128000 }
+        }
+      }
+    },
 
   },
   "websearch": false,

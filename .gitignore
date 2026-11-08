@@ -9,6 +9,7 @@ bun.lock
 .envc
 *.env
 *.env.*
+*.key
 
 # Cache & Sessions
 browser-session
