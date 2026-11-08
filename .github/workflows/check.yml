@@ -37,7 +37,7 @@ jobs:
               raise SystemExit(1)
           print('secret scan: OK')
           PY
-      - name: Guard: opencode.jsonc must stay untracked
+      - name: 'Guard: opencode.jsonc must stay untracked'
         run: |
           if git ls-files --error-unmatch opencode.jsonc >/dev/null 2>&1; then
             echo "opencode.jsonc must not be tracked (contains local API keys)"
