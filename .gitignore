@@ -32,3 +32,6 @@ Thumbs.db
 # OpenCode managed service credentials (never commit)
 service.json
 service-*.json
+
+# 秘密を含むため追跡しない（ローカル専用）
+opencode.jsonc
