@@ -1,6 +1,7 @@
 ---
-name: AI Selection
-description: クラウドAI・ローカルLLM環境・モデル・推論エンジン・ベクトルDB・RAG・エージェントFWの調査・選定・ベンチマーク・レビューを標準化。技術選定スキルのAI特化版。
+name: ai-selection
+description: >-
+  クラウドAI・ローカルLLM環境・モデル・推論エンジン・ベクトルDB・RAG・エージェントFWの調査・選定・ベンチマーク・レビューを標準化。技術選定スキルのAI特化版。
 ---
 
 ## 目的
