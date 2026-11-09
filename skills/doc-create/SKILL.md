@@ -32,15 +32,15 @@ description: >-
 ### 2. 下書き生成
 - 選択テンプレートに沿って骨子作成
 - 既知の事実（コード・設定・インフラ）を `read`/`grep` で収集し埋め込み
-- 不明点は `TODO: [要確認]` マーカーで残す
+- 自分で確認できる項目は `read`/`grep` で埋める。調査で解決できない外部事実のみ `TODO: [要確認]` とする。
 
 ### 3. レビュー依頼（`cross-review` スキル連携）
 - 技術的正確性 → `arch-reviewer` / `security-reviewer`
 - 運用実現性 → `ops-reviewer`
-- ステークホルダー確認 → 手動または `question` ツール
+- 個人リポジトリはセルフレビュー。外部公開・法務・規制文書のみステークホルダー確認（`question` ツール可）。
 
 ### 4. 承認・配置
-- 承認済みマーク追加: `Status: Approved`, `Approved-by`, `Date`
+- 個人リポジトリ: `Status: Self-reviewed`, `Reviewed-by: agent`, `Date`。外部文書のみ `Status: Approved`, `Approved-by` を必須。
 - 配置先: `docs/adr/`, `docs/rfc/`, `runbooks/`, `docs/architecture/` 等
 - インデックス更新: `docs/README.md` または `mkdocs.yml` 等
 
