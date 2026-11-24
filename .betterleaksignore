@@ -1,3 +1,4 @@
 # False positive verified 2026-11-24: test-spec template placeholder credential URI
 299ab16178e9f084bb9b99e0b2f06ea373a65679:skills/test-spec/templates/integration-api.md:generic-credential-uri:222
 a39fc02afb7899ecd725b8d99ecb0baf9863bb3b:.betterleaksignore:generic-credential-uri:2
+ad6fd5ccbc2b99907f65ec95e0ee8aeed3b7f0a2:.betterleaksignore:generic-credential-uri:2
