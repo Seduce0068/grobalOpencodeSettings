@@ -25,6 +25,8 @@
 //! 環境変数:
 //!   OPENCODE_NOTIFY_CONFIG        設定ファイルパス (既定を上書き)
 //!   OPENCODE_NOTIFY_FOCUS_ACTION  wait通知のボタンアクション (最優先)
+//!   OPENCODE_NOTIFY_INCLUDE_TITLE セッションタイトル相当の接尾辞を保持する場合の明示的 opt-in
+//!                                 (既定では固定ラベル以降を除去して通知へ渡さない)
 //!
 //! 信頼境界:
 //!   notify.toml と環境変数は実行ユーザー自身が管理する信頼済み入力として扱う。
@@ -69,6 +71,7 @@ impl FromStr for NotificationType {
 
 const CONFIG_PATH_ENV: &str = "OPENCODE_NOTIFY_CONFIG";
 const FOCUS_ACTION_ENV: &str = "OPENCODE_NOTIFY_FOCUS_ACTION";
+const INCLUDE_TITLE_ENV: &str = "OPENCODE_NOTIFY_INCLUDE_TITLE";
 const DEFAULT_FOCUS_ACTION: &str = "am start -n com.termux/.app.TermuxActivity";
 
 /// 通知タイプごとの上書き設定 (notify.toml のセクション)。
@@ -198,7 +201,7 @@ struct NotificationConfig {
 
 impl NotificationType {
     fn to_config(&self, message: &str, options: &NotifyOptions) -> NotificationConfig {
-        let mut config = self.base_config(message);
+        let mut config = self.base_config(&notification_content(message, self.as_str()));
 
         options.for_type(self).apply_to(&mut config, self.as_str());
 
@@ -334,6 +337,29 @@ fn print_usage(bin: &str) {
     eprintln!("Options:");
     eprintln!("  --dry-run  Print the termux-notification command without executing it");
     eprintln!("Config: ~/.config/opencode/notify.toml (optional, see source header)");
+}
+
+/// 呼び出し側が「固定ラベル: セッションタイトル」を連結した場合でも、
+/// 既定ではタイトル相当の接尾辞を通知へ渡さない。明示的な opt-in 時のみ元文字列を使う。
+fn notification_content(message: &str, type_name: &str) -> String {
+    if env::var_os(INCLUDE_TITLE_ENV).is_some() {
+        return message.to_string();
+    }
+
+    let labels: &[&str] = match type_name {
+        "complete" => &["タスク完了"],
+        "error" => &["エラー発生"],
+        "wait" => &["入力待ち"],
+        _ => &[],
+    };
+    for label in labels {
+        if let Some((head, _title)) = message.split_once(": ") {
+            if head.starts_with(label) {
+                return head.to_string();
+            }
+        }
+    }
+    message.to_string()
 }
 
 /// Truncate to `max_chars` characters (not bytes) with an ellipsis suffix.

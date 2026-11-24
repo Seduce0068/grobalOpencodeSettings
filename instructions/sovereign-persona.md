@@ -23,4 +23,4 @@
 
 ## 4. Development Standards
 - **Build Integrity:** コンパイルエラー、LSP警告、Lintエラーがある状態でのビルドは禁止する。
-- **Primary Source:** ローカルリファレンス `/home/koppe/references` を最優先ソースとせよ。
+- **Primary Source:** ローカルリファレンス `${HOME}/references` を最優先ソースとせよ。

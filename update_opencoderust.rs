@@ -9,13 +9,14 @@ use std::fs;
 use std::process::Command;
 
 fn main() -> Result<()> {
-    let repo_path = "/home/koppe/OpenCodeRust";
-    let target_bin = "/home/koppe/OpenCodeRust/target/release/opencode";
-    let dest_bin = "/home/koppe/.local/bin/opencoderust";
+    let home = std::env::var("HOME").context("HOME is not set")?;
+    let repo_path = format!("{home}/OpenCodeRust");
+    let target_bin = format!("{repo_path}/target/release/opencode");
+    let dest_bin = format!("{home}/.local/bin/opencoderust");
 
     println!("1. Pulling latest OpenCodeRust from origin main...");
     let status = Command::new("git")
-        .args(["-C", repo_path, "pull", "origin", "main"])
+        .args(["-C", &repo_path, "pull", "origin", "main"])
         .status()
         .context("Failed to execute git pull")?;
 
@@ -42,7 +43,7 @@ fn main() -> Result<()> {
     }
 
     println!("3. Installing binary to global path ({}) ...", dest_bin);
-    fs::copy(target_bin, dest_bin).context("Failed to copy built binary to destination")?;
+    fs::copy(&target_bin, &dest_bin).context("Failed to copy built binary to destination")?;
 
     println!("Success! opencoderust has been updated and installed globally.");
     Ok(())

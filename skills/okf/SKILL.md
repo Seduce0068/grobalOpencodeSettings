@@ -242,7 +242,7 @@ Run these checks on every OKF document:
 
 ## Integration with AGENTS.md
 
-This skill enforces the OKF rules defined in `/home/koppe/.config/opencode/AGENTS.md`:
+This skill enforces the OKF rules defined in `${HOME}/.config/opencode/AGENTS.md`:
 - RFC 3339 timestamps with explicit offset
 - markdownlint compliance
 - YAML frontmatter structure

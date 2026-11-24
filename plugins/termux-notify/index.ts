@@ -48,6 +48,10 @@
  * 設定変更:
  *   NOTIFICATIONS に定義を追加/削除する。定義のないイベントは無視される。
  *
+ * プライバシー:
+ *   セッションタイトル (ユーザーが入力した課題名等) は通知本文へ渡さない。
+ *   通知にはイベント種別に対応する固定メッセージのみを使う。
+ *
  * ログ:
  *   失敗時は ~/.local/share/opencode/termux-notify.log へ追記する。
  *   通知失敗はセッション処理へ影響させない (fire-and-forget)。
@@ -82,7 +86,6 @@ const DEBUG = process.env.OPENCODE_NOTIFY_DEBUG === "1"
 
 interface PendingCompletion {
   eventID: string
-  title?: string
   timer?: ReturnType<typeof setTimeout>
 }
 
@@ -120,7 +123,6 @@ interface OpenCodeEvent {
 }
 
 interface SessionInfoLike {
-  title?: string
   parentID?: string | null
 }
 
@@ -304,7 +306,7 @@ function scheduleCompletion(sessionID: string): void {
       return
     }
     if (claim(pending.eventID)) {
-      notify("complete", pending.title ? `タスク完了: ${pending.title}` : "タスク完了")
+      notify("complete", "タスク完了")
     }
     pendingCompletions.delete(sessionID)
     backgroundActivity.delete(sessionID)
@@ -421,7 +423,6 @@ async function handle(ctx: PluginContextLike, event: OpenCodeEvent): Promise<voi
     return
   }
 
-  const title = typeof session?.title === "string" ? session.title : undefined
   const claimKey =
     typeof event.id === "string" && event.id.length > 0
       ? event.id
@@ -431,7 +432,7 @@ async function handle(ctx: PluginContextLike, event: OpenCodeEvent): Promise<voi
     if (pending?.timer) {
       clearTimeout(pending.timer)
     }
-    pendingCompletions.set(sessionID, { eventID: claimKey, title })
+    pendingCompletions.set(sessionID, { eventID: claimKey })
     scheduleCompletion(sessionID)
     return
   }
@@ -440,7 +441,7 @@ async function handle(ctx: PluginContextLike, event: OpenCodeEvent): Promise<voi
     return
   }
 
-  notify(mapping.type, title ? `${mapping.message}: ${title}` : mapping.message)
+  notify(mapping.type, mapping.message)
 }
 
 export default Plugin.define({
