@@ -52,7 +52,9 @@ jobs:
           import pathlib, re
           need = ['name', 'description']
           bad = []
-          for p in pathlib.Path('skills').glob('*/SKILL.md'):
+          paths = list(pathlib.Path('skills').glob('*/SKILL.md'))
+          paths += list(pathlib.Path('skill').glob('*/SKILL.md'))
+          for p in paths:
               t = p.read_text(errors='ignore')
               m = re.match(r'^---\n(.*?)\n---\n', t, re.S)
               if not m:

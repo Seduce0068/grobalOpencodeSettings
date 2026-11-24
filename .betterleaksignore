@@ -1,2 +1,4 @@
 c3a876827a2add2536b7efdd2b303f889a266221:.betterleaksignore:generic-credential-uri:2
+# 旧 222 行目のエントリは削除。現在のダミー接続文字列は
+# skills/test-spec/templates/integration-api.md の行内 betterleaks:allow で明示的に許可済み。
 ee88ccd19e715a73d6a695071cd0e9d085fa55ad:skills/test-spec/templates/integration-api.md:generic-credential-uri:222

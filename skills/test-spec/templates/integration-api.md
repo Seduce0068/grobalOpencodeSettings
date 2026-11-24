@@ -260,7 +260,7 @@ jobs:
       
       - name: Run Integration Tests
         env:
-          DATABASE_URL: postgresql://postgres:test@localhost:5432/testdb
+          DATABASE_URL: postgresql://postgres:test@localhost:5432/testdb # betterleaks:allow ローカルCI用のダミー接続文字列
           REDIS_URL: redis://localhost:6379
           BASE_URL: http://localhost:3000
         run: |
