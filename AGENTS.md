@@ -176,24 +176,24 @@ generated:
 - スマホブラウザは[Microsoft Edge](https://www.microsoft.com/ja-jp/edge) を使う。
 - PCブラウザは[firefox](https://www.firefox.com/ja) を使う。
 - スマホはAndroidスマートフォンとする。
-- スマホはSIMフリーのGalaxy S26 Ultra 1TB SM-S948Qを使う。
-- ケースはエレコム PM-G262MAG02WHのホワイトを使う。
-- ケースはMAGKEEPハイブリッドのクリア耐衝撃とする。
-- ウェアラブル端末はGalaxy Fit3 SM-R390NZAAXJPを使用する。
-- タブレットはiPad Pro 10.5インチ MQF12J/Aを使用する。
-- スマホ回線は日本通信の合理的みんなのプラン20GBとする。
-- 自宅回線はドコモHOME 5G HR02とする。
+- スマホはSIMフリーのAndroidスマートフォンを使う。
+- ケースは汎用のスマートフォンケース（ホワイト）を使う。
+- ケースはマグネット対応のクリア耐衝撃タイプとする。
+- ウェアラブル端末は汎用のフィットネスバンドを使用する。
+- タブレットは汎用のタブレット端末を使用する。
+- スマホ回線はデータ容量付きの汎用モバイル回線プランとする。
+- 自宅回線は汎用のホーム5Gルーターとする。
 - スクリプトエージェントは
   [Violentmonkey](https://violentmonkey.github.io)を使う。
 - PCはKubuntu 202604 LTSを使用する。
-- CPUはRyzen 3600を使用する。
+- CPUは汎用のデスクトップCPUを使用する。
 - メモリはDDR4 64GBを使用する。
-- SSDはSamsung 970 EVO 1TBを使用する。
+- SSDは汎用のNVMe SSDを使用する。
 - HDDは1TBを使用する。
 - USBポータブルSSDを使用する。
-- GPUはASUS GTX1660 SUPERを使用する。
-- マザーボードはASUS PRIME B450-PLUSを使用する。
-- ケースはG-GEAR ミドルタワーケース 69JDを使用する。
+- GPUは汎用のディスクリートGPUを使用する。
+- マザーボードは汎用のATXマザーボードを使用する。
+- ケースは汎用のミドルタワーケースを使用する。
 - 対話シェルとスクリプトはbashを使う。ユーザーに提示するコマンド例は
   bashで動作する構文にする。Nushell・zsh・fish固有の構文を提示しない。
   - スクリプトは`#!/usr/bin/env bash`と`set -euo pipefail`を基本とする。
