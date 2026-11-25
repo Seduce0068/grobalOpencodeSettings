@@ -187,9 +187,9 @@ generated:
   [Violentmonkey](https://violentmonkey.github.io)を使う。
 - PCはKubuntu 202604 LTSを使用する。
 - CPUは汎用のデスクトップCPUを使用する。
-- メモリはDDR4 64GBを使用する。
+- メモリは汎用のメモリを使用する。
 - SSDは汎用のNVMe SSDを使用する。
-- HDDは1TBを使用する。
+- HDDは汎用のHDDを使用する。
 - USBポータブルSSDを使用する。
 - GPUは汎用のディスクリートGPUを使用する。
 - マザーボードは汎用のATXマザーボードを使用する。
